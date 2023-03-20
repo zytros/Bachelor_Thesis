@@ -1,0 +1,8 @@
+{
+  "patientName" : "Demo_Augmentation",
+  "imageFOV" : "36.0",
+  "diameter" : "10.0",
+  "sourceApp" : "BreastApp",
+  "operationType" : "augmentation",
+  "nippleDistance" : "20.0"
+}

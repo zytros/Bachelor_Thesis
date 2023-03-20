@@ -1,0 +1,8 @@
+{
+  "patientName" : "Demo_Reduction",
+  "imageFOV" : "36.0",
+  "operationType" : "reduction",
+  "sourceApp" : "BreastApp",
+  "nippleDistance" : "21.0",
+  "diameter" : "14.0"
+}
