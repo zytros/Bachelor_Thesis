@@ -46,11 +46,25 @@ X = np.array([getVertList(readObj('objs/increasedModel_Demo_Augmentation.obj')),
               getVertList(readObj('objs/increasedModel_Ctutc.obj')), getVertList(readObj('objs/increasedModel_Demo_Reduction.obj')), 
               getVertList(readObj('objs/increasedModel_Hgcutc.obj')), getVertList(readObj('objs/increasedModel_Jg.obj'))])
 
+x_i = np.array(getVertListList(readObj('objs/fitModel_Demo_Augmentation.obj')))
 print(X.shape)
-pca = PCA(n_components=9)
-Y = pca.fit_transform(X)
-#scoreX = pca.score_samples(X)
-#ScoreY = pca.score_samples(Y)
-#print('scoreX =', scoreX)
-#print('scoreY =', ScoreY)
-print(Y)
+print(x_i.shape)
+
+pca = PCA(n_components=10)
+pca.fit(X)
+mean = pca.mean_
+print(mean.shape)
+covariance = pca.get_covariance()
+eigenValues, eigenVectors = np.linalg.eig(covariance)
+
+U_k = eigenVectors[:, 0:8].dot(np.diag(np.sqrt(eigenValues[0:8])))
+
+
+
+x_red = U_k.dot(x_i-mean)
+print (U_k.shape)
+np.savetxt('x_reduced.csv', eigenValues, fmt="%.12f")
+#np.savetxt('eigenVectors.csv', eigenVectors, fmt="%.12f")
+
+print(eigenValues.shape)
+

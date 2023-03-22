@@ -26,6 +26,7 @@ def getVertList(lines:str):
     return verts
 
 mesh = Mesh('objs/test.obj')
+mesh.rotate_x(90)
 #mesh.show()
 
 s1 = getVertList(readObj('objs/fitModel_Ctutc.obj'))
