@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:test/util.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path/path.dart' as path;
@@ -39,18 +40,34 @@ class Material {
 /// Loading material from Material Library File (.mtl).
 /// Reference：http://paulbourke.net/dataformats/mtl/
 ///
-Future<Map<String, Material>> loadMtl(String fileName, {bool isAsset = true}) async {
+
+// TODO: Implement server mtl file loading.
+
+Future<Map<String, Material>> loadMtl(String fileName,
+    {String src = 'a'}) async {
   final materials = Map<String, Material>();
-  String data;
+  String data = '';
+
+// try catch if mtl file not found
   try {
-    if (isAsset) {
-      data = await rootBundle.loadString(fileName);
-    } else {
-      data = await File(fileName).readAsString();
+    switch (src) {
+      case 'a':
+        data = await rootBundle.loadString(fileName);
+        break;
+      case 'f':
+        data = await File(fileName).readAsString();
+        break;
+      case 's':
+        data = await getMtlHTTP(fileName);
+        // TODO: Implement server mtl file loading.
+        break;
+      default:
+        assert(false, 'Invalid src: $src');
     }
   } catch (_) {
     return materials;
   }
+
   final List<String> lines = data.split('\n');
 
   Material material = Material();
@@ -66,25 +83,29 @@ Future<Map<String, Material>> loadMtl(String fileName, {bool isAsset = true}) as
         break;
       case 'Ka':
         if (parts.length >= 4) {
-          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]), double.parse(parts[3]));
+          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]),
+              double.parse(parts[3]));
           material.ambient = v;
         }
         break;
       case 'Kd':
         if (parts.length >= 4) {
-          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]), double.parse(parts[3]));
+          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]),
+              double.parse(parts[3]));
           material.diffuse = v;
         }
         break;
       case 'Ks':
         if (parts.length >= 4) {
-          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]), double.parse(parts[3]));
+          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]),
+              double.parse(parts[3]));
           material.specular = v;
         }
         break;
       case 'Ke':
         if (parts.length >= 4) {
-          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]), double.parse(parts[3]));
+          final v = Vector3(double.parse(parts[1]), double.parse(parts[2]),
+              double.parse(parts[3]));
           material.ke = v;
         }
         break;
@@ -125,14 +146,28 @@ Future<Map<String, Material>> loadMtl(String fileName, {bool isAsset = true}) as
 }
 
 /// load an image from asset
-Future<Image> loadImageFromAsset(String fileName, {bool isAsset = true}) {
+
+// Todo: Implement server image loading.
+
+Future<Image> loadImageFromAsset(String fileName, {String src = 'a'}) {
   final c = Completer<Image>();
   var dataFuture;
-  if (isAsset) {
-    dataFuture = rootBundle.load(fileName).then((data) => data.buffer.asUint8List());
-  } else {
-    dataFuture = File(fileName).readAsBytes();
+  switch (src) {
+    case 'a':
+      dataFuture =
+          rootBundle.load(fileName).then((data) => data.buffer.asUint8List());
+      break;
+    case 'f':
+      dataFuture = File(fileName).readAsBytes();
+      break;
+    case 's':
+      dataFuture =
+          getImgHTTP(fileName).then((value) => stringToUint8List(value));
+      break;
+    default:
+      assert(false, 'not implemented');
   }
+
   dataFuture.then((data) {
     instantiateImageCodec(data).then((codec) {
       codec.getNextFrame().then((frameInfo) {
@@ -146,7 +181,9 @@ Future<Image> loadImageFromAsset(String fileName, {bool isAsset = true}) {
 }
 
 /// load texture from asset
-Future<MapEntry<String, Image>?> loadTexture(Material? material, String basePath, {bool isAsset = true}) async {
+Future<MapEntry<String, Image>?> loadTexture(
+    Material? material, String basePath,
+    {String src = 'a'}) async {
   // get the texture file name
   if (material == null) return null;
   String fileName = material.mapKa;
@@ -159,7 +196,7 @@ Future<MapEntry<String, Image>?> loadTexture(Material? material, String basePath
   while (dirList.length > 0) {
     fileName = path.join(basePath, path.joinAll(dirList));
     try {
-      image = await loadImageFromAsset(fileName, isAsset: isAsset);
+      image = await loadImageFromAsset(fileName, src: src);
     } catch (_) {}
     if (image != null) return MapEntry(fileName, image);
     dirList.removeAt(0);
@@ -180,7 +217,8 @@ Future<Uint32List> getImagePixels(Image image) async {
 
 /// Convert Vector3 to Color
 Color toColor(Vector3 v, [double opacity = 1.0]) {
-  return Color.fromRGBO((v.r * 255).toInt(), (v.g * 255).toInt(), (v.b * 255).toInt(), opacity);
+  return Color.fromRGBO(
+      (v.r * 255).toInt(), (v.g * 255).toInt(), (v.b * 255).toInt(), opacity);
 }
 
 /// Convert Color to Vector3

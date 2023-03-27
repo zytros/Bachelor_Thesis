@@ -14,14 +14,14 @@ class HomePage extends StatelessWidget {
   HomePage(List<CameraDescription> cams, {super.key}) {
     cameras = cams;
     g.baseModel = Object(
-      fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
-      position: Vector3(0, 2, 0),
-      scale: Vector3(10, 10, 10),
-      rotation: Vector3(180, 0, 0),
-      visiable: true,
-      lighting: true,
-      backfaceCulling: false,
-    );
+        fileName: 'http://localhost:8080/',
+        position: Vector3(0, 2, 0),
+        scale: Vector3(10, 10, 10),
+        rotation: Vector3(180, 0, 0),
+        visiable: true,
+        lighting: true,
+        backfaceCulling: false,
+        src: 's');
     g.currentModel = Object(
       fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
       position: Vector3(0, 2, 0),
@@ -99,9 +99,7 @@ class HomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                saveLines(
-                    add_usemtl_line(splitLines(readFile('assets/test.obj'))),
-                    'assets/test.obj');
+                printHTTP('http://localhost:8080/');
               },
               child: const Text('debug'),
             )

@@ -95,7 +95,8 @@ class DisplayImages extends StatefulWidget {
 class _DisplayImagesState extends State<DisplayImages> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> imgDisp;
+    //changed from List<Widget> to List<Imgae>
+    List<Image> imgDisp;
     if (kIsWeb) {
       imgDisp = [
         Image.network(imgPaths[2]),
@@ -311,7 +312,7 @@ class _ScanningPageState extends State<ScanningPage> {
           t,
           Expanded(
             flex: 7,
-            child: centerShow,
+            child: CameraPreview(_controller),
           ),
           Expanded(
             flex: 1,

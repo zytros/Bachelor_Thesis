@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'src/object.dart';
 
 class Globals {
@@ -16,7 +18,11 @@ class Globals {
   double clWidth = 0;
   double nippleDistance = 12;
 
-  int camera = 0;
+  int camera = 1;
+
+  String obj = '';
+  String mtl = '';
+  late Image image;
 }
 
 /*  

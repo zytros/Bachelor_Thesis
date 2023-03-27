@@ -5,6 +5,7 @@ import 'package:test/home_page.dart';
 late List<CameraDescription> _cameras;
 
 Future<void> main() async {
+  debugPrint('-------------------------------------------------------------');
   WidgetsFlutterBinding.ensureInitialized();
   _cameras = await availableCameras();
   runApp(const MyApp());
