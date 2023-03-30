@@ -32,9 +32,7 @@ class _ChangeCameraState extends State<ChangeCamera> {
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) {
-      setState(() {
-        g!.camera = g!.camera == 0 ? 1 : 0;
-      });
+      setState(() {});
       // pop this page and go back to the previous one
       Navigator.pop(context);
     }
@@ -62,14 +60,12 @@ class _ChangeCameraState extends State<ChangeCamera> {
         title: const Text('Change Camera'),
       ),
       body: DropdownButton<int>(
-        value: g!.camera,
+        value: 0,
         items: camDesc,
         onChanged: (int? value) {
           setState(
             () {
-              g!.camera = value!;
-              _controller =
-                  CameraController(_cameras[g!.camera], ResolutionPreset.max);
+              _controller = CameraController(_cameras[0], ResolutionPreset.max);
               _cameraPreview = CameraPreview(_controller);
               centerShow = _cameraPreview;
             },
@@ -269,7 +265,7 @@ class _ScanningPageState extends State<ScanningPage> {
     for (var c in _cameras) {
       debugPrint(c.name);
     }
-    _controller = CameraController(_cameras[g!.camera], ResolutionPreset.max);
+    _controller = CameraController(_cameras[0], ResolutionPreset.max);
     _controller.initialize().then((_) {
       if (!mounted) {
         return;

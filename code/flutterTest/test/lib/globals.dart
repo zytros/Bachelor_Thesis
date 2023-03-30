@@ -18,8 +18,6 @@ class Globals {
   double clWidth = 0;
   double nippleDistance = 12;
 
-  int camera = 1;
-
   String obj = '';
   String mtl = '';
   late Image image;

@@ -2,7 +2,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from PIL import Image
 from PIL import ImageDraw
 import io
+import json
 import base64
+import os
 
 def addUseMTL(obj):
     lines = obj.split('\n')
@@ -28,6 +30,14 @@ with open("objs/texture_Ctutc.png", "rb") as imageFile:
     
 hostName = "localhost"
 serverPort = 8080
+
+def saveImg(img, ident, imgNR):
+    if os.path.exists(ident) == False:
+        os.makedirs(ident)
+    stream = io.BytesIO(bytes(img))
+    img = Image.open(stream)
+    ImageDraw.Draw(img)
+    img.save(ident + '/' + imgNR +'.png', 'PNG')
 
 
 class MyServer(BaseHTTPRequestHandler):        
@@ -68,21 +78,18 @@ class MyServer(BaseHTTPRequestHandler):
         self.end_headers()
         
         # get data
-        [identifier, imgNR] = self.headers['content-type'].replace('/', '').split('-')
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
-        byteList = post_data[1:-1].split(b', ')
+        string = post_data.decode('utf-8')
+        dictionary = json.loads(string)
         
-        intList = [int(x) for x in byteList]
-   
-        # save image
-        stream = io.BytesIO(bytes(intList))
-        img = Image.open(stream)
-        ImageDraw.Draw(img)
-        img.save(identifier + imgNR +'.png', 'PNG')
+        saveImg(dictionary['img1'], dictionary['identifier'], 'img1')
+        saveImg(dictionary['img2'], dictionary['identifier'], 'img2')
+        saveImg(dictionary['img3'], dictionary['identifier'], 'img3')
+        file = open(dictionary['identifier'] + '/params.txt', 'w+')
+        file.write(str(dictionary['nippleDist']) + '\n')
         
-        # send response
-        self.wfile.write(bytes(str(len(intList)), "utf-8"))
+        self.wfile.write(bytes('response', "utf-8"))
         
     def do_OPTIONS(self):
         self.send_response(200)

@@ -38,3 +38,5 @@ def getData():
     for file in getFilenames():
         data.append(getVertList(readPly('plys/' + file)))
     return data
+
+

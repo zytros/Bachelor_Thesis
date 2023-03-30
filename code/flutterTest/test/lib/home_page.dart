@@ -1,10 +1,13 @@
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test/adjustment_page.dart';
 import 'package:test/comparison_page.dart';
 import 'package:test/flutter_cube.dart';
 import 'package:test/globals.dart';
 import 'package:test/scanning_page.dart';
+import 'package:test/scanning_page_android.dart';
+import 'package:test/scanning_page_web.dart';
 import 'package:test/util.dart';
 
 late List<CameraDescription> cameras;
@@ -13,15 +16,27 @@ Globals g = Globals();
 class HomePage extends StatelessWidget {
   HomePage(List<CameraDescription> cams, {super.key}) {
     cameras = cams;
-    g.baseModel = Object(
-        fileName: 'http://localhost:8080/',
-        position: Vector3(0, 2, 0),
-        scale: Vector3(10, 10, 10),
-        rotation: Vector3(180, 0, 0),
-        visiable: true,
-        lighting: true,
-        backfaceCulling: false,
-        src: 's');
+    g.baseModel = true
+        ? Object(
+            fileName: 'http://localhost:8080/',
+            position: Vector3(0, 2, 0),
+            scale: Vector3(10, 10, 10),
+            rotation: Vector3(180, 0, 0),
+            visiable: true,
+            lighting: true,
+            backfaceCulling: false,
+            src: 's')
+        :
+        // ignore: dead_code
+        Object(
+            fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
+            position: Vector3(0, 2, 0),
+            scale: Vector3(10, 10, 10),
+            rotation: Vector3(180, 0, 0),
+            visiable: true,
+            lighting: true,
+            backfaceCulling: false,
+          );
     g.currentModel = Object(
       fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
       position: Vector3(0, 2, 0),
@@ -66,7 +81,7 @@ class HomePage extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ScanningPage(cameras, g);
+                      return ScanningPageWeb(cameras, g);
                     },
                   ),
                 );
@@ -98,9 +113,7 @@ class HomePage extends StatelessWidget {
               child: const Text('Comparison'),
             ),
             ElevatedButton(
-              onPressed: () {
-                printHTTP('http://localhost:8080/');
-              },
+              onPressed: () {},
               child: const Text('debug'),
             )
           ],

@@ -5,8 +5,6 @@ import 'package:test/flutter_cube.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-final dio = Dio();
-
 /// Interpolates vertices between two obj files and updates destination transform
 void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
   assert(lower!.mesh.vertices.length == upper!.mesh.vertices.length);
@@ -87,15 +85,11 @@ void thisisit(String a) {
   debugPrint(a);
 }
 
-void printHTTP(String url) async {
-  final response = await dio.get(url);
-  debugPrint(response.data.toString().length.toString());
-}
-
 /// Get String from HTTP request containting obj file
 /// param url: url to get from
 /// returns Future<String> of obj file
 Future<String> getObjHTTP(String url) async {
+  final dio = Dio();
   dio.options.headers['content-Type'] = 'getObj';
   final response = await dio.get(url);
   debugPrint('getObj ' + url);
@@ -106,6 +100,7 @@ Future<String> getObjHTTP(String url) async {
 /// param url: url to get from
 /// returns Future<String> of mtl file
 Future<String> getMtlHTTP(String url) async {
+  final dio = Dio();
   dio.options.headers['content-Type'] = 'getMtl';
   final response = await dio.get(url);
   debugPrint('getMtl ' + url);
@@ -117,42 +112,50 @@ Future<String> getMtlHTTP(String url) async {
 /// param url: url to get from
 /// returns Future<String> of img file
 Future<String> getImgHTTP(String url) async {
+  final dio = Dio();
   dio.options.headers['content-Type'] = 'getImg';
   final response = await dio.get(url);
-  debugPrint('getImg ' + url);
+  debugPrint(response.data.toString().length.toString());
   return response.data.toString();
 }
 
 /// sends images to server
 /// param url: url to send to
-/// param imageUrls: list of image urls (can be local or network)
+/// params img1, img2, img3: image urls (can be local or network)
 /// param identifier: identifier for the images
-void sendImages(String url, List<String> imageUrls, String identifier) async {
-  for (var i = 0; i < imageUrls.length; i++) {
-    var str = await postHTTP(url, imageUrls[i], '$identifier-$i');
-    debugPrint(str);
-  }
-}
-
-/// sends one image to server
-/// param url: url to send to
-/// param imageUrl: image url (can be local or network)
-/// param identifier: identifier for the image
+/// param nippleDist: nipple distance
 /// returns Future<String> of response
-Future<String> postHTTP(String url, String imageUrl, String identifier) async {
-  Uint8List bytes = await networkImgToBytes(imageUrl);
-  dio.options.headers['content-Type'] = identifier;
-  var response = await dio.post(
+Future<String> sendImages(String url, String img1, String img2, String img3,
+    String identifier, int nippleDist) async {
+  // need new dio instance for post each request
+  final locDio = Dio();
+  Uint8List bytes1 = await networkImgToBytes(img1);
+  Uint8List bytes2 = await networkImgToBytes(img2);
+  Uint8List bytes3 = await networkImgToBytes(img3);
+  var data = {
+    "img1": bytes1,
+    "img2": bytes2,
+    "img3": bytes3,
+    "nippleDist": nippleDist,
+    "identifier": identifier,
+  };
+  int length = bytes1.length +
+      bytes2.length +
+      bytes3.length +
+      nippleDist.toString().length +
+      identifier.length;
+  debugPrint('length: $length');
+  var response = await locDio.post(
     url,
-    data: bytes,
+    data: data,
     options: Options(
       headers: {
-        Headers.contentLengthHeader: bytes.length,
+        Headers.contentLengthHeader: length,
       },
     ),
   );
 
-  return response.toString();
+  return response.data.toString();
 }
 
 /// Convert a network image to a Uint8List
@@ -188,4 +191,10 @@ Uint8List stringToUint8List(String str) {
   var encoded = latin1Codec.decode(str);
   Uint8List bytes = Uint8List.fromList(encoded);
   return bytes;
+}
+
+/// get unique identifier
+/// returns String of identifier
+String getIdent() {
+  return DateTime.now().millisecondsSinceEpoch.toString();
 }
