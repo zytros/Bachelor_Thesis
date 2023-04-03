@@ -31,7 +31,9 @@ file = open('objs/fitModel_Demo_Augmentation.mtl', 'r')
 mtl = file.read()
 file.close()
 imgStr = ''
-with open("objs/texture_Demo_Augmentation.png", "rb") as imageFile:
+text = 'objs/texture_Demo_Augmentation.png'
+ident = 'ident0.png'
+with open(text, "rb") as imageFile:
     imgf = imageFile.read()
     imgStr = base64.b64encode(imgf).decode('utf-8')
     

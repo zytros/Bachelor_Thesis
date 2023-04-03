@@ -57,11 +57,7 @@ class _ImgdispState extends State<Imgdisp> {
       child: Column(
         children: [
           ElevatedButton(
-            onPressed: () {
-              getImgHTTP('http://localhost:8080/').then((value) => setState(() {
-                    image = Image.memory(stringToUint8List(value));
-                  }));
-            },
+            onPressed: () {},
             child: const Text('GET'),
           ),
           Expanded(

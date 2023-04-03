@@ -16,7 +16,7 @@ Globals g = Globals();
 class HomePage extends StatelessWidget {
   HomePage(List<CameraDescription> cams, {super.key}) {
     cameras = cams;
-    g.baseModel = false
+    g.baseModel = true
         // ignore: dead_code
         ? Object(
             fileName: 'http://localhost:8080/',
@@ -24,8 +24,8 @@ class HomePage extends StatelessWidget {
             scale: Vector3(10, 10, 10),
             rotation: Vector3(180, 0, 0),
             visiable: true,
-            lighting: true,
-            backfaceCulling: false,
+            lighting: false,
+            backfaceCulling: true,
             src: 's')
         :
         // ignore: dead_code
@@ -35,27 +35,53 @@ class HomePage extends StatelessWidget {
             scale: Vector3(10, 10, 10),
             rotation: Vector3(180, 0, 0),
             visiable: true,
-            lighting: true,
-            backfaceCulling: false,
+            lighting: false,
+            backfaceCulling: true,
           );
-    g.currentModel = Object(
-      fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
-      position: Vector3(0, 2, 0),
-      scale: Vector3(10, 10, 10),
-      rotation: Vector3(180, 0, 0),
-      visiable: true,
-      lighting: true,
-      backfaceCulling: false,
-    );
-    g.lowerModel = Object(
-      fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
-      position: Vector3(0, 2, 0),
-      scale: Vector3(10, 10, 10),
-      rotation: Vector3(180, 0, 0),
-      visiable: true,
-      lighting: true,
-      backfaceCulling: false,
-    );
+    g.currentModel = true
+        // ignore: dead_code
+        ? Object(
+            fileName: 'http://localhost:8080/',
+            position: Vector3(0, 2, 0),
+            scale: Vector3(10, 10, 10),
+            rotation: Vector3(180, 0, 0),
+            visiable: true,
+            lighting: false,
+            backfaceCulling: true,
+            src: 's')
+        :
+        // ignore: dead_code
+        Object(
+            fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
+            position: Vector3(0, 2, 0),
+            scale: Vector3(10, 10, 10),
+            rotation: Vector3(180, 0, 0),
+            visiable: true,
+            lighting: false,
+            backfaceCulling: true,
+          );
+    g.lowerModel = true
+        // ignore: dead_code
+        ? Object(
+            fileName: 'http://localhost:8080/',
+            position: Vector3(0, 2, 0),
+            scale: Vector3(10, 10, 10),
+            rotation: Vector3(180, 0, 0),
+            visiable: true,
+            lighting: false,
+            backfaceCulling: true,
+            src: 's')
+        :
+        // ignore: dead_code
+        Object(
+            fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
+            position: Vector3(0, 2, 0),
+            scale: Vector3(10, 10, 10),
+            rotation: Vector3(180, 0, 0),
+            visiable: true,
+            lighting: false,
+            backfaceCulling: true,
+          );
     g.upperModel = Object(
       fileName: 'assets/models/increasedModel_Demo_Augmentation.obj',
       position: Vector3(0, 2, 0),
@@ -125,8 +151,7 @@ class HomePage extends StatelessWidget {
               heroTag: 'debug',
               child: const Text('Debug'),
               onPressed: () async {
-                await getImgHTTP('http://localhost:8080/', g);
-                changeTexture(g.baseModel, g.image);
+                adjustModel(g.baseModel, 0, 0, 0);
               },
             )
           ],

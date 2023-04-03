@@ -2,10 +2,16 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:scidart/numdart.dart';
 import 'package:test/flutter_cube.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:test/globals.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:scidart/scidart.dart';
+
+late Array mean;
+late Array2d eigenVectors;
 
 /// Interpolates vertices between two obj files and updates destination transform
 void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
@@ -113,14 +119,14 @@ Future<String> getMtlHTTP(String url) async {
 /// Get String from HTTP request containting img file
 /// param url: url to get from
 /// returns Future<String> of img file
-Future<String> getImgHTTP(String url, Globals g) async {
+Future<String> getImgHTTP(String url) async {
   final dio = Dio();
   dio.options.headers['content-Type'] = 'getImg';
   final response = await dio.get(url);
   final codec =
       await instantiateImageCodec(stringToUint8List(response.data.toString()));
   final frameInfo = await codec.getNextFrame();
-  g.image = frameInfo.image;
+  //g.image = frameInfo.image;
   debugPrint(response.data.toString().length.toString());
   return response.data.toString();
 }
@@ -212,4 +218,50 @@ String getIdent() {
 // ???????????????????????
 void changeTexture(Object obj, Image img) async {
   obj.mesh.texture = img;
+}
+
+/// convert list of Vector3 to list of doubles
+List<double> vector3sTods(List<Vector3> vecs) {
+  List<double> doubles = [];
+  for (var i = 0; i < vecs.length; i++) {
+    doubles.add(vecs[i].x);
+    doubles.add(vecs[i].y);
+    doubles.add(vecs[i].z);
+  }
+  return doubles;
+}
+
+Future<Array2d> csvToMatrix(String filePath) async {
+  String data = await rootBundle.loadString(filePath);
+  Array2d mat = Array2d.empty();
+  List<String> lines = data.split('\n');
+  for (int i = 0; i < lines.length; i++) {
+    Array a = Array.empty();
+    List<String> elems = lines[i].split(' ');
+    for (int j = 0; j < elems.length; j++) {
+      a.add(double.parse(elems[j]));
+    }
+    mat.add(a);
+  }
+  return mat;
+}
+
+void adjustModel(
+    Object model, double size, double vertLift, double clWidth) async {
+  mean ??= await loadMean();
+  eigenVectors ??= await csvToMatrix('eigVecs.csv');
+  Array2d mod =
+      matrixDot(eigenVectors, matrixTranspose(arrayToColumnMatrix(mean)));
+  debugPrint(mod.length.toString());
+}
+
+Future<Array> loadMean() async {
+  String data = await rootBundle.loadString('mean.txt');
+  List<String> lines = data.split('\n');
+  List<double> mean = [];
+  for (var i = 0; i < lines.length; i++) {
+    if (lines[i] == '') continue;
+    mean.add(double.parse(lines[i]));
+  }
+  return Array(mean);
 }

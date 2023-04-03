@@ -95,11 +95,10 @@ Future<List<Mesh>> loadObj(String fileName, bool normalized,
       break;
     case 's':
       // TODO: Implement server obj file loading.
-      //data = await getObjHTTP(fileName);
+      data = await getObjHTTP(fileName);
 
       //DEMUG
-      data = await rootBundle
-          .loadString('assets/models/fitModel_Demo_Augmentation.obj');
+      //data = await rootBundle.loadString('assets/models/fitModel_Demo_Augmentation.obj');
       break;
     default:
       throw Exception('Invalid src: $src');
