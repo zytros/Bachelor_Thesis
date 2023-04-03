@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:test/flutter_cube.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:test/globals.dart';
 
 /// Interpolates vertices between two obj files and updates destination transform
 void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
@@ -111,10 +113,14 @@ Future<String> getMtlHTTP(String url) async {
 /// Get String from HTTP request containting img file
 /// param url: url to get from
 /// returns Future<String> of img file
-Future<String> getImgHTTP(String url) async {
+Future<String> getImgHTTP(String url, Globals g) async {
   final dio = Dio();
   dio.options.headers['content-Type'] = 'getImg';
   final response = await dio.get(url);
+  final codec =
+      await instantiateImageCodec(stringToUint8List(response.data.toString()));
+  final frameInfo = await codec.getNextFrame();
+  g.image = frameInfo.image;
   debugPrint(response.data.toString().length.toString());
   return response.data.toString();
 }
@@ -197,4 +203,13 @@ Uint8List stringToUint8List(String str) {
 /// returns String of identifier
 String getIdent() {
   return DateTime.now().millisecondsSinceEpoch.toString();
+}
+
+/// change texture
+///
+
+// TODO: changes all texures, not just one
+// ???????????????????????
+void changeTexture(Object obj, Image img) async {
+  obj.mesh.texture = img;
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
 import 'src/object.dart';
 
@@ -9,6 +9,7 @@ class Globals {
   late Object lowerModel;
   late Object upperModel;
   late Object baseModel;
+  late Object debO;
 
   double baseSize = 0;
   double size = 0;
@@ -21,6 +22,10 @@ class Globals {
   String obj = '';
   String mtl = '';
   late Image image;
+
+  void setObject(Object o) {
+    debO = o;
+  }
 }
 
 /*  

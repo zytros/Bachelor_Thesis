@@ -16,7 +16,8 @@ Globals g = Globals();
 class HomePage extends StatelessWidget {
   HomePage(List<CameraDescription> cams, {super.key}) {
     cameras = cams;
-    g.baseModel = true
+    g.baseModel = false
+        // ignore: dead_code
         ? Object(
             fileName: 'http://localhost:8080/',
             position: Vector3(0, 2, 0),
@@ -70,13 +71,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('LindAppPlus'),
+        title: const Text('LindApp'),
       ),
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            FloatingActionButton.extended(
+              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              heroTag: 'btn_scanning',
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -86,9 +89,12 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Scanning'),
+              label: const Text('Scanning'),
             ),
-            ElevatedButton(
+            const SizedBox(width: 20),
+            FloatingActionButton.extended(
+              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              heroTag: 'btn_adjustment',
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -98,9 +104,12 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Adjustment'),
+              label: const Text('Adjustment'),
             ),
-            ElevatedButton(
+            const SizedBox(width: 20),
+            FloatingActionButton.extended(
+              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              heroTag: 'btn_comparison',
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -110,11 +119,15 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Comparison'),
+              label: const Text('Comparison'),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('debug'),
+            FloatingActionButton(
+              heroTag: 'debug',
+              child: const Text('Debug'),
+              onPressed: () async {
+                await getImgHTTP('http://localhost:8080/', g);
+                changeTexture(g.baseModel, g.image);
+              },
             )
           ],
         ),

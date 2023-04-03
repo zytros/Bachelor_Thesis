@@ -220,7 +220,7 @@ class _ImageDisplayerState extends State<ImageDisplayer> {
               Expanded(
                 child: Center(
                   child: FloatingActionButton.extended(
-                    backgroundColor: Colors.indigoAccent,
+                    backgroundColor: Colors.indigo,
                     heroTag: 'btn_retakePic',
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -232,7 +232,7 @@ class _ImageDisplayerState extends State<ImageDisplayer> {
               Expanded(
                 child: Center(
                   child: FloatingActionButton.extended(
-                    backgroundColor: Colors.indigoAccent,
+                    backgroundColor: Colors.indigo,
                     heroTag: 'btn_nextPic',
                     onPressed: () {
                       setState(
@@ -316,7 +316,7 @@ class _DisplayImagesState extends State<DisplayImages> {
                 Expanded(
                   child: Center(
                     child: FloatingActionButton.extended(
-                      backgroundColor: Colors.indigoAccent,
+                      backgroundColor: Colors.indigo,
                       heroTag: 'btn_retakePics',
                       onPressed: () {
                         setState(() {
@@ -334,7 +334,7 @@ class _DisplayImagesState extends State<DisplayImages> {
                 Expanded(
                   child: Center(
                     child: FloatingActionButton.extended(
-                      backgroundColor: Colors.indigoAccent,
+                      backgroundColor: Colors.indigo,
                       heroTag: 'btn_SendPics',
                       onPressed: () {
                         String ident = getIdent();
@@ -357,7 +357,7 @@ class _DisplayImagesState extends State<DisplayImages> {
                 Expanded(
                   child: Center(
                     child: FloatingActionButton.extended(
-                      backgroundColor: Colors.indigoAccent,
+                      backgroundColor: Colors.indigo,
                       heroTag: 'btn_return',
                       onPressed: () {
                         Navigator.of(context).pop();

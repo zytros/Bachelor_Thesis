@@ -17,14 +17,21 @@ def addUseMTL(obj):
             break
     return '\n'.join(lines)
 
-file = open('objs/fitModel_Ctutc.obj', 'r')
+def checkUseMTL(obj):
+    lines = obj.split('\n')
+    for l in lines:
+        if l.startswith('usemtl'):
+            return True
+    return False
+
+file = open('objs/fitModel_Demo_Augmentation.obj', 'r')
 obj = addUseMTL(file.read())
 file.close()
-file = open('objs/fitModel_Ctutc.mtl', 'r')
+file = open('objs/fitModel_Demo_Augmentation.mtl', 'r')
 mtl = file.read()
 file.close()
 imgStr = ''
-with open("objs/texture_Ctutc.png", "rb") as imageFile:
+with open("objs/texture_Demo_Augmentation.png", "rb") as imageFile:
     imgf = imageFile.read()
     imgStr = base64.b64encode(imgf).decode('utf-8')
     
@@ -55,6 +62,7 @@ class MyServer(BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             response = obj
+            print(checkUseMTL(obj))
             self.wfile.write(bytes(response, "utf-8"))
         elif function == 'getMtl':
             self.send_header("Content-type", "text/plain")

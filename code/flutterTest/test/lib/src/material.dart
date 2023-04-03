@@ -58,8 +58,11 @@ Future<Map<String, Material>> loadMtl(String fileName,
         data = await File(fileName).readAsString();
         break;
       case 's':
-        data = await getMtlHTTP(fileName);
-        // TODO: Implement server mtl file loading.
+        //data = await getMtlHTTP(fileName);
+
+        // DEBUG
+        data = await rootBundle
+            .loadString('assets/models/fitModel_Demo_Augmentation.mtl');
         break;
       default:
         assert(false, 'Invalid src: $src');
@@ -163,6 +166,7 @@ Future<Image> loadImageFromAsset(String fileName, {String src = 'a'}) {
     case 's':
       dataFuture =
           getImgHTTP(fileName).then((value) => stringToUint8List(value));
+
       break;
     default:
       assert(false, 'not implemented');
