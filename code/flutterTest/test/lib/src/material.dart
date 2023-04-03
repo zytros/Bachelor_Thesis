@@ -164,8 +164,11 @@ Future<Image> loadImageFromAsset(String fileName, {String src = 'a'}) {
       dataFuture = File(fileName).readAsBytes();
       break;
     case 's':
-      dataFuture =
-          getImgHTTP(fileName).then((value) => stringToUint8List(value));
+      //dataFuture =
+      //getImgHTTP(fileName).then((value) => stringToUint8List(value));
+      dataFuture = rootBundle
+          .load('models/texture_Demo_Augmentation.png')
+          .then((data) => data.buffer.asUint8List());
 
       break;
     default:
