@@ -10,9 +10,6 @@ import 'package:test/globals.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:scidart/scidart.dart';
 
-late Array mean;
-late Array2d eigenVectors;
-
 /// Interpolates vertices between two obj files and updates destination transform
 void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
   assert(lower!.mesh.vertices.length == upper!.mesh.vertices.length);
@@ -100,7 +97,6 @@ Future<String> getObjHTTP(String url) async {
   final dio = Dio();
   dio.options.headers['content-Type'] = 'getObj';
   final response = await dio.get(url);
-  debugPrint('getObj ' + url);
   return response.data.toString();
 }
 
@@ -111,8 +107,6 @@ Future<String> getMtlHTTP(String url) async {
   final dio = Dio();
   dio.options.headers['content-Type'] = 'getMtl';
   final response = await dio.get(url);
-  debugPrint('getMtl ' + url);
-  debugPrint(response.data.toString());
   return response.data.toString();
 }
 
@@ -127,7 +121,6 @@ Future<String> getImgHTTP(String url) async {
       await instantiateImageCodec(stringToUint8List(response.data.toString()));
   final frameInfo = await codec.getNextFrame();
   //g.image = frameInfo.image;
-  debugPrint(response.data.toString().length.toString());
   return response.data.toString();
 }
 
@@ -156,7 +149,6 @@ Future<String> sendImages(String url, String img1, String img2, String img3,
       bytes3.length +
       nippleDist.toString().length +
       identifier.length;
-  debugPrint('length: $length');
   var response = await locDio.post(
     url,
     data: data,
@@ -231,37 +223,85 @@ List<double> vector3sTods(List<Vector3> vecs) {
   return doubles;
 }
 
-Future<Array2d> csvToMatrix(String filePath) async {
-  String data = await rootBundle.loadString(filePath);
-  Array2d mat = Array2d.empty();
-  List<String> lines = data.split('\n');
-  for (int i = 0; i < lines.length; i++) {
-    Array a = Array.empty();
-    List<String> elems = lines[i].split(' ');
-    for (int j = 0; j < elems.length; j++) {
-      a.add(double.parse(elems[j]));
-    }
-    mat.add(a);
-  }
-  return mat;
-}
-
+/// old code
 void adjustModel(
     Object model, double size, double vertLift, double clWidth) async {
-  mean ??= await loadMean();
-  eigenVectors ??= await csvToMatrix('eigVecs.csv');
-  Array2d mod =
-      matrixDot(eigenVectors, matrixTranspose(arrayToColumnMatrix(mean)));
-  debugPrint(mod.length.toString());
+  //Array2d mod = matrixDot(eigenVectors, matrixTranspose(arrayToColumnMatrix(mean)));
 }
 
-Future<Array> loadMean() async {
-  String data = await rootBundle.loadString('mean.txt');
-  List<String> lines = data.split('\n');
-  List<double> mean = [];
-  for (var i = 0; i < lines.length; i++) {
-    if (lines[i] == '') continue;
-    mean.add(double.parse(lines[i]));
+/// calculates eigenvalues corresponding to PCA
+/// saves them in eigVs, sets global values
+/// param eigVs: reference to eigenvalues to set
+/// param obj: reference to cube object
+/// param U_k: first 30 eigenvectors of PCA
+/// param mean: mean of all trained models of PCA
+/// param g: reference to globals
+void calcEigVals(List<double> eigVs, Object obj, List<List<double>> U_k,
+    List<double> mean, Globals g) {
+  //x_red = np.dot(U_k.T, (w - mean).T).real
+  List<double> w = vector3sTods(obj.mesh.vertices);
+  eigVs.clear();
+  for (int i = 0; i < U_k[0].length; i++) {
+    double acc = 0;
+    for (int j = 0; j < mean.length; j++) {
+      acc += U_k[j][i] * w[j] - mean[j];
+    }
+    eigVs.add(acc);
   }
-  return Array(mean);
+  // set base values
+  g.baseSize = eigVs[1];
+  g.size = g.eigVals[1];
+  g.baseVertLift = eigVs[2];
+  g.vertLift = eigVs[2];
+  g.baseClWidth = eigVs[3];
+  g.clWidth = eigVs[3];
+}
+
+/// creates the updated vector according to PCA
+/// param size: size parameter, between -3 and 3, gets multiplied with standarddeviation
+/// param clW: cleavage widtg parameter, between -3 and 3, gets multiplied with standarddeviation
+/// param vertLift: vertical lift parameter, between -3 and 3, gets multiplied with standarddeviation
+/// param g: reference to globals
+/// returns: List/Vector corresponding to the new model
+List<double> createModelVector(
+    double size, double clW, double vertLift, Globals g) {
+  //redModel = (np.dot(U_k, x_red) + mean).real
+  //               10000*30 30*1
+
+  List<double> prex_red = [g.eigVals[1], g.eigVals[2], g.eigVals[3]];
+  g.eigVals[1] = size * g.stddevs[0];
+  g.eigVals[2] = vertLift * g.stddevs[1];
+  g.eigVals[3] = clW * g.stddevs[2];
+
+  List<double> ret = [];
+  for (int i = 0; i < g.eigenVecs.length; i++) {
+    double acc = 0;
+    for (int j = 0; j < g.eigenVecs[i].length; j++) {
+      acc += g.eigenVecs[i][j] * g.eigVals[j];
+    }
+    ret.add(acc);
+  }
+  g.eigVals[1] = prex_red[0];
+  g.eigVals[2] = prex_red[1];
+  g.eigVals[3] = prex_red[2];
+
+  return ret;
+}
+
+/// changes a model according to a vector of coordinates
+/// param model: reference to cube model to change
+/// param vec: vector of cooridnates
+/// param g: reference t globals
+void changeModel(Object model, List<double> vec, Globals g) {
+  int j = 0;
+  debugPrint("model length: ${model.mesh.vertices.length}");
+  debugPrint(model.mesh.vertices[0].toString());
+  debugPrint(model.mesh.vertices[1].toString());
+  debugPrint(model.mesh.vertices[2].toString());
+  for (int i = 0; i < 3354; i++) {
+    model.mesh.vertices[i].x = vec[j];
+    model.mesh.vertices[i].y = vec[j + 1];
+    model.mesh.vertices[i].z = vec[j + 2];
+    j = j + 3;
+  }
 }

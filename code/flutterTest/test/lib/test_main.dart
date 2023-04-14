@@ -1,18 +1,13 @@
-import 'package:camera/camera.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:test/scanning_page_web.dart';
 import 'package:test/util.dart';
 
 import 'globals.dart';
 
-late List<CameraDescription> _cameras;
 Globals g = Globals();
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  _cameras = await availableCameras();
   runApp(const MyApp());
 }
 
@@ -24,8 +19,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Scaffold(
-        body: ScanningPageWeb(_cameras, g),
+      home: const Scaffold(
+        body: DebugPage(),
       ),
     );
   }
@@ -36,73 +31,54 @@ class DebugPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScanningPageWeb(_cameras, g);
-  }
-}
-
-class Imgdisp extends StatefulWidget {
-  const Imgdisp({super.key});
-
-  @override
-  State<Imgdisp> createState() => _ImgdispState();
-}
-
-class _ImgdispState extends State<Imgdisp> {
-  String data = '';
-  Image image = Image.asset('assets/mountain.png');
-  late Uint8List bytes;
-  @override
-  Widget build(BuildContext context) {
     return Center(
-      child: Column(
+      child: Row(
         children: [
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('GET'),
+          OutlinedButton(
+            onPressed: () async {
+              g.initEigenVecs();
+              g.initMean();
+              g.dummyObj();
+            },
+            child: const Text('init'),
           ),
-          Expanded(
-            flex: 1,
-            child: Image(
-              image: image.image,
-            ),
+          OutlinedButton(
+            onPressed: () async {
+              var aRows = g.eigVals.length;
+              debugPrint(aRows.toString());
+              calcEigVals(g.eigVals, g.baseModel, g.eigenVecs, g.mean);
+              debugPrint(g.eigVals.toString());
+            },
+            child: const Text('Debug'),
+          ),
+          OutlinedButton(
+            onPressed: () {
+              List<List<int>> mat = [];
+              List<int> vec = [];
+              for (int i = 0; i < 10000; i++) {
+                List<int> l = [];
+                for (int j = 0; j < 30; j++) {
+                  l.add(max(i, j));
+                }
+                mat.add(l);
+              }
+              for (int i = 0; i < 30; i++) {
+                vec.add(i);
+              }
+              List<int> res = [];
+              for (int i = 0; i < 10000; i++) {
+                int acc = 0;
+                for (int j = 0; j < 30; j++) {
+                  acc += mat[i][j] * vec[j];
+                }
+                res.add(acc);
+              }
+              debugPrint(res.length.toString());
+            },
+            child: const Text('dummy'),
           )
         ],
       ),
     );
-  }
-}
-
-class Webdeb extends StatelessWidget {
-  const Webdeb({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Debug'),
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                getMtlHTTP('http://localhost:8080/');
-              },
-              child: const Text('GET'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                sendImages('http://localhost:8080/', 'assets/mountain.png',
-                    'assets/black.png', 'assets/white.png', 'ident', 12);
-              },
-              child: const Text('POST'),
-            ),
-            //const Imgdisp()
-          ],
-        ),
-      ),
-    );
-    ;
   }
 }

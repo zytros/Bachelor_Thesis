@@ -15,6 +15,7 @@ class AdjustmentPage extends StatefulWidget {
 }
 
 class _AdjustmentPageState extends State<AdjustmentPage> {
+  void changeModelL() {}
   late Scene _scene;
 
   @override
@@ -55,23 +56,29 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
             const Text('Breast Size'),
             Slider(
               value: g!.size,
-              min: -5,
-              max: 5,
+              min: -3,
+              max: 3,
               onChanged: (value) {
                 setState(
                   () {
                     g!.size = value;
-                    interpolateObj(
-                        g!.lowerModel, g!.upperModel, g!.currentModel, value);
+                    calcEigVals(
+                        g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
+                    changeModel(
+                        g!.currentModel,
+                        createModelVector(value, g!.clWidth, g!.vertLift, g!),
+                        g!);
                   },
                 );
+                debugPrint('done');
               },
             ),
             const Text('Vertical Lift'),
             Slider(
               value: g!.vertLift,
-              onChanged: (value) {},
-              onChangeEnd: (value) {
+              min: -3,
+              max: 3,
+              onChanged: (value) {
                 setState(
                   () {
                     g!.vertLift = value;
@@ -82,8 +89,9 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
             const Text('Cleavage Width'),
             Slider(
               value: g!.clWidth,
-              onChanged: (value) {},
-              onChangeEnd: (value) {
+              min: -3,
+              max: 3,
+              onChanged: (value) {
                 setState(
                   () {
                     g!.clWidth = value;

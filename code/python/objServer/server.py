@@ -48,7 +48,6 @@ def saveImg(img, ident, imgNR):
     ImageDraw.Draw(img)
     img.save(ident + '/' + imgNR +'.png', 'PNG')
 
-
 class MyServer(BaseHTTPRequestHandler):        
     def do_GET(self):
         
@@ -76,7 +75,6 @@ class MyServer(BaseHTTPRequestHandler):
             response = imgStr
             self.end_headers()
             self.wfile.write(bytes(response, "utf-8"))
-            print(len(imgStr))
         
     
     def do_POST(self):

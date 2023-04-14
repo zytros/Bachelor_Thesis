@@ -6,18 +6,6 @@ import h5py
 import threading
 
 num_comp = 30
-
-class displayer(threading.Thread):
-    def __init__(self, filename):
-        threading.Thread.__init__(self)
-        self.filename = filename
-    
-    def run(self):
-        
-        mesh = Mesh(self.filename)
-        mesh.rotate_x(180)
-        mesh.show()
-        print(self.filename)
         
 
 def save_matrix_as_hdf5(matrix, filename):
@@ -70,22 +58,24 @@ def createFile(filename, verts):
     file.close()
     
 X = np.array(rp.getData())
-print(X.shape)
+#print(X.shape)
 w = getVertCoords('objs/fitModel_Demo_Augmentation.obj')
 pca = PCA(num_comp)
 pca.fit(X)
 #eigenVectors = pca.components_
 #eigenValues = pca.explained_variance_
 covariance = pca.get_covariance()
-print(covariance.shape)
+#print(covariance.shape)
 #eigenValues, eigenVectors = np.linalg.eig(covariance)
 #save_matrix_as_hdf5(eigenVectors.real, 'eigenVectors.h5')
 eigenVectors = read_matrix_from_hdf5('eigenVectors.h5')
-print(eigenVectors.shape)
+#print(eigenVectors.shape)
 
+stddevs = np.sqrt(pca.explained_variance_[:30])
 mean = pca.mean_
-print(mean.shape)
+#print(mean.shape)
 np.savetxt('mean.txt', mean.real, fmt="%.12f")
+np.savetxt('stddevs.txt', stddevs, fmt="%.12f")
 
 U_k = eigenVectors[:, 0:num_comp]
 np.savetxt("eigVecs.csv", U_k.real, fmt="%.12f")
@@ -93,20 +83,22 @@ x_red = np.dot(U_k.T, (w - mean).T).real
 print(x_red)
 #x_red = np.zeros(num_comp)
 #x_red = np.sqrt([5740, 2518, 1634, 672, 493, 231, 180, 146, 118, 111, 111, 82, 71, 69, 60, 51, 42, 32, 28, 26, 24, 22, 20, 19, 16, 16, 14, 12, 11.8, 10])
-#print(x_red)
+print('before: ', x_red[1:4])
 #x_red[0] = 100
 #first component size
-#x_red[1] = 0
+x_red[1] = 0
 #second component up/down
 #x_red[2] = 0
 #third component left/right & thin/fat
 #x_red[3] = 0
 
+print('after: ', x_red[1:4])
+
 redModel = (np.dot(U_k, x_red) + mean).real
 
 createFile('objs/w_.obj', redModel)
-createFile('objs/mean.obj', mean)
+#createFile('objs/mean.obj', mean)
 
-show('objs/fitModel_Demo_Augmentation.obj')
+#show('objs/w_.obj')
 
 

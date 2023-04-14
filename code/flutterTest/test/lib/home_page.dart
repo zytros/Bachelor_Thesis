@@ -16,6 +16,8 @@ Globals g = Globals();
 class HomePage extends StatelessWidget {
   HomePage(List<CameraDescription> cams, {super.key}) {
     cameras = cams;
+    g.initEigenVecs();
+    g.initMean();
     g.baseModel = true
         // ignore: dead_code
         ? Object(
@@ -151,7 +153,12 @@ class HomePage extends StatelessWidget {
               heroTag: 'debug',
               child: const Text('Debug'),
               onPressed: () async {
-                adjustModel(g.baseModel, 0, 0, 0);
+                var aRows = g.eigVals.length;
+                //var aColumns = g.eigVals[0].length;
+                debugPrint(aRows.toString());
+                //debugPrint(aColumns.toString());
+                calcEigVals(g.eigVals, g.baseModel, g.eigenVecs, g.mean, g);
+                debugPrint(g.eigVals.toString());
               },
             )
           ],
