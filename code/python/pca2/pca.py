@@ -80,13 +80,13 @@ np.savetxt('stddevs.txt', stddevs, fmt="%.12f")
 U_k = eigenVectors[:, 0:num_comp]
 np.savetxt("eigVecs.csv", U_k.real, fmt="%.12f")
 x_red = np.dot(U_k.T, (w - mean).T).real
-print(x_red)
+#print(x_red)
 #x_red = np.zeros(num_comp)
 #x_red = np.sqrt([5740, 2518, 1634, 672, 493, 231, 180, 146, 118, 111, 111, 82, 71, 69, 60, 51, 42, 32, 28, 26, 24, 22, 20, 19, 16, 16, 14, 12, 11.8, 10])
 print('before: ', x_red[1:4])
 #x_red[0] = 100
 #first component size
-x_red[1] = 0
+#x_red[1] = 0
 #second component up/down
 #x_red[2] = 0
 #third component left/right & thin/fat
@@ -94,7 +94,9 @@ x_red[1] = 0
 
 print('after: ', x_red[1:4])
 
-redModel = (np.dot(U_k, x_red) + mean).real
+redModel = (np.dot(U_k, x_red) ).real
+
+print(redModel[0:10])
 
 createFile('objs/w_.obj', redModel)
 #createFile('objs/mean.obj', mean)

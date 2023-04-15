@@ -1,10 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:scidart/numdart.dart';
-import 'package:test/flutter_cube.dart';
 
-import 'src/object.dart';
+import 'package:test/flutter_cube.dart';
 
 class Globals {
   Globals();

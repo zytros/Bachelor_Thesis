@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'dart:math' as math;
+import 'package:flutter/foundation.dart';
 import 'package:test/util.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -23,14 +24,17 @@ class Polygon {
     vertex1 = array[i + 1];
     vertex2 = array[i + 2];
   }
+
+  Polygon clone() => Polygon(vertex0, vertex1, vertex2, sumOfZ);
 }
 
 // wolcy97: 2020-01-31
 int _getVertexIndex(String vIndex) {
-  if (int.parse(vIndex) < 0)
+  if (int.parse(vIndex) < 0) {
     return int.parse(vIndex) + 1;
-  else
+  } else {
     return int.parse(vIndex) - 1;
+  }
 }
 
 class Mesh {
@@ -53,10 +57,15 @@ class Mesh {
         Rect.fromLTWH(0, 0, texture?.width.toDouble() ?? 1.0,
             texture?.height.toDouble() ?? 1.0);
   }
+
   late List<Vector3> vertices;
   late List<Offset> texcoords;
   late List<Color> colors;
   late List<Polygon> indices;
+  List<Polygon> init_TextIndices = [];
+  List<Vector3> init_vertices = [];
+  List<Offset> init_texcoords = [];
+  List<Polygon> init_vertexIndices = [];
   Image? texture;
   late Rect textureRect;
   String? texturePath;
@@ -100,10 +109,12 @@ Future<List<Mesh>> loadObj(String fileName, bool normalized,
       //DEMUG
       //data = await rootBundle.loadString('assets/models/fitModel_Demo_Augmentation.obj');
       break;
+    case 'str':
+      data = await getObjString(fileName);
+      break;
     default:
       throw Exception('Invalid src: $src');
   }
-
   final lines = data.split('\n');
   for (var line in lines) {
     List<String> parts = line.trim().split(RegExp(r"\s+"));
@@ -230,11 +241,21 @@ Future<List<Mesh>> _buildMesh(
     var newTextureIndices = <Polygon>[];
 
     if (faceStart == 0 && faceEnd == vertexIndices.length) {
-      newVertices = vertices;
-      newTexcoords = texcoords;
-      newIndices = vertexIndices;
-      newTextureIndices = textureIndices;
+      // DEBUG
+      for (var i in vertexIndices) {
+        assert(i.vertex0 < vertices.length &&
+            i.vertex1 < vertices.length &&
+            i.vertex2 < vertices.length);
+      }
+
+      newVertices = deepCopyVec(vertices);
+      newTexcoords = new List<Offset>.from(texcoords);
+      newIndices = deepCopyPoly(vertexIndices);
+      newTextureIndices = new List<Polygon>.from(textureIndices);
     } else {
+      // DEBUG
+      //never enter here
+      assert(false);
       _copyRangeIndices(
           faceStart, faceEnd, vertices, vertexIndices, newVertices, newIndices);
       _copyRangeIndices(faceStart, faceEnd, texcoords, textureIndices,
@@ -259,7 +280,6 @@ Future<List<Mesh>> _buildMesh(
     // If a vertex has multiple different texture coordinates,
     // then create a vertex for each texture coordinate.
     _rebuildVertices(newVertices, newTexcoords, newIndices, newTextureIndices);
-
     final Mesh mesh = Mesh(
       vertices: newVertices,
       texcoords: newTexcoords,
@@ -269,6 +289,10 @@ Future<List<Mesh>> _buildMesh(
       material: material,
       name: elementNames[index],
     );
+    mesh.init_TextIndices = textureIndices;
+    mesh.init_vertexIndices = vertexIndices;
+    mesh.init_texcoords = texcoords;
+    mesh.init_vertices = vertices;
     meshes.add(mesh);
   }
 
@@ -326,6 +350,9 @@ void _remapZeroAreaUVs(List<Offset> texcoords, List<Polygon> textureIndices,
 /// Rebuild vertices and texture coordinates to keep the same length.
 void _rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
     List<Polygon> vertexIndices, List<Polygon> textureIndices) {
+  // DEBUG
+  int counter = 0;
+
   int texcoordsCount = texcoords.length;
   if (texcoordsCount == 0) return;
   List<Vector3> newVertices = <Vector3>[];
@@ -344,6 +371,7 @@ void _rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
         face[j] = newVertices.length;
         indexMap[vtIndex] = face[j];
         newVertices.add(vertices[vIndex].clone());
+        counter++;
         newTexcoords.add(texcoords[tIndex]);
       } else {
         face[j] = v;
@@ -354,6 +382,7 @@ void _rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
   vertices
     ..clear()
     ..addAll(newVertices);
+
   texcoords
     ..clear()
     ..addAll(newTexcoords);
@@ -384,7 +413,8 @@ List<Mesh> normalizeMesh(List<Mesh> meshes) {
   for (Mesh mesh in meshes) {
     final List<Vector3> vertices = mesh.vertices;
     for (int i = 0; i < vertices.length; i++) {
-      vertices[i].scale(maxLength);
+      // DEBUG changed ...scale(maxLength) to ...scale(1.0)
+      vertices[i].scale(1.0);
     }
   }
   return meshes;
@@ -396,8 +426,9 @@ List<Mesh> normalizeMesh(List<Mesh> meshes) {
 Future<Image?> packingTexture(List<Mesh> meshes) async {
   // generate a key for a mesh.
   String getMeshKey(Mesh mesh) {
-    if (mesh.texture != null)
+    if (mesh.texture != null) {
       return mesh.texturePath ?? '' + mesh.textureRect.toString();
+    }
     return toColor(mesh.material.diffuse.bgr).toString();
   }
 
@@ -459,10 +490,12 @@ Future<Image?> packingTexture(List<Mesh> meshes) async {
   int textureHeight = 0;
   for (Mesh mesh in meshes) {
     final Rect box = mesh.textureRect;
-    if (textureWidth < box.left + box.width)
+    if (textureWidth < box.left + box.width) {
       textureWidth = (box.left + box.width).ceil();
-    if (textureHeight < box.top + box.height)
+    }
+    if (textureHeight < box.top + box.height) {
       textureHeight = (box.top + box.height).ceil();
+    }
   }
 
   // get the pixels from mesh.texture

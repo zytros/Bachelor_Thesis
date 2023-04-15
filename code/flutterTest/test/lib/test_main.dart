@@ -46,7 +46,7 @@ class DebugPage extends StatelessWidget {
             onPressed: () async {
               var aRows = g.eigVals.length;
               debugPrint(aRows.toString());
-              calcEigVals(g.eigVals, g.baseModel, g.eigenVecs, g.mean);
+              calcEigVals(g.eigVals, g.baseModel, g.eigenVecs, g.mean, g);
               debugPrint(g.eigVals.toString());
             },
             child: const Text('Debug'),

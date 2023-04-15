@@ -1,12 +1,9 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test/adjustment_page.dart';
 import 'package:test/comparison_page.dart';
 import 'package:test/flutter_cube.dart';
 import 'package:test/globals.dart';
-import 'package:test/scanning_page.dart';
-import 'package:test/scanning_page_android.dart';
 import 'package:test/scanning_page_web.dart';
 import 'package:test/util.dart';
 

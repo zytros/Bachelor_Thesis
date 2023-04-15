@@ -1,14 +1,15 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:scidart/numdart.dart';
 import 'package:test/flutter_cube.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:test/globals.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:scidart/scidart.dart';
+
+String hello = 'hello';
 
 /// Interpolates vertices between two obj files and updates destination transform
 void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
@@ -213,7 +214,7 @@ void changeTexture(Object obj, Image img) async {
 }
 
 /// convert list of Vector3 to list of doubles
-List<double> vector3sTods(List<Vector3> vecs) {
+List<double> vector3sTods(List<Vector3> vecs, Globals g) {
   List<double> doubles = [];
   for (var i = 0; i < vecs.length; i++) {
     doubles.add(vecs[i].x);
@@ -238,23 +239,32 @@ void adjustModel(
 /// param g: reference to globals
 void calcEigVals(List<double> eigVs, Object obj, List<List<double>> U_k,
     List<double> mean, Globals g) {
+  if (!listEquals(eigVs, [])) return;
   //x_red = np.dot(U_k.T, (w - mean).T).real
-  List<double> w = vector3sTods(obj.mesh.vertices);
+  List<double> w = vector3sTods(obj.mesh.init_vertices, g);
+  debugPrint(obj.mesh.init_vertices.length.toString());
   eigVs.clear();
+  List<double> diff = [];
+  debugPrint(shape(U_k));
+  for (int i = 0; i < mean.length; i++) {
+    diff.add(w[i] - mean[i]);
+  }
   for (int i = 0; i < U_k[0].length; i++) {
     double acc = 0;
     for (int j = 0; j < mean.length; j++) {
-      acc += U_k[j][i] * w[j] - mean[j];
+      acc += U_k[j][i] * diff[j];
     }
     eigVs.add(acc);
   }
+  debugPrint(eigVs.toString());
+
   // set base values
-  g.baseSize = eigVs[1];
-  g.size = g.eigVals[1];
-  g.baseVertLift = eigVs[2];
-  g.vertLift = eigVs[2];
-  g.baseClWidth = eigVs[3];
-  g.clWidth = eigVs[3];
+  g.baseSize = eigVs[1] / g.stddevs[0];
+  g.size = g.eigVals[1] / g.stddevs[0];
+  g.baseVertLift = eigVs[2] / g.stddevs[1];
+  g.vertLift = eigVs[2] / g.stddevs[1];
+  g.baseClWidth = eigVs[3] / g.stddevs[2];
+  g.clWidth = eigVs[3] / g.stddevs[2];
 }
 
 /// creates the updated vector according to PCA
@@ -268,22 +278,22 @@ List<double> createModelVector(
   //redModel = (np.dot(U_k, x_red) + mean).real
   //               10000*30 30*1
 
-  List<double> prex_red = [g.eigVals[1], g.eigVals[2], g.eigVals[3]];
   g.eigVals[1] = size * g.stddevs[0];
   g.eigVals[2] = vertLift * g.stddevs[1];
   g.eigVals[3] = clW * g.stddevs[2];
-
+  /*g.eigVals[1] = 0;
+  g.eigVals[2] = 0;
+  g.eigVals[3] = 0;*/
   List<double> ret = [];
   for (int i = 0; i < g.eigenVecs.length; i++) {
-    double acc = 0;
+    double acc = g.mean[i];
     for (int j = 0; j < g.eigenVecs[i].length; j++) {
       acc += g.eigenVecs[i][j] * g.eigVals[j];
     }
     ret.add(acc);
   }
-  g.eigVals[1] = prex_red[0];
-  g.eigVals[2] = prex_red[1];
-  g.eigVals[3] = prex_red[2];
+
+  //debugPrint(ret.take(5).toString());
 
   return ret;
 }
@@ -293,15 +303,209 @@ List<double> createModelVector(
 /// param vec: vector of cooridnates
 /// param g: reference t globals
 void changeModel(Object model, List<double> vec, Globals g) {
+  model.mesh.vertices = listToVecs(vec);
+  List<Polygon> polys = deepCopyPoly(model.mesh.init_vertexIndices);
+  rebuildVertices(
+    model.mesh.vertices,
+    model.mesh.init_texcoords,
+    model.mesh.init_vertexIndices,
+    model.mesh.init_TextIndices,
+  );
+  scaleModel(model.mesh.vertices, g.scales[0]);
+  model.mesh.init_vertexIndices = polys;
+}
+
+String shape(List<List<double>> matrix) {
+  return "(${matrix.length}, ${matrix[0].length})";
+}
+
+bool vecEquals(Vector3 a, Vector3 b) {
+  return a.x == b.x && a.y == b.y && a.z == b.z;
+}
+
+List<Vector3> getDuplicateVectors(List<Vector3> vectors) {
+  Map<String, int> vectorCounts = {};
+  List<Vector3> duplicates = [];
+
+  for (Vector3 vector in vectors) {
+    String vectorString = vector.toString();
+    if (vectorCounts.containsKey(vectorString)) {
+      // Vector has been seen before, so it's a duplicate
+      vectorCounts[vectorString] = vectorCounts[vectorString]! + 1;
+      if (vectorCounts[vectorString] == 2) {
+        // This is the second occurrence of the vector, so add it to the duplicates list
+        duplicates.add(vector);
+      }
+    } else {
+      // Vector hasn't been seen before, so add it to the counts dictionary
+      vectorCounts[vectorString] = 1;
+    }
+  }
+
+  return duplicates;
+}
+
+List<int> getDuplicateVectorIndices(List<Vector3> vectors) {
+  Map<String, List<int>> vectorIndices = {};
+  List<int> duplicateIndices = [];
+
+  for (int i = 0; i < vectors.length; i++) {
+    Vector3 vector = vectors[i];
+    String vectorString = vector.toString();
+    if (vectorIndices.containsKey(vectorString)) {
+      // Vector has been seen before, so it's a duplicate
+      vectorIndices[vectorString]!.add(i);
+      if (vectorIndices[vectorString]!.length == 2) {
+        // This is the second occurrence of the vector, so add its index to the duplicates list
+        duplicateIndices.addAll(vectorIndices[vectorString]!);
+      }
+    } else {
+      // Vector hasn't been seen before, so add its index to the indices dictionary
+      vectorIndices[vectorString] = [i];
+    }
+  }
+
+  printDuplicates(vectors, duplicateIndices);
+
+  return duplicateIndices;
+}
+
+List<Vector3> inputValues(List<Vector3> verts, List<int> indices) {
+  debugPrint('indices length: ${indices.length}');
+  while (verts.length < 3369) {
+    verts.add(Vector3(10, 10, 10));
+  }
+  assert(verts.length == 3369);
+  for (int i = indices.length - 1; i >= 0; i = i - 2) {
+    verts.insert(indices[i], Vector3(9, 9, 9));
+  }
+  for (int i = indices.length - 1; i >= 0; i = i - 2) {
+    verts[indices[i]] = verts[indices[i - 1]];
+  }
+  while (verts.length > 3369) {
+    debugPrint('removed ${verts.removeLast()}');
+  }
+  assert(verts.length == 3369);
+  return verts;
+}
+
+List<Vector3> listToVecs(List<double> list) {
+  List<Vector3> ret = [];
+  for (int i = 0; i < list.length; i = i + 3) {
+    ret.add(Vector3(list[i], list[i + 1], list[i + 2]));
+  }
+  return ret;
+}
+
+void printDuplicates(List<Vector3> verts, List<int> dups) {
+  for (int i = 0; i < dups.length; i = i + 2) {
+    debugPrint(
+        "${verts[dups[i]]} ${verts[dups[i + 1]]} at ${dups[i]} ${dups[i + 1]}");
+  }
+}
+
+List<Vector3> insertValues(List<Vector3> verts, List<int> dups, int len) {
+  List<int> dupsFirst = [];
+  List<int> dupsSecond = [];
+  List<Vector3> ret = [];
+  for (int i = 0; i < dups.length; i = i + 2) {
+    dupsFirst.add(dups[i]);
+    dupsSecond.add(dups[i + 1]);
+  }
+  for (int i = 0; i < len; i++) {
+    ret.add(Vector3(10, 10, 10));
+  }
   int j = 0;
-  debugPrint("model length: ${model.mesh.vertices.length}");
-  debugPrint(model.mesh.vertices[0].toString());
-  debugPrint(model.mesh.vertices[1].toString());
-  debugPrint(model.mesh.vertices[2].toString());
-  for (int i = 0; i < 3354; i++) {
-    model.mesh.vertices[i].x = vec[j];
-    model.mesh.vertices[i].y = vec[j + 1];
-    model.mesh.vertices[i].z = vec[j + 2];
-    j = j + 3;
+  for (int i = 0; i < len; i++) {
+    if (!dups.contains(i)) {
+      ret[i] = verts[j];
+      j++;
+    } else if (dupsFirst.contains(i)) {
+      ret[i] = verts[j];
+      int idx = dupsFirst.indexOf(i);
+      ret[dupsSecond[idx]] = verts[j];
+      j++;
+    } else {
+      assert(dupsSecond.contains(i));
+    }
+  }
+  return ret;
+}
+
+Future<String> getObjString(String ret) async {
+  String data = await rootBundle.loadString('objModel.obj');
+  List<String> lines = data.split('\n');
+  for (int i = 0; i < lines.length; i++) {
+    if (!lines[i].startsWith('v ')) {
+      ret = '$ret${lines[i]}\n';
+    }
+  }
+  return ret;
+}
+
+String vectorToObjString(List<Vector3> vecs) {
+  String ret = '';
+  for (int i = 0; i < vecs.length; i++) {
+    ret = '${ret}v ${vecs[i].x} ${vecs[i].y} ${vecs[i].z}\n';
+  }
+  return ret;
+}
+
+void rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
+    List<Polygon> vertexIndices, List<Polygon> textureIndices) {
+  int texcoordsCount = texcoords.length;
+  if (texcoordsCount == 0) return;
+  List<Vector3> newVertices = <Vector3>[];
+  List<Offset> newTexcoords = <Offset>[];
+  HashMap<int, int?> indexMap = HashMap<int, int?>();
+  for (int i = 0; i < vertexIndices.length; i++) {
+    List<int> vi = vertexIndices[i].copyToArray();
+    List<int> ti = textureIndices[i].copyToArray();
+    List<int> face = List<int>.filled(3, 0);
+    for (int j = 0; j < vi.length; j++) {
+      int vIndex = vi[j];
+      int tIndex = ti[j];
+      int vtIndex = vIndex * texcoordsCount + tIndex;
+      int? v = indexMap[vtIndex];
+      if (v == null) {
+        face[j] = newVertices.length;
+        indexMap[vtIndex] = face[j];
+        newVertices.add(vertices[vIndex].clone());
+        newTexcoords.add(texcoords[tIndex]);
+      } else {
+        face[j] = v;
+      }
+    }
+    vertexIndices[i].copyFromArray(face);
+  }
+  //thisisit(counter.toString());
+  vertices
+    ..clear()
+    ..addAll(newVertices);
+
+  texcoords
+    ..clear()
+    ..addAll(newTexcoords);
+}
+
+List<Polygon> deepCopyPoly(List<Polygon> polygons) {
+  List<Polygon> ret = [];
+  for (int i = 0; i < polygons.length; i++) {
+    ret.add(polygons[i].clone());
+  }
+  return ret;
+}
+
+List<Vector3> deepCopyVec(List<Vector3> vecs) {
+  List<Vector3> ret = [];
+  for (int i = 0; i < vecs.length; i++) {
+    ret.add(vecs[i].clone());
+  }
+  return ret;
+}
+
+void scaleModel(List<Vector3> vertices, double scale) {
+  for (int i = 0; i < vertices.length; i++) {
+    vertices[i].scale(scale);
   }
 }

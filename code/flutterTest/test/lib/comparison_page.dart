@@ -20,7 +20,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
   @override
   void initState() {
     setPosition(g!.baseModel, Vector3(-3, 1, 0));
-    setScaleUniform(g!.baseModel, 8);
+    setScaleUniform(g!.baseModel, g!.scales[0] * 8);
     setRotation(g!.baseModel, Vector3(180, 0, 0));
     g!.baseModel.updateTransform();
 
