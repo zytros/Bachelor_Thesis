@@ -146,18 +146,6 @@ class HomePage extends StatelessWidget {
               },
               label: const Text('Comparison'),
             ),
-            FloatingActionButton(
-              heroTag: 'debug',
-              child: const Text('Debug'),
-              onPressed: () async {
-                var aRows = g.eigVals.length;
-                //var aColumns = g.eigVals[0].length;
-                debugPrint(aRows.toString());
-                //debugPrint(aColumns.toString());
-                calcEigVals(g.eigVals, g.baseModel, g.eigenVecs, g.mean, g);
-                debugPrint(g.eigVals.toString());
-              },
-            )
           ],
         ),
       ),

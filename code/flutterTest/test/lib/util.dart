@@ -204,15 +204,6 @@ String getIdent() {
   return DateTime.now().millisecondsSinceEpoch.toString();
 }
 
-/// change texture
-///
-
-// TODO: changes all texures, not just one
-// ???????????????????????
-void changeTexture(Object obj, Image img) async {
-  obj.mesh.texture = img;
-}
-
 /// convert list of Vector3 to list of doubles
 List<double> vector3sTods(List<Vector3> vecs, Globals g) {
   List<double> doubles = [];
@@ -242,10 +233,8 @@ void calcEigVals(List<double> eigVs, Object obj, List<List<double>> U_k,
   if (!listEquals(eigVs, [])) return;
   //x_red = np.dot(U_k.T, (w - mean).T).real
   List<double> w = vector3sTods(obj.mesh.init_vertices, g);
-  debugPrint(obj.mesh.init_vertices.length.toString());
   eigVs.clear();
   List<double> diff = [];
-  debugPrint(shape(U_k));
   for (int i = 0; i < mean.length; i++) {
     diff.add(w[i] - mean[i]);
   }
@@ -256,8 +245,6 @@ void calcEigVals(List<double> eigVs, Object obj, List<List<double>> U_k,
     }
     eigVs.add(acc);
   }
-  debugPrint(eigVs.toString());
-
   // set base values
   g.baseSize = eigVs[1] / g.stddevs[0];
   g.size = g.eigVals[1] / g.stddevs[0];
@@ -311,7 +298,7 @@ void changeModel(Object model, List<double> vec, Globals g) {
     model.mesh.init_vertexIndices,
     model.mesh.init_TextIndices,
   );
-  scaleModel(model.mesh.vertices, g.scales[0]);
+  //scaleModel(model.mesh.vertices, g.scales[0]);
   model.mesh.init_vertexIndices = polys;
 }
 

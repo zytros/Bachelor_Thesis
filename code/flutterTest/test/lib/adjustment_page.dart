@@ -21,9 +21,13 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
   @override
   void initState() {
     setPosition(g!.currentModel, Vector3(0, 2, 0));
-    setScaleUniform(g!.currentModel, 10);
+    setScaleUniform(g!.currentModel, g!.scales[0] * 8);
     setRotation(g!.currentModel, Vector3(180, 0, 0));
     g!.currentModel.updateTransform();
+
+    calcEigVals(g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
+    changeModel(g!.currentModel,
+        createModelVector(g!.size, g!.clWidth, g!.vertLift, g!), g!);
 
     super.initState();
   }
@@ -129,57 +133,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
               },
               child: const Text('Reset'),
             ),
-            OutlinedButton(
-              onPressed: () {
-                double currScale = g!.currentModel.scale.x;
-                setScaleUniform(g!.currentModel, currScale * 0.5);
-                _scene.update();
-                g!.currentModel.updateTransform();
-              },
-              child: const Text('scale down'),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                double currScale = g!.currentModel.scale.x;
-                setScaleUniform(g!.currentModel, currScale / 0.5);
-                _scene.update();
-                g!.currentModel.updateTransform();
-              },
-              child: const Text('scale up'),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                /*
-                for (int i = 0; i < 3354; i++) {
-                  g!.currentModel.mesh.vertices[i].x = g!.mean[i * 3];
-                  g!.currentModel.mesh.vertices[i].y = g!.mean[i * 3 + 1];
-                  g!.currentModel.mesh.vertices[i].z = g!.mean[i * 3 + 2];
-                }
-                var ob = Object(
-                    fileName: vectorToObjString(listToVecs(g!.mean)),
-                    position: Vector3(0, 2, 0),
-                    scale: Vector3(10, 10, 10),
-                    rotation: Vector3(180, 0, 0),
-                    visiable: true,
-                    lighting: false,
-                    backfaceCulling: true,
-                    src: 'str');
-                thisisit(
-                    'currentModel length: ${g!.currentModel.mesh.vertices.length}');
-                thisisit('ob length: ${ob.mesh.vertices.length}');
-                //g!.currentModel.mesh.vertices = ob.mesh.vertices;
-                //_scene.update();
-                //g!.currentModel.updateTransform();*/
-                g!.currentModel.mesh.vertices = listToVecs(g!.mean);
-                rebuildVertices(
-                  g!.currentModel.mesh.vertices,
-                  g!.currentModel.mesh.init_texcoords,
-                  g!.currentModel.mesh.init_vertexIndices,
-                  g!.currentModel.mesh.init_TextIndices,
-                );
-              },
-              child: const Text('debug2'),
-            )
           ],
         ),
       ),
