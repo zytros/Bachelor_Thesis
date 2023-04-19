@@ -9,7 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:test/globals.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-String hello = 'hello';
+// TODO
+// ML_LINALG
 
 /// Interpolates vertices between two obj files and updates destination transform
 void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
