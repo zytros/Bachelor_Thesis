@@ -15,6 +15,9 @@ class HomePage extends StatelessWidget {
     cameras = cams;
     g.initEigenVecs();
     g.initMean();
+    g.initIndices();
+    g.initOutline();
+
     g.baseModel = true
         // ignore: dead_code
         ? Object(
@@ -59,37 +62,6 @@ class HomePage extends StatelessWidget {
             lighting: false,
             backfaceCulling: true,
           );
-    g.lowerModel = true
-        // ignore: dead_code
-        ? Object(
-            fileName: 'http://localhost:8080/',
-            position: Vector3(0, 2, 0),
-            scale: Vector3(10, 10, 10),
-            rotation: Vector3(180, 0, 0),
-            visiable: true,
-            lighting: false,
-            backfaceCulling: true,
-            src: 's')
-        :
-        // ignore: dead_code
-        Object(
-            fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
-            position: Vector3(0, 2, 0),
-            scale: Vector3(10, 10, 10),
-            rotation: Vector3(180, 0, 0),
-            visiable: true,
-            lighting: false,
-            backfaceCulling: true,
-          );
-    g.upperModel = Object(
-      fileName: 'assets/models/increasedModel_Demo_Augmentation.obj',
-      position: Vector3(0, 2, 0),
-      scale: Vector3(10, 10, 10),
-      rotation: Vector3(180, 0, 0),
-      visiable: true,
-      lighting: true,
-      backfaceCulling: false,
-    );
   }
 
   @override

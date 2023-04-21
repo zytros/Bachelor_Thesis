@@ -70,7 +70,10 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                         g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
                     changeModel(
                         g!.currentModel,
-                        createModelVector(g!.size, g!.clWidth, g!.vertLift, g!),
+                        interpolateVectors(
+                            createModelVector(
+                                g!.size, g!.clWidth, g!.vertLift, g!),
+                            g!),
                         g!);
                   },
                 );
@@ -89,7 +92,10 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                         g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
                     changeModel(
                         g!.currentModel,
-                        createModelVector(g!.size, g!.clWidth, g!.vertLift, g!),
+                        interpolateVectors(
+                            createModelVector(
+                                g!.size, g!.clWidth, g!.vertLift, g!),
+                            g!),
                         g!);
                   },
                 );
@@ -108,7 +114,10 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                         g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
                     changeModel(
                         g!.currentModel,
-                        createModelVector(g!.size, g!.clWidth, g!.vertLift, g!),
+                        interpolateVectors(
+                            createModelVector(
+                                g!.size, g!.clWidth, g!.vertLift, g!),
+                            g!),
                         g!);
                   },
                 );

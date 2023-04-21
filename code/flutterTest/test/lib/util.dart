@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:math';
 import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -216,12 +217,6 @@ List<double> vector3sTods(List<Vector3> vecs, Globals g) {
   return doubles;
 }
 
-/// old code
-void adjustModel(
-    Object model, double size, double vertLift, double clWidth) async {
-  //Array2d mod = matrixDot(eigenVectors, matrixTranspose(arrayToColumnMatrix(mean)));
-}
-
 /// calculates eigenvalues corresponding to PCA
 /// saves them in eigVs, sets global values
 /// param eigVs: reference to eigenvalues to set
@@ -253,6 +248,8 @@ void calcEigVals(List<double> eigVs, Object obj, List<List<double>> U_k,
   g.vertLift = eigVs[2] / g.stddevs[1];
   g.baseClWidth = eigVs[3] / g.stddevs[2];
   g.clWidth = eigVs[3] / g.stddevs[2];
+
+  g.baseVec = createModelVector(g.baseSize, g.baseClWidth, g.baseVertLift, g);
 }
 
 /// creates the updated vector according to PCA
@@ -280,9 +277,6 @@ List<double> createModelVector(
     }
     ret.add(acc);
   }
-
-  //debugPrint(ret.take(5).toString());
-
   return ret;
 }
 
@@ -311,72 +305,6 @@ bool vecEquals(Vector3 a, Vector3 b) {
   return a.x == b.x && a.y == b.y && a.z == b.z;
 }
 
-List<Vector3> getDuplicateVectors(List<Vector3> vectors) {
-  Map<String, int> vectorCounts = {};
-  List<Vector3> duplicates = [];
-
-  for (Vector3 vector in vectors) {
-    String vectorString = vector.toString();
-    if (vectorCounts.containsKey(vectorString)) {
-      // Vector has been seen before, so it's a duplicate
-      vectorCounts[vectorString] = vectorCounts[vectorString]! + 1;
-      if (vectorCounts[vectorString] == 2) {
-        // This is the second occurrence of the vector, so add it to the duplicates list
-        duplicates.add(vector);
-      }
-    } else {
-      // Vector hasn't been seen before, so add it to the counts dictionary
-      vectorCounts[vectorString] = 1;
-    }
-  }
-
-  return duplicates;
-}
-
-List<int> getDuplicateVectorIndices(List<Vector3> vectors) {
-  Map<String, List<int>> vectorIndices = {};
-  List<int> duplicateIndices = [];
-
-  for (int i = 0; i < vectors.length; i++) {
-    Vector3 vector = vectors[i];
-    String vectorString = vector.toString();
-    if (vectorIndices.containsKey(vectorString)) {
-      // Vector has been seen before, so it's a duplicate
-      vectorIndices[vectorString]!.add(i);
-      if (vectorIndices[vectorString]!.length == 2) {
-        // This is the second occurrence of the vector, so add its index to the duplicates list
-        duplicateIndices.addAll(vectorIndices[vectorString]!);
-      }
-    } else {
-      // Vector hasn't been seen before, so add its index to the indices dictionary
-      vectorIndices[vectorString] = [i];
-    }
-  }
-
-  printDuplicates(vectors, duplicateIndices);
-
-  return duplicateIndices;
-}
-
-List<Vector3> inputValues(List<Vector3> verts, List<int> indices) {
-  debugPrint('indices length: ${indices.length}');
-  while (verts.length < 3369) {
-    verts.add(Vector3(10, 10, 10));
-  }
-  assert(verts.length == 3369);
-  for (int i = indices.length - 1; i >= 0; i = i - 2) {
-    verts.insert(indices[i], Vector3(9, 9, 9));
-  }
-  for (int i = indices.length - 1; i >= 0; i = i - 2) {
-    verts[indices[i]] = verts[indices[i - 1]];
-  }
-  while (verts.length > 3369) {
-    debugPrint('removed ${verts.removeLast()}');
-  }
-  assert(verts.length == 3369);
-  return verts;
-}
-
 List<Vector3> listToVecs(List<double> list) {
   List<Vector3> ret = [];
   for (int i = 0; i < list.length; i = i + 3) {
@@ -390,34 +318,6 @@ void printDuplicates(List<Vector3> verts, List<int> dups) {
     debugPrint(
         "${verts[dups[i]]} ${verts[dups[i + 1]]} at ${dups[i]} ${dups[i + 1]}");
   }
-}
-
-List<Vector3> insertValues(List<Vector3> verts, List<int> dups, int len) {
-  List<int> dupsFirst = [];
-  List<int> dupsSecond = [];
-  List<Vector3> ret = [];
-  for (int i = 0; i < dups.length; i = i + 2) {
-    dupsFirst.add(dups[i]);
-    dupsSecond.add(dups[i + 1]);
-  }
-  for (int i = 0; i < len; i++) {
-    ret.add(Vector3(10, 10, 10));
-  }
-  int j = 0;
-  for (int i = 0; i < len; i++) {
-    if (!dups.contains(i)) {
-      ret[i] = verts[j];
-      j++;
-    } else if (dupsFirst.contains(i)) {
-      ret[i] = verts[j];
-      int idx = dupsFirst.indexOf(i);
-      ret[dupsSecond[idx]] = verts[j];
-      j++;
-    } else {
-      assert(dupsSecond.contains(i));
-    }
-  }
-  return ret;
 }
 
 Future<String> getObjString(String ret) async {
@@ -496,4 +396,64 @@ void scaleModel(List<Vector3> vertices, double scale) {
   for (int i = 0; i < vertices.length; i++) {
     vertices[i].scale(scale);
   }
+}
+
+List<double> interpolateVectors(List<double> adjustedVec, Globals g) {
+  List<double> dists = [];
+
+  for (int i in g.indices) {
+    dists.add(getNearestDist(g.outline, adjustedVec, adjustedVec[3 * i],
+        adjustedVec[3 * i + 1], adjustedVec[3 * i + 2]));
+  }
+
+  List<int> idxs_exp = expandIndices(g.indices);
+  List<double> baseVec = copyDoubleList(g.baseVec);
+
+  for (int i = 0; i < idxs_exp.length; i++) {
+    double dist = dists[i ~/ 3];
+    if (dist > g.distCutoff) {
+      baseVec[idxs_exp[i]] = adjustedVec[idxs_exp[i]];
+    } else {
+      baseVec[idxs_exp[i]] = (dist / g.distCutoff) * adjustedVec[idxs_exp[i]] +
+          (1 - (dist / g.distCutoff)) * baseVec[idxs_exp[i]];
+    }
+  }
+  return baseVec;
+}
+
+double getNearestDist(
+    List<int> outline, List<double> vec, double x, double y, double z) {
+  double minDist = 100000;
+  for (int vert in outline) {
+    double x_base = vec[vert * 3];
+    double y_base = vec[vert * 3 + 1];
+    double z_base = vec[vert * 3 + 2];
+    double dist = sqrt((x - x_base) * (x - x_base) +
+        (y - y_base) * (y - y_base) +
+        (z - z_base) * (z - z_base));
+    if (dist < minDist) {
+      minDist = dist;
+    }
+  }
+  assert(minDist < 100000);
+  return minDist;
+}
+
+List<int> expandIndices(List<int> indices) {
+  List<int> ret = [];
+  for (int i in indices) {
+    ret.add(3 * i);
+    ret.add(3 * i + 1);
+    ret.add(3 * i + 2);
+  }
+  ret.sort();
+  return ret;
+}
+
+List<double> copyDoubleList(List<double> list) {
+  List<double> ret = [];
+  for (int i = 0; i < list.length; i++) {
+    ret.add(list[i]);
+  }
+  return ret;
 }
