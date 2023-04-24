@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
+import 'package:ml_linalg/linalg.dart' as ml;
 import 'package:test/flutter_cube.dart';
 
 class Globals {
@@ -9,12 +9,12 @@ class Globals {
   late Object currentModel;
   late Object baseModel;
   late Object debO;
-  late List<List<double>> eigenVecs;
-  late List<double> mean;
   List<int> outline = [];
   List<double> baseVec = [];
-  List<int> indices = [];
-  List<double> eigVals = [];
+  List<int> brestIndices = [];
+  ml.Vector meanVec = ml.Vector.fromList([]);
+  ml.Matrix eigenVecsMat = ml.Matrix.fromList([]);
+  ml.Vector eigValsVec = ml.Vector.fromList([]);
 
   double baseSize = 0;
   double size = 0;
@@ -39,26 +39,26 @@ class Globals {
     debO = o;
   }
 
-  void initIndices() async {
+  void initBrestIndices() async {
     String ind1 = await rootBundle
         .loadString('breast_indices/leftBreastIdxLargeArea.txt');
     String ind2 = await rootBundle
         .loadString('breast_indices/rightBreastIdxLargeArea.txt');
     List<String> lines1 = ind1.split('\n');
     List<String> lines2 = ind2.split('\n');
-    indices = [];
+    brestIndices = [];
     for (var i = 0; i < lines1.length; i++) {
       if (lines1[i] == '') continue;
-      indices.add(int.parse(lines1[i]));
+      brestIndices.add(int.parse(lines1[i]));
     }
-    indices.sort();
+    brestIndices.sort();
     for (var i = 0; i < lines2.length; i++) {
       if (lines2[i] == '') continue;
-      indices.add(int.parse(lines2[i]));
+      brestIndices.add(int.parse(lines2[i]));
     }
-    indices.sort();
-    indices = indices.toSet().toList();
-    debugPrint('initialized indices with length ${indices.length}');
+    brestIndices.sort();
+    brestIndices = brestIndices.toSet().toList();
+    debugPrint('initialized indices with length ${brestIndices.length}');
   }
 
   void initOutline() async {
@@ -83,17 +83,18 @@ class Globals {
   void initMean() async {
     String data = await rootBundle.loadString('mean.txt');
     List<String> lines = data.split('\n');
-    mean = [];
+    List<double> mean = [];
     for (var i = 0; i < lines.length; i++) {
       if (lines[i] == '') continue;
       mean.add(double.parse(lines[i]));
     }
+    meanVec = ml.Vector.fromList(mean);
     debugPrint('initialized mean');
   }
 
   void initEigenVecs() async {
     String data = await rootBundle.loadString('eigVecs.csv');
-    eigenVecs = [];
+    List<List<double>> eigenVecs = [];
     List<String> lines = data.split('\n');
     for (int i = 0; i < lines.length; i++) {
       List<double> v = [];
@@ -103,6 +104,7 @@ class Globals {
       }
       eigenVecs.add(v);
     }
+    eigenVecsMat = ml.Matrix.fromList(eigenVecs);
     debugPrint('initialized eigenVecs');
   }
 

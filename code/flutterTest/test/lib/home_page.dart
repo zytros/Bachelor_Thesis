@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     cameras = cams;
     g.initEigenVecs();
     g.initMean();
-    g.initIndices();
+    g.initBrestIndices();
     g.initOutline();
 
     g.baseModel = true

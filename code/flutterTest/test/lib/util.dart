@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:test/globals.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:ml_linalg/linalg.dart' as ml;
 
 // TODO
 // ML_LINALG
@@ -224,32 +225,21 @@ List<double> vector3sTods(List<Vector3> vecs, Globals g) {
 /// param U_k: first 30 eigenvectors of PCA
 /// param mean: mean of all trained models of PCA
 /// param g: reference to globals
-void calcEigVals(List<double> eigVs, Object obj, List<List<double>> U_k,
-    List<double> mean, Globals g) {
-  if (!listEquals(eigVs, [])) return;
-  //x_red = np.dot(U_k.T, (w - mean).T).real
+ml.Vector calcEigVals(Object obj, ml.Matrix U_k, ml.Vector mean, Globals g) {
   List<double> w = vector3sTods(obj.mesh.init_vertices, g);
-  eigVs.clear();
-  List<double> diff = [];
-  for (int i = 0; i < mean.length; i++) {
-    diff.add(w[i] - mean[i]);
-  }
-  for (int i = 0; i < U_k[0].length; i++) {
-    double acc = 0;
-    for (int j = 0; j < mean.length; j++) {
-      acc += U_k[j][i] * diff[j];
-    }
-    eigVs.add(acc);
-  }
+  ml.Vector wVec = ml.Vector.fromList(w);
+  ml.Vector eigVs =
+      (g.eigenVecsMat.transpose() * (wVec - g.meanVec)).toVector();
+  List<double> eigVsList = eigVs.toList();
   // set base values
-  g.baseSize = eigVs[1] / g.stddevs[0];
-  g.size = g.eigVals[1] / g.stddevs[0];
-  g.baseVertLift = eigVs[2] / g.stddevs[1];
-  g.vertLift = eigVs[2] / g.stddevs[1];
-  g.baseClWidth = eigVs[3] / g.stddevs[2];
-  g.clWidth = eigVs[3] / g.stddevs[2];
+  g.baseSize = eigVsList[1] / g.stddevs[0];
+  g.size = eigVsList[1] / g.stddevs[0];
+  g.baseVertLift = eigVsList[2] / g.stddevs[1];
+  g.vertLift = eigVsList[2] / g.stddevs[1];
+  g.baseClWidth = eigVsList[3] / g.stddevs[2];
+  g.clWidth = eigVsList[3] / g.stddevs[2];
 
-  g.baseVec = createModelVector(g.baseSize, g.baseClWidth, g.baseVertLift, g);
+  return eigVs;
 }
 
 /// creates the updated vector according to PCA
@@ -263,21 +253,15 @@ List<double> createModelVector(
   //redModel = (np.dot(U_k, x_red) + mean).real
   //               10000*30 30*1
 
-  g.eigVals[1] = size * g.stddevs[0];
-  g.eigVals[2] = vertLift * g.stddevs[1];
-  g.eigVals[3] = clW * g.stddevs[2];
-  /*g.eigVals[1] = 0;
-  g.eigVals[2] = 0;
-  g.eigVals[3] = 0;*/
-  List<double> ret = [];
-  for (int i = 0; i < g.eigenVecs.length; i++) {
-    double acc = g.mean[i];
-    for (int j = 0; j < g.eigenVecs[i].length; j++) {
-      acc += g.eigenVecs[i][j] * g.eigVals[j];
-    }
-    ret.add(acc);
-  }
-  return ret;
+  List<double> eigVals = g.eigValsVec.toList();
+  eigVals[1] = size * g.stddevs[0];
+  eigVals[2] = vertLift * g.stddevs[1];
+  eigVals[3] = clW * g.stddevs[2];
+  g.eigValsVec = ml.Vector.fromList(eigVals);
+
+  ml.Vector mat = (g.eigenVecsMat * g.eigValsVec).toVector() + g.meanVec;
+
+  return mat.toList();
 }
 
 /// changes a model according to a vector of coordinates
@@ -401,12 +385,12 @@ void scaleModel(List<Vector3> vertices, double scale) {
 List<double> interpolateVectors(List<double> adjustedVec, Globals g) {
   List<double> dists = [];
 
-  for (int i in g.indices) {
+  for (int i in g.brestIndices) {
     dists.add(getNearestDist(g.outline, adjustedVec, adjustedVec[3 * i],
         adjustedVec[3 * i + 1], adjustedVec[3 * i + 2]));
   }
 
-  List<int> idxs_exp = expandIndices(g.indices);
+  List<int> idxs_exp = expandIndices(g.brestIndices);
   List<double> baseVec = copyDoubleList(g.baseVec);
 
   for (int i = 0; i < idxs_exp.length; i++) {
@@ -439,9 +423,9 @@ double getNearestDist(
   return minDist;
 }
 
-List<int> expandIndices(List<int> indices) {
+List<int> expandIndices(List<int> brestIndices) {
   List<int> ret = [];
-  for (int i in indices) {
+  for (int i in brestIndices) {
     ret.add(3 * i);
     ret.add(3 * i + 1);
     ret.add(3 * i + 2);

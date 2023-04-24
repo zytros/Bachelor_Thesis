@@ -43,12 +43,7 @@ class DebugPage extends StatelessWidget {
             child: const Text('init'),
           ),
           OutlinedButton(
-            onPressed: () async {
-              var aRows = g.eigVals.length;
-              debugPrint(aRows.toString());
-              calcEigVals(g.eigVals, g.baseModel, g.eigenVecs, g.mean, g);
-              debugPrint(g.eigVals.toString());
-            },
+            onPressed: () async {},
             child: const Text('Debug'),
           ),
           OutlinedButton(

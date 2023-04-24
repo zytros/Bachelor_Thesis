@@ -240,6 +240,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
+  ml_linalg:
+    dependency: "direct main"
+    description:
+      name: ml_linalg
+      sha256: "09b857fc522cda948d4898c2a8640c09cd3f992f7fd6720898871d3b1c279f48"
+      url: "https://pub.dev"
+    source: hosted
+    version: "13.11.30"
   path:
     dependency: transitive
     description:
@@ -280,14 +288,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
-  scidart:
-    dependency: "direct main"
-    description:
-      name: scidart
-      sha256: af816eed552cadb6a9a324c594515b0cdff41617839345c382047927bd8dc02d
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2-dev.12"
   sky_engine:
     dependency: transitive
     description: flutter

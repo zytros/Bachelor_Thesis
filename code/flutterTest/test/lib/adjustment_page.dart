@@ -4,6 +4,10 @@ import 'package:test/globals.dart';
 import 'package:test/util.dart';
 
 Globals? g;
+int count = 0;
+
+// false = vertical, true = horizontal
+bool rotationAxis = false;
 
 class AdjustmentPage extends StatefulWidget {
   AdjustmentPage(Globals gl, {super.key}) {
@@ -25,7 +29,8 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
     setRotation(g!.currentModel, Vector3(180, 0, 0));
     g!.currentModel.updateTransform();
 
-    calcEigVals(g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
+    g!.eigValsVec = calcEigVals(g!.baseModel, g!.eigenVecsMat, g!.meanVec, g!);
+    g!.baseVec = createModelVector(g!.size, g!.clWidth, g!.vertLift, g!);
     changeModel(g!.currentModel,
         createModelVector(g!.size, g!.clWidth, g!.vertLift, g!), g!);
 
@@ -42,7 +47,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Adjustment'),
             Expanded(
               child: GestureDetector(
                 child: Cube(
@@ -50,13 +54,25 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                   interactive: false,
                 ),
                 onPanUpdate: (details) {
-                  g!.currentModel.rotation.x += details.delta.dy;
-                  g!.currentModel.rotation.y += details.delta.dx;
+                  if (!rotationAxis) {
+                    g!.currentModel.rotation.y += details.delta.dx;
+                  } else {
+                    g!.currentModel.rotation.x += details.delta.dy;
+                  }
                   _scene.update();
                   g!.currentModel.updateTransform();
                 },
               ),
             ),
+            FloatingActionButton.extended(
+              heroTag: 'btn_changeRotationAxis',
+              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              onPressed: () {
+                rotationAxis = !rotationAxis;
+              },
+              label: const Text('Change Rotation Axis'),
+            ),
+            const SizedBox(height: 20),
             const Text('Breast Size'),
             Slider(
               value: g!.size,
@@ -66,8 +82,10 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                 setState(
                   () {
                     g!.size = value;
-                    calcEigVals(
-                        g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
+                    if (count <= 100) {
+                      count++;
+                      return;
+                    }
                     changeModel(
                         g!.currentModel,
                         interpolateVectors(
@@ -75,6 +93,7 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                                 g!.size, g!.clWidth, g!.vertLift, g!),
                             g!),
                         g!);
+                    count = 0;
                   },
                 );
               },
@@ -88,8 +107,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                 setState(
                   () {
                     g!.vertLift = value;
-                    calcEigVals(
-                        g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
                     changeModel(
                         g!.currentModel,
                         interpolateVectors(
@@ -110,8 +127,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                 setState(
                   () {
                     g!.clWidth = value;
-                    calcEigVals(
-                        g!.eigVals, g!.baseModel, g!.eigenVecs, g!.mean, g!);
                     changeModel(
                         g!.currentModel,
                         interpolateVectors(

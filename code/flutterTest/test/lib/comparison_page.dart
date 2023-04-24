@@ -15,7 +15,8 @@ class ComparisonPage extends StatefulWidget {
 }
 
 class _ComparisonPageState extends State<ComparisonPage> {
-  late Scene _scene;
+  late Scene _sceneLeft;
+  late Scene _sceneRight;
 
   @override
   void initState() {
@@ -40,7 +41,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
       ),
       body: GestureDetector(
         child: Cube(
-          onSceneCreated: _onSceneCreated,
+          onSceneCreated: _onSceneLeftCreated,
           interactive: false,
         ),
         onPanUpdate: (details) {
@@ -48,7 +49,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
           g!.baseModel.rotation.y += details.delta.dx;
           g!.currentModel.rotation.x += details.delta.dy;
           g!.currentModel.rotation.y += details.delta.dx;
-          _scene.update();
+          _sceneLeft.update();
           g!.baseModel.updateTransform();
           g!.currentModel.updateTransform();
         },
@@ -56,8 +57,8 @@ class _ComparisonPageState extends State<ComparisonPage> {
     );
   }
 
-  void _onSceneCreated(Scene scene) {
-    _scene = scene;
+  void _onSceneLeftCreated(Scene scene) {
+    _sceneLeft = scene;
     scene.camera.position.z = 10;
     scene.light.setColor(Colors.white, 1.0, 0, 0);
     scene.world.add(g!.baseModel);
