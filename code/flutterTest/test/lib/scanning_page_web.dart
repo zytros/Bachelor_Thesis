@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:test/test.dart';
+import 'package:test/uploadImages.dart';
 import 'package:test/util.dart';
 
 import 'globals.dart';
@@ -154,6 +156,26 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                             },
                       icon: const Icon(Icons.camera_alt),
                       label: const Text('Take Picture'),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Center(
+                    child: FloatingActionButton.extended(
+                      backgroundColor: Colors.indigo,
+                      heroTag: 'btn_uploadPic',
+                      onPressed: () async {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return UploadPage(g!);
+                            },
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.upload_rounded),
+                      label: const Text('Upload Pictures'),
                     ),
                   ),
                 ),
@@ -345,7 +367,7 @@ class _DisplayImagesState extends State<DisplayImages> {
                         debugPrint('imgPaths[2]: ${imgPaths[2]}');
                         debugPrint('ident: $ident');
                         debugPrint('nippleDistance: $nd');
-                        sendImages('http://localhost:8080/', imgPaths[0],
+                        sendImagesCamera('http://localhost:8080/', imgPaths[0],
                             imgPaths[1], imgPaths[2], ident, nd);
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();

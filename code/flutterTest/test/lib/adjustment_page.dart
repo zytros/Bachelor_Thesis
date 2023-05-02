@@ -4,7 +4,6 @@ import 'package:test/globals.dart';
 import 'package:test/util.dart';
 
 Globals? g;
-int count = 0;
 
 // false = vertical, true = horizontal
 bool rotationAxis = false;
@@ -24,8 +23,8 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
 
   @override
   void initState() {
-    setPosition(g!.currentModel, Vector3(0, 2, 0));
-    setScaleUniform(g!.currentModel, g!.scales[0] * 8);
+    setPosition(g!.currentModel, Vector3(0, 3, 0));
+    setScaleUniform(g!.currentModel, g!.scales[0] * g!.cubeScale);
     setRotation(g!.currentModel, Vector3(180, 0, 0));
     g!.currentModel.updateTransform();
 
@@ -64,13 +63,41 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                 },
               ),
             ),
-            FloatingActionButton.extended(
-              heroTag: 'btn_changeRotationAxis',
-              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
-              onPressed: () {
-                rotationAxis = !rotationAxis;
-              },
-              label: const Text('Change Rotation Axis'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FloatingActionButton.extended(
+                  heroTag: 'btn_changeRotationAxis',
+                  backgroundColor: g!.baseColor,
+                  onPressed: () {
+                    rotationAxis = !rotationAxis;
+                  },
+                  label: const Text('Change Rotation Axis'),
+                ),
+                const SizedBox(width: 20),
+                FloatingActionButton.extended(
+                  heroTag: 'btn_reset',
+                  backgroundColor: g!.baseColor,
+                  onPressed: () {
+                    g!.currentModel.rotation.x = 180;
+                    g!.currentModel.rotation.y = 0;
+                    g!.currentModel.rotation.z = 0;
+                    _scene.update();
+                    g!.currentModel.updateTransform();
+                    setState(() {
+                      g!.size = g!.baseSize;
+                      g!.clWidth = g!.baseClWidth;
+                      g!.vertLift = g!.baseVertLift;
+                      changeModel(
+                          g!.currentModel,
+                          createModelVector(
+                              g!.size, g!.clWidth, g!.vertLift, g!),
+                          g!);
+                    });
+                  },
+                  label: const Text('Reset'),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             const Text('Breast Size'),
@@ -82,10 +109,7 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                 setState(
                   () {
                     g!.size = value;
-                    if (count <= 100) {
-                      count++;
-                      return;
-                    }
+
                     changeModel(
                         g!.currentModel,
                         interpolateVectors(
@@ -93,7 +117,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                                 g!.size, g!.clWidth, g!.vertLift, g!),
                             g!),
                         g!);
-                    count = 0;
                   },
                 );
               },
@@ -137,25 +160,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                   },
                 );
               },
-            ),
-            OutlinedButton(
-              onPressed: () {
-                g!.currentModel.rotation.x = 180;
-                g!.currentModel.rotation.y = 0;
-                g!.currentModel.rotation.z = 0;
-                _scene.update();
-                g!.currentModel.updateTransform();
-                setState(() {
-                  g!.size = g!.baseSize;
-                  g!.clWidth = g!.baseClWidth;
-                  g!.vertLift = g!.baseVertLift;
-                  changeModel(
-                      g!.currentModel,
-                      createModelVector(g!.size, g!.clWidth, g!.vertLift, g!),
-                      g!);
-                });
-              },
-              child: const Text('Reset'),
             ),
           ],
         ),

@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FloatingActionButton.extended(
-              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              backgroundColor: g.baseColor,
               heroTag: 'btn_scanning',
               onPressed: () {
                 Navigator.of(context).push(
@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             FloatingActionButton.extended(
-              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              backgroundColor: g.baseColor,
               heroTag: 'btn_adjustment',
               onPressed: () {
                 Navigator.of(context).push(
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(width: 20),
             FloatingActionButton.extended(
-              backgroundColor: const Color.fromARGB(255, 134, 2, 2),
+              backgroundColor: g.baseColor,
               heroTag: 'btn_comparison',
               onPressed: () {
                 Navigator.of(context).push(

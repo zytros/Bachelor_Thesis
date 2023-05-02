@@ -11,24 +11,6 @@ import 'package:test/globals.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ml_linalg/linalg.dart' as ml;
 
-// TODO
-// ML_LINALG
-
-/// Interpolates vertices between two obj files and updates destination transform
-void interpolateObj(Object? lower, Object? upper, Object? dest, double a) {
-  assert(lower!.mesh.vertices.length == upper!.mesh.vertices.length);
-  int length = lower!.mesh.vertices.length;
-  for (int i = 0; i < length; i++) {
-    dest!.mesh.vertices[i].x =
-        (1 - a) * lower.mesh.vertices[i].x + a * upper!.mesh.vertices[i].x;
-    dest.mesh.vertices[i].y =
-        (1 - a) * lower.mesh.vertices[i].y + a * upper.mesh.vertices[i].y;
-    dest.mesh.vertices[i].z =
-        (1 - a) * lower.mesh.vertices[i].z + a * upper.mesh.vertices[i].z;
-  }
-  dest!.updateTransform();
-}
-
 /// Sets position of an object from a vector3
 void setPosition(Object? obj, Vector3 pos) {
   obj!.position.x = pos.x;
@@ -55,41 +37,7 @@ void setScaleUniform(Object? obj, double scale) {
   setScale(obj, Vector3(scale, scale, scale));
 }
 
-/// Read File as String, given filename
-/// Does not work on web
-String readFile(String filename) {
-  return File(filename).readAsStringSync();
-}
-
-/// Split lines of read file, given file as string
-List<String> splitLines(String text) {
-  LineSplitter ls = const LineSplitter();
-  return ls.convert(text);
-}
-
-/// Add usemtl line
-List<String> add_usemtl_line(List<String> lines) {
-  for (var i = 0; i < lines.length; i++) {
-    if (lines[i].startsWith('f')) {
-      lines.insert(i, 'usemtl myMaterial');
-      lines.insert(i, '# need to add this line, so it works with cube');
-      break;
-    }
-  }
-
-  return lines;
-}
-
-/// Saves lines in file
-/// Does not work on web
-void saveLines(List<String> lines, String filename) {
-  String fileAsStr = '';
-  for (var i = 0; i < lines.length; i++) {
-    fileAsStr = '$fileAsStr${lines[i]}\n';
-  }
-  File(filename).writeAsStringSync(fileAsStr);
-}
-
+/// debug print for cube
 void thisisit(String a) {
   debugPrint(a);
 }
@@ -134,8 +82,8 @@ Future<String> getImgHTTP(String url) async {
 /// param identifier: identifier for the images
 /// param nippleDist: nipple distance
 /// returns Future<String> of response
-Future<String> sendImages(String url, String img1, String img2, String img3,
-    String identifier, int nippleDist) async {
+Future<String> sendImagesCamera(String url, String img1, String img2,
+    String img3, String identifier, int nippleDist) async {
   // need new dio instance for post each request
   final locDio = Dio();
   Uint8List bytes1 = await networkImgToBytes(img1);
@@ -162,7 +110,34 @@ Future<String> sendImages(String url, String img1, String img2, String img3,
       },
     ),
   );
+  return response.data.toString();
+}
 
+Future<String> sendImagesUpload(String url, Uint8List img1, Uint8List img2,
+    Uint8List img3, String identifier, int nippleDist) async {
+  // need new dio instance for post each request
+  final locDio = Dio();
+  var data = {
+    "img1": img1,
+    "img2": img2,
+    "img3": img3,
+    "nippleDist": nippleDist,
+    "identifier": identifier,
+  };
+  int length = img1.length +
+      img2.length +
+      img3.length +
+      nippleDist.toString().length +
+      identifier.length;
+  var response = await locDio.post(
+    url,
+    data: data,
+    options: Options(
+      headers: {
+        Headers.contentLengthHeader: length,
+      },
+    ),
+  );
   return response.data.toString();
 }
 

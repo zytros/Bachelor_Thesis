@@ -25,11 +25,18 @@ class Globals {
   double nippleDistance = 12;
   double distCutoff = 5;
 
+  Color baseColor = const Color.fromARGB(255, 134, 2, 2);
+
   // scales x,y,z obj*scale = cube space
-  List<double> scales = [0.011431561, 0.008130968, 0.007232266];
+  final List<double> scales = [0.011431561, 0.008130968, 0.007232266];
+  final double cubeScale = 15;
 
   // size, vertLift, clWidth
-  List<double> stddevs = [50.187588073453, 40.423292736364, 25.940261854601];
+  final List<double> stddevs = [
+    50.187588073453,
+    40.423292736364,
+    25.940261854601
+  ];
 
   String obj = '';
   String mtl = '';
