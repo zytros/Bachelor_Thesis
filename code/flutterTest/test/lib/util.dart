@@ -234,6 +234,8 @@ List<double> createModelVector(
   eigVals[3] = clW * g.stddevs[2];
   g.eigValsVec = ml.Vector.fromList(eigVals);
 
+  debugPrint('[${eigVals[1]}, ${eigVals[2]}, ${eigVals[3]}]');
+
   ml.Vector mat = (g.eigenVecsMat * g.eigValsVec).toVector() + g.meanVec;
 
   return mat.toList();
@@ -415,4 +417,36 @@ List<double> copyDoubleList(List<double> list) {
     ret.add(list[i]);
   }
   return ret;
+}
+
+void setCamPos(Scene scene, Vector3 pos) {
+  scene.camera.position.x = pos.x;
+  scene.camera.position.y = pos.y;
+  scene.camera.position.z = pos.z;
+}
+
+void setModelAndCamera(
+    Object model, Scene scene, Vector3 rot, Vector3 modPos, Vector3 camPos) {
+  model.rotation.x = rot.x;
+  model.rotation.y = rot.y;
+  model.rotation.z = rot.z;
+  model.position.x = modPos.x;
+  model.position.y = modPos.y;
+  model.position.z = modPos.z;
+  setCamPos(scene, camPos);
+  scene.update();
+  model.updateTransform();
+}
+
+void camSetDegreeX(Scene scene, double a, double min, double max) {
+  double z = scene.camera.position.z;
+  double y = scene.camera.position.y;
+  double d = sqrt(z * z + y * y);
+  double theta = atan2(y, z) + a;
+  if (degrees(theta) < min || degrees(theta) > max) return;
+  double newz = d * cos(theta);
+  double newy = d * sin(theta);
+  scene.camera.position.z = newz;
+  scene.camera.position.y = newy;
+  double deg = degrees(theta);
 }

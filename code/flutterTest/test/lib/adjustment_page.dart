@@ -7,6 +7,8 @@ Globals? g;
 
 // false = vertical, true = horizontal
 bool rotationAxis = false;
+// 0 = front, 1 = above, 2 = below
+int view = 0;
 
 class AdjustmentPage extends StatefulWidget {
   AdjustmentPage(Globals gl, {super.key}) {
@@ -42,39 +44,195 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
       appBar: AppBar(
         title: const Text('Adjustment'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: GestureDetector(
-                child: Cube(
-                  onSceneCreated: _onSceneCreated,
-                  interactive: false,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Expanded(flex: 1, child: SizedBox.expand()),
+          Expanded(
+            flex: 5,
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    child: Cube(
+                      onSceneCreated: _onSceneCreated,
+                      interactive: false,
+                    ),
+                    onPanUpdate: (details) {
+                      double rot = g!.currentModel.rotation.y;
+
+                      if (view == 0) {
+                        rot += details.delta.dx / 2;
+                        if (rot > 90 || rot < -90) return;
+                        g!.currentModel.rotation.y = rot;
+                      } else if (view == 1) {
+                        camSetDegreeX(_scene, details.delta.dy / -300, 0, 10);
+                      } else {
+                        camSetDegreeX(_scene, details.delta.dy / 300, 0, 10);
+                      }
+                      _scene.update();
+                      g!.currentModel.updateTransform();
+                    },
+                  ),
                 ),
-                onPanUpdate: (details) {
-                  if (!rotationAxis) {
-                    g!.currentModel.rotation.y += details.delta.dx;
-                  } else {
-                    g!.currentModel.rotation.x += details.delta.dy;
-                  }
-                  _scene.update();
-                  g!.currentModel.updateTransform();
-                },
-              ),
+                const Text('Breast Size'),
+                Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: 100,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Slider(
+                        value: g!.size,
+                        min: -3,
+                        max: 3,
+                        onChanged: (value) {
+                          setState(
+                            () {
+                              g!.size = value;
+
+                              changeModel(
+                                  g!.currentModel,
+                                  interpolateVectors(
+                                      createModelVector(
+                                          g!.size, g!.clWidth, g!.vertLift, g!),
+                                      g!),
+                                  g!);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: 100,
+                      ),
+                    ),
+                  ],
+                ),
+                const Text('Vertical Lift'),
+                Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: 100,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Slider(
+                        value: g!.vertLift,
+                        min: -3,
+                        max: 3,
+                        onChanged: (value) {
+                          setState(
+                            () {
+                              g!.vertLift = value;
+                              changeModel(
+                                  g!.currentModel,
+                                  interpolateVectors(
+                                      createModelVector(
+                                          g!.size, g!.clWidth, g!.vertLift, g!),
+                                      g!),
+                                  g!);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: 100,
+                      ),
+                    ),
+                  ],
+                ),
+                const Text('Cleavage Width'),
+                Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: 100,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Slider(
+                        value: g!.clWidth,
+                        min: -3,
+                        max: 3,
+                        onChanged: (value) {
+                          setState(
+                            () {
+                              g!.clWidth = value;
+                              changeModel(
+                                  g!.currentModel,
+                                  interpolateVectors(
+                                      createModelVector(
+                                          g!.size, g!.clWidth, g!.vertLift, g!),
+                                      g!),
+                                  g!);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: 100,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Row(
+          ),
+          Expanded(
+            flex: 1,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FloatingActionButton.extended(
                   heroTag: 'btn_changeRotationAxis',
                   backgroundColor: g!.baseColor,
                   onPressed: () {
-                    rotationAxis = !rotationAxis;
+                    view = (view + 1) % 3;
+                    if (view == 0) {
+                      setModelAndCamera(
+                          g!.currentModel,
+                          _scene,
+                          Vector3(180, 0, 0),
+                          Vector3(0, 3, 0),
+                          Vector3(0, 0, 10));
+                    } else if (view == 1) {
+                      setModelAndCamera(
+                          g!.currentModel,
+                          _scene,
+                          Vector3(90, 180, 0),
+                          Vector3(0, 0, 0),
+                          Vector3(0, 0, 8));
+                    } else {
+                      setModelAndCamera(
+                          g!.currentModel,
+                          _scene,
+                          Vector3(95, 0, 0),
+                          Vector3(0, -1.5, 0),
+                          Vector3(0, 0, 12));
+                    }
                   },
-                  label: const Text('Change Rotation Axis'),
+                  label: const Text('Perspective'),
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(height: 20),
                 FloatingActionButton.extended(
                   heroTag: 'btn_reset',
                   backgroundColor: g!.baseColor,
@@ -99,70 +257,9 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            const Text('Breast Size'),
-            Slider(
-              value: g!.size,
-              min: -3,
-              max: 3,
-              onChanged: (value) {
-                setState(
-                  () {
-                    g!.size = value;
-
-                    changeModel(
-                        g!.currentModel,
-                        interpolateVectors(
-                            createModelVector(
-                                g!.size, g!.clWidth, g!.vertLift, g!),
-                            g!),
-                        g!);
-                  },
-                );
-              },
-            ),
-            const Text('Vertical Lift'),
-            Slider(
-              value: g!.vertLift,
-              min: -3,
-              max: 3,
-              onChanged: (value) {
-                setState(
-                  () {
-                    g!.vertLift = value;
-                    changeModel(
-                        g!.currentModel,
-                        interpolateVectors(
-                            createModelVector(
-                                g!.size, g!.clWidth, g!.vertLift, g!),
-                            g!),
-                        g!);
-                  },
-                );
-              },
-            ),
-            const Text('Cleavage Width'),
-            Slider(
-              value: g!.clWidth,
-              min: -3,
-              max: 3,
-              onChanged: (value) {
-                setState(
-                  () {
-                    g!.clWidth = value;
-                    changeModel(
-                        g!.currentModel,
-                        interpolateVectors(
-                            createModelVector(
-                                g!.size, g!.clWidth, g!.vertLift, g!),
-                            g!),
-                        g!);
-                  },
-                );
-              },
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }

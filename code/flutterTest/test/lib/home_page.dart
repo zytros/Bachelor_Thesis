@@ -18,50 +18,24 @@ class HomePage extends StatelessWidget {
     g.initBrestIndices();
     g.initOutline();
 
-    g.baseModel = true
-        // ignore: dead_code
-        ? Object(
-            fileName: 'http://localhost:8080/',
-            position: Vector3(0, 2, 0),
-            scale: Vector3(10, 10, 10),
-            rotation: Vector3(180, 0, 0),
-            visiable: true,
-            lighting: false,
-            backfaceCulling: true,
-            src: 's')
-        :
-        // ignore: dead_code
-        Object(
-            fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
-            position: Vector3(0, 2, 0),
-            scale: Vector3(10, 10, 10),
-            rotation: Vector3(180, 0, 0),
-            visiable: true,
-            lighting: false,
-            backfaceCulling: true,
-          );
-    g.currentModel = true
-        // ignore: dead_code
-        ? Object(
-            fileName: 'http://localhost:8080/',
-            position: Vector3(0, 2, 0),
-            scale: Vector3(10, 10, 10),
-            rotation: Vector3(180, 0, 0),
-            visiable: true,
-            lighting: false,
-            backfaceCulling: true,
-            src: 's')
-        :
-        // ignore: dead_code
-        Object(
-            fileName: 'assets/models/fitModel_Demo_Augmentation.obj',
-            position: Vector3(0, 2, 0),
-            scale: Vector3(10, 10, 10),
-            rotation: Vector3(180, 0, 0),
-            visiable: true,
-            lighting: false,
-            backfaceCulling: true,
-          );
+    g.baseModel = Object(
+        fileName: 'http://localhost:8080/',
+        position: Vector3(0, 2, 0),
+        scale: Vector3(10, 10, 10),
+        rotation: Vector3(180, 0, 0),
+        visiable: true,
+        lighting: false,
+        backfaceCulling: true,
+        src: 's');
+    g.currentModel = Object(
+        fileName: 'http://localhost:8080/',
+        position: Vector3(0, 2, 0),
+        scale: Vector3(10, 10, 10),
+        rotation: Vector3(180, 0, 0),
+        visiable: true,
+        lighting: false,
+        backfaceCulling: true,
+        src: 's');
   }
 
   @override

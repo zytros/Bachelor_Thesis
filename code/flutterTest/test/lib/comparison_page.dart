@@ -65,11 +65,15 @@ class _ComparisonPageState extends State<ComparisonPage> {
               ),
               onPanUpdate: (details) {
                 if (!rotationAxis) {
-                  g!.baseModel.rotation.y += details.delta.dx;
-                  g!.currentModel.rotation.y += details.delta.dx;
+                  // change model rotation
+                  double rot = g!.baseModel.rotation.y + details.delta.dx;
+                  if (rot > 90 || rot < -90) return;
+                  g!.baseModel.rotation.y = rot;
+                  g!.currentModel.rotation.y = rot;
                 } else {
-                  g!.baseModel.rotation.x += details.delta.dy;
-                  g!.currentModel.rotation.x += details.delta.dy;
+                  // change camera view
+                  camSetDegreeX(_sceneLeft, details.delta.dy / 300, -80, 89);
+                  camSetDegreeX(_sceneRight, details.delta.dy / 300, -80, 89);
                 }
                 _sceneLeft.update();
                 _sceneRight.update();
@@ -87,12 +91,18 @@ class _ComparisonPageState extends State<ComparisonPage> {
                     backgroundColor: g!.baseColor,
                     heroTag: 'btn_resetModel',
                     onPressed: () {
-                      setRotation(g!.baseModel, Vector3(180, 0, 0));
-                      setRotation(g!.currentModel, Vector3(180, 0, 0));
-                      _sceneLeft.update();
-                      _sceneRight.update();
-                      g!.baseModel.updateTransform();
-                      g!.currentModel.updateTransform();
+                      setModelAndCamera(
+                          g!.baseModel,
+                          _sceneLeft,
+                          Vector3(180, 0, 0),
+                          Vector3(0, 3, 0),
+                          Vector3(0, 0, 10));
+                      setModelAndCamera(
+                          g!.currentModel,
+                          _sceneRight,
+                          Vector3(180, 0, 0),
+                          Vector3(0, 3, 0),
+                          Vector3(0, 0, 10));
                     },
                     label: const Text('Reset Model')),
                 const SizedBox(width: 20),
