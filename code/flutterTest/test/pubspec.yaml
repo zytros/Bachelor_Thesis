@@ -30,19 +30,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #webview_flutter_plus: ^0.3.0+2
-  #flutter_cube: ^0.1.1
-  #three_dart: ^0.0.16
-  #three_dart_jsm: ^0.0.9
-  camera: ^0.10.3+2
-  camera_web: ^0.3.1+2
-  dio: ^5.0.3
-  http: ^0.13.5
-  http_parser: ^4.0.2
-  image: ^4.0.15
-  image_utils_class: ^2.0.0
-  ml_linalg: ^13.11.30
-  file_picker: ^5.2.11
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -72,12 +59,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - assets/
-    - assets/models/
-    - assets/model2/
-    - assets/breast_indices/
-    - resources/models/hgcut/
+  # assets:
+  #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

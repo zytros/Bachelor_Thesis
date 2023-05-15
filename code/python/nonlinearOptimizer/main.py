@@ -1,7 +1,7 @@
 import numpy as np
 from readply import readPly, getVertList
 from vedo import *
-from pca import createFile, show, createModel
+from pca import createFile, show, createModel, getVertCoords
 import numpy as np
 
 def toTuple(vertlist):
@@ -95,12 +95,13 @@ if __name__ == '__main__':
     eigenValuesAugmentation_fit = [37.47394805, -49.07828283,  -0.6562043,  -24.62020633, -27.13628352, 6.57057748, -11.42703975, -18.79096601, -10.54424185, 3.44637848, -12.89579981, -7.87242574, -13.9092693, 2.27681137, -7.3060829, -7.73122333, -4.43121648, 5.80548907, 10.15422231, 14.24570948, -17.25150115, 0.97727416, -3.08962112, 5.8461985, 6.87403008, -3.17929581, 1.36895233, -0.74191196, -0.60536829, 5.94243889]
     params = getParams()
     model = getVertList(readPly('0016.ply'))
+    model = getVertCoords('objs/fitModel_Demo_Augmentation.obj')
     x = 9.2
     z = -10
     model = toTuple(model)
     line = []
-    for i in range(1500):
-        line.append([x, 6 + i/100, z])
+    for i in range(1000):
+        line.append([x, 9 + i/100, z])
     clList = []
     for v in line:
         clList.append(getClosestVert(model, v))
@@ -108,13 +109,13 @@ if __name__ == '__main__':
     idxList = idxVertinList(model, clList)
     
     for i in range(len(model)):
-       if i not in idxList:
-           model[i] = [model[i][0], model[i][1], model[i][2]/2]
+       if i in idxList:
+           model[i] = [model[i][0], model[i][1], model[i][2]*1.1]
     
-    lines = createLines(params)
-    array = np.array(lines)
+    lines = createLines([[-49.0, -0.65, -24.0]])
+    #array = np.array(lines)
     #np.savetxt('lines.txt', lines, fmt="%.12f")
-    
+    print(lines)
     createFile('test.obj', flatten(model))
     
     show('test.obj')

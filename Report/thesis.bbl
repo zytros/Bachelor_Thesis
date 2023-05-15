@@ -1,0 +1,17 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{ZRB{\etalchar{+}}04}
+
+\bibitem[Alt89]{Altman89QuaternionScandal}
+Simon~L. Altman.
+\newblock Hamilton, grassmann, rodrigues, and the quaternion scandal---what
+  went wrong with one of the major mathematical discoveries of the nineteenth
+  century?
+\newblock {\em A Mathematical Association of America journal}, dec 1989.
+
+\bibitem[ZRB{\etalchar{+}}04]{Zwicker04Perspective}
+Matthias Zwicker, Jussi R\"as\"anen, Mario Botsch, Carsten Dachsbacher, and
+  Mark Pauly.
+\newblock Perspective accurate splatting.
+\newblock In {\em Proceedings of Graphics Interface}, pages 247--254, 2004.
+
+\end{thebibliography}

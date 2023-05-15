@@ -1,5 +1,3 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive",
-    "liveServer.settings.port": 5502,
     "cmake.configureOnOpen": false
 }

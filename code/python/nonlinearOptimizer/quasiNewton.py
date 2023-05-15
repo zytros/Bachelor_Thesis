@@ -5,6 +5,7 @@ from main import toTuple
 import numpy as np
 import pandas as pd
 import time
+from scipy.optimize import minimize
 
 leftLineIdxs, rightLineIdxs = [1042, 1053, 1073, 1074, 1083, 1098, 1118, 1119, 1139, 1140, 1143, 1589, 1632, 1845, 1853, 1965, 1989, 2010, 2011, 2707, 2709, 2782, 2783, 2853, 2897, 2902, 2904, 2915, 2916, 3045, 3076, 3128, 3202, 3203, 3252, 3253, 3267, 3328, 3341], [20, 22, 37, 38, 40, 46, 59, 67, 69, 81, 109, 110, 115, 119, 337, 338, 343, 613, 834, 835, 864, 1005, 1030, 2039, 2121, 2122, 2198, 2226, 2246, 2247, 2249, 2487, 2488, 2489, 2517, 2579, 2580, 2646]
 eigenVectors = read_matrix_from_hdf5('eigenVectors.h5')
@@ -41,7 +42,7 @@ class Minimizer():
         return sum
     
     def run(self):
-        res = minimize_parallel(self.fun, self.x0, options={'maxiter': 20})
+        res = minimize_parallel(self.fun, self.x0, options={'maxiter': 10})
         print('loss: ', res.fun)
         print('x: ', res.x[0], ' ', res.x[1], ' ', res.x[2])
         return res
@@ -84,8 +85,9 @@ def saveToFile(list):
     f.close()
     
 def testOne():
+    #o = minimize(fun, x0, method='Nelder-Mead', options={'maxiter': 10})
     print('-------------------------------------------------')
-    line = toTuple(df_lines.values[1])
+    line = toTuple(df_lines.values[14])
     t = time.time()
     minobj = Minimizer(x0, line, eigenValuesAugmentation_fit)
     res = minobj.run()
@@ -93,7 +95,7 @@ def testOne():
     print('time elapsed: ', time.time() - t)
 
 def main():
-    testAll()
+    testOne()
         
 
 if __name__ == '__main__':
