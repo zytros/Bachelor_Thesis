@@ -64,7 +64,6 @@ class _CubeState extends State<Cube> {
   void _onPointerMove(DragUpdateDetails details) {
     setState(() {
       g.line.add(details.localPosition);
-      get3dPointOf_uv(details.localPosition, 90, g).toString();
     });
   }
 
@@ -118,6 +117,7 @@ class _CubePainter extends CustomPainter {
     if (!draw) {
       _points.clear();
     }
+    // Draw line on canvas
     Paint paint = Paint()
       ..color = m.Colors.grey[100]!
       ..strokeWidth = 4.0

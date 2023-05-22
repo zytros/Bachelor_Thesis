@@ -91,8 +91,17 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: const Icon(Icons.arrow_back_ios_rounded),
-                      label: const Text('Back'),
+                      icon: const Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -154,8 +163,17 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                                 },
                               );
                             },
-                      icon: const Icon(Icons.camera_alt),
-                      label: const Text('Take Picture'),
+                      icon: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        'Take Picture',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -176,8 +194,17 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                           );
                         }
                       },
-                      icon: const Icon(Icons.upload_rounded),
-                      label: const Text('Upload Pictures'),
+                      icon: const Icon(
+                        Icons.upload_rounded,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        'Upload Pictures',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -187,8 +214,17 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                     child: FloatingActionButton.extended(
                       backgroundColor: g!.baseColor,
                       heroTag: 'btn_showPics',
-                      icon: const Icon(Icons.slideshow_rounded),
-                      label: const Text('Show Pictures'),
+                      icon: const Icon(
+                        Icons.slideshow_rounded,
+                        color: Colors.white,
+                      ),
+                      label: const Text(
+                        'Show Pictures',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
                       onPressed: checkPic
                           ? null
                           : () async {
@@ -249,7 +285,13 @@ class _ImageDisplayerState extends State<ImageDisplayer> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    label: const Text('Retake Picture'),
+                    label: const Text(
+                      'Retake Picture',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -271,7 +313,13 @@ class _ImageDisplayerState extends State<ImageDisplayer> {
                       );
                       Navigator.of(context).pop();
                     },
-                    label: const Text('Take next Picture'),
+                    label: const Text(
+                      'Take next Picture',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -351,7 +399,13 @@ class _DisplayImagesState extends State<DisplayImages> {
                         });
                         Navigator.of(context).pop();
                       },
-                      label: const Text('Retake Pictures'),
+                      label: const Text(
+                        'Retake Pictures',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -361,7 +415,7 @@ class _DisplayImagesState extends State<DisplayImages> {
                       backgroundColor: g!.baseColor,
                       heroTag: 'btn_SendPics',
                       onPressed: () {
-                        String ident = getIdent();
+                        String ident = getIdentifier();
                         int nd = g!.nippleDistance.round();
                         debugPrint('Sending Pictures');
                         debugPrint('imgPaths[0]: ${imgPaths[0]}');
@@ -374,19 +428,13 @@ class _DisplayImagesState extends State<DisplayImages> {
                         Navigator.of(context).pop();
                         Navigator.of(context).pop();
                       },
-                      label: const Text('Send Pictures'),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: FloatingActionButton.extended(
-                      backgroundColor: g!.baseColor,
-                      heroTag: 'btn_return',
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      label: const Text('return'),
+                      label: const Text(
+                        'Send Pictures',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
                     ),
                   ),
                 ),

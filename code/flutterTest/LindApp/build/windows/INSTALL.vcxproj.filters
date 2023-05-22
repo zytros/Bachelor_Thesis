@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\lucas\Documents\Bachelor_Thesis\code\flutterTest\LindApp\build\windows\CMakeFiles\9c40bbe8f6803c78a6a76225146cf251\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D86CC017-8EFB-38BA-BC8C-FB4B3DF7C6EE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

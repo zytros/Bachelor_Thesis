@@ -9,17 +9,19 @@ import 'package:test/util.dart';
 
 late List<CameraDescription> cameras;
 Globals g = Globals();
+Stopwatch stopwatch = Stopwatch();
 
 class HomePage extends StatelessWidget {
   HomePage(List<CameraDescription> cams, {super.key}) {
     cameras = cams;
     g.initEigenVecs();
     g.initMean();
-    g.initBrestIndices();
+    g.initbreastIndices();
     g.initOutline();
-
+    g.initBreasLineIndices();
+    String url = 'http://lsic.duckdns.org:28080/';
     g.baseModel = Object(
-        fileName: 'http://localhost:8080/',
+        fileName: url,
         position: Vector3(0, 2, 0),
         scale: Vector3(10, 10, 10),
         rotation: Vector3(180, 0, 0),
@@ -28,7 +30,7 @@ class HomePage extends StatelessWidget {
         backfaceCulling: true,
         src: 's');
     g.currentModel = Object(
-        fileName: 'http://localhost:8080/',
+        fileName: url,
         position: Vector3(0, 2, 0),
         scale: Vector3(10, 10, 10),
         rotation: Vector3(180, 0, 0),
@@ -36,6 +38,7 @@ class HomePage extends StatelessWidget {
         lighting: false,
         backfaceCulling: true,
         src: 's');
+    stopwatch.start();
   }
 
   @override
@@ -62,9 +65,7 @@ class HomePage extends StatelessWidget {
               },
               label: const Text(
                 'Scanning',
-                style: TextStyle(
-                  fontSize: 15,
-                ),
+                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
             ),
             const SizedBox(width: 20),
@@ -72,6 +73,7 @@ class HomePage extends StatelessWidget {
               backgroundColor: g.baseColor,
               heroTag: 'btn_adjustment',
               onPressed: () {
+                if (stopwatch.elapsedMilliseconds < 2000) return;
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
@@ -80,7 +82,13 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
-              label: const Text('Adjustment'),
+              label: const Text(
+                'Adjustment',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
             ),
             const SizedBox(width: 20),
             FloatingActionButton.extended(
@@ -95,7 +103,13 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
-              label: const Text('Comparison'),
+              label: const Text(
+                'Comparison',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+              ),
             ),
           ],
         ),

@@ -112,10 +112,9 @@ if __name__ == '__main__':
        if i in idxList:
            model[i] = [model[i][0], model[i][1], model[i][2]*1.1]
     
-    lines = createLines([[-49.0, -0.65, -24.0]])
-    #array = np.array(lines)
-    #np.savetxt('lines.txt', lines, fmt="%.12f")
-    print(lines)
+    lines = createLines(params)
+    array = np.array(lines)
+    np.savetxt('lines.txt', lines, fmt="%.12f")
     createFile('test.obj', flatten(model))
     
     show('test.obj')

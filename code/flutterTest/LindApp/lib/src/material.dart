@@ -41,14 +41,14 @@ class Material {
 /// Reference：http://paulbourke.net/dataformats/mtl/
 ///
 
-// TODO: Implement server mtl file loading.
-
 Future<Map<String, Material>> loadMtl(String fileName,
     {String src = 'a'}) async {
   final materials = Map<String, Material>();
   String data = '';
 
 // try catch if mtl file not found
+
+  /// Add functionality to load data from string and from network
   try {
     switch (src) {
       case 'a':
@@ -59,9 +59,6 @@ Future<Map<String, Material>> loadMtl(String fileName,
         break;
       case 's':
         data = await getMtlHTTP(fileName);
-
-        // DEBUG
-        //data = await rootBundle.loadString('assets/models/fitModel_Demo_Augmentation.mtl');
         break;
       case 'str':
         data = await getMtlHTTP(fileName);
@@ -152,7 +149,7 @@ Future<Map<String, Material>> loadMtl(String fileName,
 
 /// load an image from asset
 
-// Todo: Implement server image loading.
+/// Add functionality to load data from string and from network
 
 Future<Image> loadImageFromAsset(String fileName, {String src = 'a'}) {
   final c = Completer<Image>();
@@ -168,7 +165,6 @@ Future<Image> loadImageFromAsset(String fileName, {String src = 'a'}) {
     case 's':
       dataFuture =
           getImgHTTP(fileName).then((value) => stringToUint8List(value));
-      //dataFuture = rootBundle.load('models/texture_Demo_Augmentation.png').then((data) => data.buffer.asUint8List());
       break;
     case 'str':
       dataFuture =

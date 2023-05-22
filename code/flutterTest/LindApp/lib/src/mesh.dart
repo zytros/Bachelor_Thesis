@@ -95,6 +95,8 @@ Future<List<Mesh>> loadObj(String fileName, bool normalized,
   String basePath = path.dirname(fileName);
 
   var data;
+
+  /// Add functionality to load data from string and from network
   switch (src) {
     case 'a':
       data = await rootBundle.loadString(fileName);
@@ -103,14 +105,10 @@ Future<List<Mesh>> loadObj(String fileName, bool normalized,
       data = await File(fileName).readAsString();
       break;
     case 's':
-      // TODO: Implement server obj file loading.
       data = await getObjHTTP(fileName);
-
-      //DEMUG
-      //data = await rootBundle.loadString('assets/models/fitModel_Demo_Augmentation.obj');
       break;
     case 'str':
-      data = await getObjString(fileName);
+      data = await getOBJasString(fileName);
       break;
     default:
       throw Exception('Invalid src: $src');
@@ -253,8 +251,6 @@ Future<List<Mesh>> _buildMesh(
       newIndices = deepCopyPoly(vertexIndices);
       newTextureIndices = new List<Polygon>.from(textureIndices);
     } else {
-      // DEBUG
-      //never enter here
       assert(false);
       _copyRangeIndices(
           faceStart, faceEnd, vertices, vertexIndices, newVertices, newIndices);
@@ -350,7 +346,6 @@ void _remapZeroAreaUVs(List<Offset> texcoords, List<Polygon> textureIndices,
 /// Rebuild vertices and texture coordinates to keep the same length.
 void _rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
     List<Polygon> vertexIndices, List<Polygon> textureIndices) {
-  // DEBUG
   int counter = 0;
 
   int texcoordsCount = texcoords.length;

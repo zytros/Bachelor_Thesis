@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:test/flutter_cube.dart';
 import 'package:test/globals.dart';
+import 'package:test/minimize.dart';
 import 'package:test/util.dart';
+import 'package:ml_linalg/linalg.dart' as ml;
 
 Globals? g;
 List<String> txt_btn_draw = ['Draw on Model', 'Rotate Model'];
@@ -27,11 +29,12 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
   @override
   void initState() {
     setPosition(g!.currentModel, Vector3(0, 3, 0));
-    setScaleUniform(g!.currentModel, g!.scales[0] * g!.cubeScale);
+    setScaleUniform(g!.currentModel, g!.cubeScale);
     setRotation(g!.currentModel, Vector3(180, 0, 0));
     g!.currentModel.updateTransform();
 
-    g!.eigValsVec = calcEigVals(g!.baseModel, g!.eigenVecsMat, g!.meanVec, g!);
+    g!.eigValsVec = calculateEigenValues(g!.baseModel, g!.meanVec, g!);
+    g!.baseEigVals = calculateEigenValues(g!.baseModel, g!.meanVec, g!);
     g!.baseVec = createModelVector(g!.size, g!.clWidth, g!.vertLift, g!);
     changeModel(g!.currentModel,
         createModelVector(g!.size, g!.clWidth, g!.vertLift, g!), g!);
@@ -274,6 +277,7 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                       g!.size = g!.baseSize;
                       g!.clWidth = g!.baseClWidth;
                       g!.vertLift = g!.baseVertLift;
+                      g!.eigValsVec = g!.baseEigVals;
                       changeModel(
                           g!.currentModel,
                           createModelVector(
@@ -313,6 +317,37 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                             fontSize: 15,
                           ),
                         ),
+                ),
+                const SizedBox(height: 20),
+                FloatingActionButton.extended(
+                  heroTag: 'btn_allignBreast',
+                  backgroundColor: g!.baseColor,
+                  onPressed: () {
+                    List<List<double>> line = [];
+                    for (int i = 0; i < g!.line.length; i++) {
+                      Vector3 v = get3dPointOfUV(g!.line[i],
+                          g!.currentModel.scene!.camera.position.x, g!);
+                      line.add([v.x, v.y, v.z]);
+                    }
+                    debugPrint(line[0][0].toString());
+                    bool side = (_scene.camera.position.x > 0) ? false : true;
+                    Minimizer m = Minimizer(
+                        g!.eigValsVec, line, g!.eigenVecsMat, g!, side);
+                    m.reducedMatrix = m.getReducedMatrix();
+                    g!.eigValsVec = m.run();
+                    ml.Vector vec =
+                        (g!.eigenVecsMat * g!.eigValsVec).toVector() +
+                            g!.meanVec;
+                    changeModel(g!.currentModel,
+                        interpolateVectors(vec.toList(), g!), g!);
+                  },
+                  label: const Text(
+                    'Allign Breast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
                 ),
               ],
             ),

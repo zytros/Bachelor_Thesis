@@ -24,12 +24,12 @@ class _ComparisonPageState extends State<ComparisonPage> {
   @override
   void initState() {
     setPosition(g!.baseModel, Vector3(0, 3, 0));
-    setScaleUniform(g!.baseModel, g!.scales[0] * g!.cubeScale);
+    setScaleUniform(g!.baseModel, g!.cubeScale);
     setRotation(g!.baseModel, Vector3(180, 0, 0));
     g!.baseModel.updateTransform();
 
     setPosition(g!.currentModel, Vector3(0, 3, 0));
-    setScaleUniform(g!.currentModel, g!.scales[0] * g!.cubeScale);
+    setScaleUniform(g!.currentModel, g!.cubeScale);
     setRotation(g!.currentModel, Vector3(180, 0, 0));
     g!.currentModel.updateTransform();
 
@@ -42,6 +42,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
       appBar: AppBar(
         title: const Text('Comparison'),
       ),
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           Expanded(
@@ -106,7 +107,13 @@ class _ComparisonPageState extends State<ComparisonPage> {
                           Vector3(0, 3, 0),
                           Vector3(0, 0, 10));
                     },
-                    label: const Text('Reset Model')),
+                    label: const Text(
+                      'Reset Model',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    )),
                 const SizedBox(width: 20),
                 FloatingActionButton.extended(
                     backgroundColor: g!.baseColor,
@@ -118,7 +125,13 @@ class _ComparisonPageState extends State<ComparisonPage> {
                         },
                       );
                     },
-                    label: const Text('Change Rotation Axis')),
+                    label: const Text(
+                      'Change Rotation Axis',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    )),
               ],
             ),
           )

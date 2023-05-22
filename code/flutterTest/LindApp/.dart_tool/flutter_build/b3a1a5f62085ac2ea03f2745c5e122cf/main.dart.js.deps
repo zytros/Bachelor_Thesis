@@ -109,6 +109,10 @@ file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.2.11
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.2.11/lib/src/platform_file.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.2.11/lib/src/utils.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-5.2.11/lib/src/windows/stub.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dropzone-3.0.5/lib/flutter_dropzone.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dropzone-3.0.5/lib/src/dropzone_view.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dropzone_platform_interface-2.0.5/lib/flutter_dropzone_platform_interface.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_dropzone_platform_interface-2.0.5/lib/method_channel_flutter_dropzone.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.5/lib/http.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.5/lib/src/base_client.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.5/lib/src/base_request.dart
@@ -324,6 +328,7 @@ file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/fl
 file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/globals.dart
 file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/home_page.dart
 file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/main.dart
+file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/minimize.dart
 file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/scanning_page_web.dart
 file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/src/camera.dart
 file:///C:/Users/lucas/Documents/Bachelor_Thesis/code/flutterTest/LindApp/lib/src/light.dart

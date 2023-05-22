@@ -1,70 +1,135 @@
-\chapter{Your Central Work}
+\chapter{Methods}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit.
+This chapter describes the 
 
-\section{First Section}
+\section{Image Acquisition}
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam  praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit.
+The initial phase involves the acquisition of patient data. For our specific objectives, a triad of torso images is essential, comprising a frontal view, a left lateral view, and a right lateral view. These images provide comprehensive visual information required for subsequent analysis and augmentation processes.
+Given our objective of maximizing the versatility of our application, we aim to enable the utilization of images from diverse sources. 
+This entails providing users with the flexibility to capture patient images using the device's camera or select existing images from the gallery. 
+By incorporating such functionality, our application caters to varying user preferences and facilitates seamless integration with different image acquisition methods, enhancing the overall usability and accessibility of the app.
 
-Delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam  praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit.
+Within the Flutter framework, a comprehensive range of image acquisition widgets is available, including the ImagePicker and Camera widgets. 
+The ImagePicker widget empowers users to select an image from the gallery of the device, while the Camera widget facilitates real-time image capture utilizing the device's integrated camera or an external camera like a webcam. 
+These widgets serve as essential components within the Flutter ecosystem, offering intuitive and efficient means of acquiring images from distinct sources, thus enhancing the flexibility and functionality of our application.
 
-\subsection{Fist Subsection}
+At this stage, we confront a challenge pertaining to platform-specific code. The web application, being browser-based, presents a hurdle in terms of accessing the device's memory, which poses inherent difficulties. In contrast, the Android platform offers seamless access to the device's memory without encountering similar obstacles. 
+This distinction underscores the need for devising a solution that accommodates the limitations imposed by web-based environments, ensuring compatibility and functionality across platforms.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam 
+\subsection{Image Acquisition on Android}
 
-\subsection{Another Subsection}
+Since the Android platform offers direct access to the device's memory, the implementation of the image acquisition process is relatively straightforward. 
+Utilizing the Camera widget, we facilitate real-time image capture, subsequently storing the captured images within the device's memory. 
 
-\begin{table}
-    \centering
-    \begin{tabular}{|l|p{0.4\linewidth}|}
-    \hline
-    \emph{Quant.} & \emph{Ingredient}\\
-    \hline
-		200g &Wei{\ss}mehl\\
-		1/4  &Packung Frischhefe\\
-		4EL  &lauwarme Milch\\
-		4EL  &Öl\\
-		1TL  &Zucker\\
-		1TL  &Salz\\
-		&lauwarmes Wasser\\
-    \hline
-    \end{tabular}
-    \caption[Flammkuchenteig]{Flammkuchenteig. The ingredients have to be carefully chosen.\label{tab:mytable}}
-\end{table}
-%
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat, see Table~\ref{tab:mytable}. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam,
-see Figure~\ref{fig:voldiff}~(a).
-%
-\begin{figure}
-    \centering
-    \setlength{\tabcolsep}{0.0130\linewidth}
-    \begin{tabular}{@{}cc@{}}
-    \includegraphics[width=0.487\linewidth]{figures/IgeaNarrowBand}&
-    \includegraphics[width=0.487\linewidth]{figures/voldiff_ui}\\
-    (a)&(b)\\
-    \end{tabular}
-    \caption[Volumetric diffusion]{Volumetric diffusion.
-    	  \textup{(a)} Slices of the distance volume reveal the narrow band.
-			  \textup{(b)} The user interface of the automatic hole filling
-        tool allows to fine-tune the algorithm.
-        The volumetric representation can be previewed before
-        surface reconstruction.%
-      \label{fig:voldiff}}
-\end{figure}
-%
-Isn't it?
+Given the requirements of Arbrea's established pipeline, 
+which necessitates three torso images encompassing a frontal view, a right-side view, and a left-side view, the user is instructed to capture and retain three distinct pictures. 
+We then save these images on the divece's memory and subsequently pass them to the next stage of the pipeline.
 
-\begin{figure}[!htb]
-	\centering
-	\subfigure[Caption first.]{\label{fig:test1}\includegraphics[width=0.3\textwidth]{figures/IgeaNarrowBand}} \hfill
-	\subfigure[Caption second.]{\label{fig:test2}\includegraphics[width=0.3\textwidth]{figures/voldiff_ui}}
-	\caption[Caption both]{Caption of both \subref{fig:test1}, \subref{fig:test2}.}
-	\label{fig:bothfigures}
-\end{figure}
+\subsection{Image Acquisition on Web}
 
+On the web platform, our implementation deviates slightly from the Android counterpart due to the stringent restrictions on accessing the device's memory. 
+To circumvent these limitations, we rely on methods inherent to web development practices. Specifically, images captured using the camera are stored within the browser environment as Binary Large Objects (BLOBs). 
+This storage mechanism allows for efficient management and retrieval of image data, enabling seamless processing and integration within the web-based application.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam 
+A Blob represents a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. 
 
-\section{Second Section}
+In our web-based implementation, the Camera widget generates Binary Large Objects (BLOBs) automatically for the captured images, providing us with URLs instead of conventional file paths for subsequent referencing. 
+Similar to the Android implementation, we guide the user to capture three torso images. Given that a device may possess multiple cameras or webcams, we incorporate functionality that enables the user to select their preferred camera. 
+The Flutter framework proves invaluable in this regard, as it streamlines the management of diverse camera and webcam options available on the device, ensuring seamless compatibility and optimal utilization.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero et accumsan et iusto odio dignissim qui blandit
+In addition to capturing images through the device's camera, we offer users the alternative option of selecting images from their device's gallery. This feature proves particularly useful for users operating desktop computers, 
+where capturing satisfactory images with a webcam can be challenging and inconvenient. Given the recurring constraint of limited access to the device's memory, we rely on the Flutter framework to present a viable solution. 
+Leveraging the ImagePicker widget within Flutter, users can seamlessly select or drag and drop images from their devices and upload them to the web application. This functionality parallels the familiar concept of file uploads on websites, 
+a ubiquitous feature found across numerous online platforms. \textbf{TODO: Add image of ImagePicker widget and drag and drop}
+
+\section{Communication with the backend Pipeline}
+
+At this juncture, we find ourselves faced with the task of obtaining a 3D model from the captured torso images of the patient. To accomplish this, we adopt the existing pipeline developed by Arbrea Labs, 
+which serves as the foundation for generating the requisite 3D model. However, to initiate this process, establishing a connection to a dedicated server hosting the pipeline becomes imperative. 
+Subsequently, the client transmits the acquired images alongside additional pertinent data to the server. The server, in turn, employs the received data to invoke the pipeline, initiating the creation of the 3D model. 
+Once generated, the resulting model is transmitted back to the client, where it is stored for subsequent stages of processing, augmentation, and visualization.
+
+In light of the straightforward requirements for the server component, we have opted to utilize a basic Python server that leverages Python's built-in http.server implementation. 
+This minimalistic server implementation provides the necessary functionality to handle HTTP requests and responses without the need for complex external dependencies.
+
+\subsection{Python}
+
+Within the server-side architecture of our application, the primary objective is to receive three images from the client. Furthermore, considering the pipeline's reliance on the distance between the patient's nipples, 
+we require the client to transmit this essential information alongside a unique identifier. When a POST request is received, the server anticipates a JSON object comprising the three images, with the frontal image listed first, 
+followed by the right-side image, and concluding with the left-side image. The JSON object also encompasses the distance between the nipples and the unique identifier.
+
+Subsequently, the server proceeds to create a dedicated directory named after the unique identifier, serving as a repository for storing the received images. Given that the incoming images are not in a standard image file format, 
+a conversion process becomes necessary. To accomplish this, we employ the Python Imaging Library (PIL), a powerful image processing library. By leveraging the functionalities offered by PIL, 
+we can effectively convert the received image data into a compatible image file format that can be readily utilized within the pipeline. 
+
+Additionally, a text file is generated within this directory, containing the recorded distance between the nipples. 
+This organization ensures efficient and easy to understand data management and facilitates seamless integration within the subsequent stages of processing.
+
+Upon completion of the image processing pipeline developed by Arbrea, the resulting 3D model is saved within the same directory as the original images. 
+Our application employs the widely used Wavefront OBJ file format for storing the 3D model, utilizing three distinct files. The primary file, 
+denoted with the .obj extension, contains the actual geometric data of the 3D model. Additionally, the .mtl file is employed to store material-related information, 
+while the .png file serves as a repository for texture information. These three files constitute the output generated by the pipeline.
+
+Given that both the .obj and .mtl files are text-based, they can be easily processed by reading and transmitting them as strings to the client. 
+However, the texture file, being an image file, necessitates encoding prior to transmission over the HTTP connection. Within our implementation, 
+we have incorporated the functionality to perform individual GET requests to the server for each file separately. This enables the 
+precise retrieval of the required files from the server in a granular manner. 
+
+\subsection{Flutter}
+
+On the client-side of the application, an initial step involves initiating a POST request to the server. To facilitate this communication process, 
+we employ the Dio package, a robust HTTP client specifically designed for Dart programming. This package provides comprehensive functionalities for 
+handling HTTP requests and responses efficiently and effectively.
+
+As previously mentioned, the server expects a JSON object as part of the POST request, comprising the three torso images in the following order: 
+frontal, right-side, and left-side images. Additionally, the JSON object should include the distance between the patient's nipples and a unique identifier. 
+Before transmitting the images to the server, it is necessary to encode them appropriately. To achieve this, we utilize another package, 
+specifically the http package, which offers a convenient means of encoding images using the local URL of the Binary Large Object (BLOB).
+
+It is worth noting that in scenarios where the image is uploaded or when operating within the Android environment, 
+direct access to the encoded image data is available, thus bypassing the need for additional encoding steps. Following this, 
+the application prompts the user to input the distance between the patient's nipples, subsequently generating a unique identifier. Finally, 
+utilizing the Dio package, the POST request is dispatched to the server, facilitating the seamless transmission of the required data.
+
+To obtain the 3D model from the server, we employ a GET request, utilizing the Dio package once again to manage the communication process. 
+Our application necessitates two versions of the 3D model: one that allows modifications and augmentations to the breast area and another 
+that remains unaltered. Consequently, we perform two separate GET requests to retrieve these models.
+
+As our visualization method is based on the Flutter Package Cube, we require three GET requests per model: one for the .obj file, one for 
+the .mtl file, and one for the .png file. To accommodate this requirement, we have made adaptations to the existing Cube parser to accept 
+a URL instead of a local file path. The parser is then responsible for performing a GET request for each file from the server and subsequently parsing the received data.
+
+It is important to note that Dart employs base 16 encoding for strings, unlike Python's base 64 encoding. Consequently, when working with raw data, 
+particularly when performing a GET request for the .png file, caution must be exercised. We must first decode and re-encode the data appropriately 
+before utilizing it within the Cube parser. This ensures compatibility and proper handling of the data within the application.
+
+\section{Visualusation of the 3D Model}
+
+As previously discussed, the visualization of the 3D model is primarily facilitated by the integration of the Flutter package Cube. 
+This package encompasses a 3D model viewer, which incorporates a standardized implementation of a computer graphics pipeline. 
+In order to effectively render the 3D models, Cube relies on an internal representation of these models, which is described and structured by the object.dart file.
+Understanding this representation is crucial for our applycation, because we want to be able to change vertices of the model, and as discussed above,
+we have a different method of initializing the model. 
+
+Inside the object.dart file we can find a mesh object, which is defined in the mesh.dart file. This mesh object contains a list of vertices, polygons,
+normals and other information about the model, used to visualize it. A minor but important detail is that there is a function,
+that duplicates vertices that have multiple texture coordinates, so that each vertex has only one texture coordinate. We need to keep this in mind 
+when we later want to change the vertices of the model.
+
+The Cube package also provides us with the transformation matrices, namely the model, view and projection matrices. We need to access these matrices later,
+so knowing that they can be found in scene.dart simplifies our later work.
+
+\section{Modification of the 3D Model through PCA}
+
+\subsection{Principal Component Analysis}
+
+\subsection{Region specific modification}
+
+\section{Model modification through Correction UI}
+
+\subsection{Problem specification}
+
+\subsection{Methods}
+
+\subsection{Newton's method}
+

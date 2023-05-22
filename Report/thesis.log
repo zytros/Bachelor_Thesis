@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.14)  14 MAY 2023 15:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.14)  22 MAY 2023 13:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -533,7 +533,7 @@ Package scrbase Warning: Usage of deprecated command `\ifpdfoutput'.
 (preamble.tex
 \c@localFigure=\count308
 \c@localTable=\count309
-) (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (apx-sample-appendix.aux))
+) (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (ch05-conclusion-and-outlook.aux) (apx-sample-appendix.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
@@ -652,15 +652,7 @@ Package hyperref Info: Option `pageanchor' set `true' on input line 144.
 ] [2
 
 
-]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 8.
- (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 8.
- (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)) [3
+]) [3
 
 
 ] [4
@@ -668,23 +660,30 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 
-] (thesis.toc)
+] (thesis.toc
+LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
+ (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
+ (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [5
+
+
+
+
+])
 \tf@toc=\write4
 \openout4 = `thesis.toc'.
 
- [5
-
-
-
-
-] [6
-
-
-] (thesis.lof)
+ [6] (thesis.lof)
 \tf@lof=\write5
 \openout5 = `thesis.lof'.
 
  [7
+
+
 
 
 ] [8
@@ -705,11 +704,9 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  (ch01-introduction.tex
 chapter 1.
-
-Underfull \vbox (badness 4353) has occurred while \output is active []
-
+)
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <100> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 8.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 177.
 
 Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 []|[] []
@@ -722,12 +719,18 @@ Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
 
 
-]) [2]
+]
 \openout2 = `ch02-related-work.aux'.
 
- (ch02-related-work.tex
-chapter 2.
+ (ch02-related-work.tex [2
 
+
+
+
+
+]
+chapter 2.
+)
 Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 []|[] []
  []
@@ -735,16 +738,10 @@ Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 
 Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
- [3
-
-
-
-
-
-] [4]) [5]
+ [3]
 \openout2 = `ch03-more-chapters.aux'.
 
- (ch03-more-chapters.tex [6
+ (ch03-more-chapters.tex [4
 
 
 
@@ -760,31 +757,21 @@ Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 
 Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
- [7]
-<figures/IgeaNarrowBand.png, id=161, 752.8125pt x 577.40718pt>
-File: figures/IgeaNarrowBand.png Graphic file (type png)
-<use figures/IgeaNarrowBand.png>
-Package pdftex.def Info: figures/IgeaNarrowBand.png  used on input line 42.
-(pdftex.def)             Requested size: 221.73146pt x 170.06932pt.
-<figures/voldiff_ui.png, id=162, 1015.795pt x 707.64375pt>
-File: figures/voldiff_ui.png Graphic file (type png)
-<use figures/voldiff_ui.png>
-Package pdftex.def Info: figures/voldiff_ui.png  used on input line 43.
-(pdftex.def)             Requested size: 221.73146pt x 154.46196pt.
-File: figures/IgeaNarrowBand.png Graphic file (type png)
-<use figures/IgeaNarrowBand.png>
-Package pdftex.def Info: figures/IgeaNarrowBand.png  used on input line 59.
-(pdftex.def)             Requested size: 136.59175pt x 104.76581pt.
-File: figures/voldiff_ui.png Graphic file (type png)
-<use figures/voldiff_ui.png>
-Package pdftex.def Info: figures/voldiff_ui.png  used on input line 60.
-(pdftex.def)             Requested size: 136.59175pt x 95.14986pt.
- [8]) [9 <./figures/IgeaNarrowBand.png> <./figures/voldiff_ui.png>] [10]
+ [5] [6] [7]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8]) [9]
 \openout2 = `ch04-conclusion.aux'.
 
- (ch04-conclusion.tex
-chapter 4.
+ (ch04-conclusion.tex [10
 
+
+
+
+
+]
+chapter 4.
+)
 Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 []|[] []
  []
@@ -792,16 +779,36 @@ Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 
 Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
- [11
+ [11]
+\openout2 = `ch05-conclusion-and-outlook.aux'.
+
+ (ch05-conclusion-and-outlook.tex [12
 
 
 
 
 
-]) [12]
+]
+chapter 5.
+)
+Overfull \hbox (2.28006pt too wide) has occurred while \output is active
+[]|[] []
+ []
+
+
+Overfull \vbox (459.06232pt too high) has occurred while \output is active []
+
+ [13]
 \openout2 = `apx-sample-appendix.aux'.
 
- (apx-sample-appendix.tex
+ (apx-sample-appendix.tex [14
+
+
+
+
+
+
+]
 chapter A.
 
 Overfull \hbox (2.28006pt too wide) has occurred while \output is active
@@ -811,35 +818,28 @@ Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 
 Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
- [13
+ [15] [16] [17]) [18] (thesis.bbl) [19
 
 
 
 
 
-
-] [14] [15]) [16] (thesis.bbl) [17
-
-
-
-
-
-] (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (apx-sample-appendix.aux))
+] (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (ch05-conclusion-and-outlook.aux) (apx-sample-appendix.aux))
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 17612 strings out of 476360
- 314357 string characters out of 5788025
+ 17629 strings out of 476360
+ 315154 string characters out of 5788025
  1945993 words of memory out of 5000000
- 37639 multiletter control sequences out of 15000+600000
- 570507 words of font info for 87 fonts, out of 8000000 for 9000
+ 37640 multiletter control sequences out of 15000+600000
+ 567801 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,29n,106p,10949b,615s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (29 pages, 494462 bytes).
+ 108i,28n,106p,10949b,616s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (31 pages, 203407 bytes).
 PDF statistics:
- 316 PDF objects out of 1000 (max. 8388607)
- 58 named destinations out of 1000 (max. 500000)
- 196 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 391 PDF objects out of 1000 (max. 8388607)
+ 70 named destinations out of 1000 (max. 500000)
+ 306 words of extra memory for PDF output out of 10000 (max. 10000000)
 

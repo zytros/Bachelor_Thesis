@@ -4,13 +4,13 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ml_linalg/matrix.dart';
 import 'package:test/flutter_cube.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:test/globals.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:ml_linalg/linalg.dart' as ml;
+import 'package:test/minimize.dart';
 
 /// Sets position of an object from a vector3
 void setPosition(Object? obj, Vector3 pos) {
@@ -38,16 +38,13 @@ void setScaleUniform(Object? obj, double scale) {
   setScale(obj, Vector3(scale, scale, scale));
 }
 
-/// debug print for cube
-void thisisit(String a) {
-  debugPrint(a);
-}
-
 /// Get String from HTTP request containting obj file
 /// param url: url to get from
 /// returns Future<String> of obj file
 Future<String> getObjHTTP(String url) async {
   final dio = Dio();
+  // Note that we use the 'content-Type' header to tell the server what we want
+  // this can and should be changed
   dio.options.headers['content-Type'] = 'getObj';
   final response = await dio.get(url);
   return response.data.toString();
@@ -58,6 +55,8 @@ Future<String> getObjHTTP(String url) async {
 /// returns Future<String> of mtl file
 Future<String> getMtlHTTP(String url) async {
   final dio = Dio();
+  // Note that we use the 'content-Type' header to tell the server what we want
+  // this can and should be changed
   dio.options.headers['content-Type'] = 'getMtl';
   final response = await dio.get(url);
   return response.data.toString();
@@ -68,6 +67,8 @@ Future<String> getMtlHTTP(String url) async {
 /// returns Future<String> of img file
 Future<String> getImgHTTP(String url) async {
   final dio = Dio();
+  // Note that we use the 'content-Type' header to tell the server what we want
+  // this can and should be changed
   dio.options.headers['content-Type'] = 'getImg';
   final response = await dio.get(url);
   final codec =
@@ -114,9 +115,9 @@ Future<String> sendImagesCamera(String url, String img1, String img2,
   return response.data.toString();
 }
 
+/// sends images to server if they are picked from gallery
 Future<String> sendImagesUpload(String url, Uint8List img1, Uint8List img2,
     Uint8List img3, String identifier, int nippleDist) async {
-  // need new dio instance for post each request
   final locDio = Dio();
   var data = {
     "img1": img1,
@@ -179,12 +180,12 @@ Uint8List stringToUint8List(String str) {
 
 /// get unique identifier
 /// returns String of identifier
-String getIdent() {
+String getIdentifier() {
   return DateTime.now().millisecondsSinceEpoch.toString();
 }
 
 /// convert list of Vector3 to list of doubles
-List<double> vector3sTods(List<Vector3> vecs, Globals g) {
+List<double> flattenVector3List(List<Vector3> vecs, Globals g) {
   List<double> doubles = [];
   for (var i = 0; i < vecs.length; i++) {
     doubles.add(vecs[i].x);
@@ -201,9 +202,10 @@ List<double> vector3sTods(List<Vector3> vecs, Globals g) {
 /// param U_k: first 30 eigenvectors of PCA
 /// param mean: mean of all trained models of PCA
 /// param g: reference to globals
-ml.Vector calcEigVals(Object obj, ml.Matrix U_k, ml.Vector mean, Globals g) {
-  List<double> w = vector3sTods(obj.mesh.init_vertices, g);
+ml.Vector calculateEigenValues(Object obj, ml.Vector mean, Globals g) {
+  List<double> w = flattenVector3List(obj.mesh.init_vertices, g);
   ml.Vector wVec = ml.Vector.fromList(w);
+  debugPrint("wVec: " + wVec.length.toString());
   ml.Vector eigVs =
       (g.eigenVecsMat.transpose() * (wVec - g.meanVec)).toVector();
   List<double> eigVsList = eigVs.toList();
@@ -231,10 +233,9 @@ List<double> createModelVector(
   eigVals[2] = vertLift * g.stddevs[1];
   eigVals[3] = clW * g.stddevs[2];
   g.eigValsVec = ml.Vector.fromList(eigVals);
+  ml.Vector vec = (g.eigenVecsMat * g.eigValsVec).toVector() + g.meanVec;
 
-  ml.Vector mat = (g.eigenVecsMat * g.eigValsVec).toVector() + g.meanVec;
-
-  return mat.toList();
+  return vec.toList();
 }
 
 /// changes a model according to a vector of coordinates
@@ -242,7 +243,7 @@ List<double> createModelVector(
 /// param vec: vector of cooridnates
 /// param g: reference t globals
 void changeModel(Object model, List<double> vec, Globals g) {
-  model.mesh.vertices = listToVecs(vec);
+  model.mesh.vertices = listToVectors(vec);
   List<Polygon> polys = deepCopyPoly(model.mesh.init_vertexIndices);
   rebuildVertices(
     model.mesh.vertices,
@@ -250,19 +251,10 @@ void changeModel(Object model, List<double> vec, Globals g) {
     model.mesh.init_vertexIndices,
     model.mesh.init_TextIndices,
   );
-  //scaleModel(model.mesh.vertices, g.scales[0]);
   model.mesh.init_vertexIndices = polys;
 }
 
-String shape(List<List<double>> matrix) {
-  return "(${matrix.length}, ${matrix[0].length})";
-}
-
-bool vecEquals(Vector3 a, Vector3 b) {
-  return a.x == b.x && a.y == b.y && a.z == b.z;
-}
-
-List<Vector3> listToVecs(List<double> list) {
+List<Vector3> listToVectors(List<double> list) {
   List<Vector3> ret = [];
   for (int i = 0; i < list.length; i = i + 3) {
     ret.add(Vector3(list[i], list[i + 1], list[i + 2]));
@@ -270,14 +262,8 @@ List<Vector3> listToVecs(List<double> list) {
   return ret;
 }
 
-void printDuplicates(List<Vector3> verts, List<int> dups) {
-  for (int i = 0; i < dups.length; i = i + 2) {
-    debugPrint(
-        "${verts[dups[i]]} ${verts[dups[i + 1]]} at ${dups[i]} ${dups[i + 1]}");
-  }
-}
-
-Future<String> getObjString(String ret) async {
+/// is used to load a default model from assets
+Future<String> getOBJasString(String ret) async {
   String data = await rootBundle.loadString('objModel.obj');
   List<String> lines = data.split('\n');
   for (int i = 0; i < lines.length; i++) {
@@ -288,14 +274,8 @@ Future<String> getObjString(String ret) async {
   return ret;
 }
 
-String vectorToObjString(List<Vector3> vecs) {
-  String ret = '';
-  for (int i = 0; i < vecs.length; i++) {
-    ret = '${ret}v ${vecs[i].x} ${vecs[i].y} ${vecs[i].z}\n';
-  }
-  return ret;
-}
-
+/// this method does the same rebuilding as defined in mesh.dart
+/// does inplace rebuilding, so need to deepcopy the lists before
 void rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
     List<Polygon> vertexIndices, List<Polygon> textureIndices) {
   int texcoordsCount = texcoords.length;
@@ -348,22 +328,18 @@ List<Vector3> deepCopyVec(List<Vector3> vecs) {
   return ret;
 }
 
-void scaleModel(List<Vector3> vertices, double scale) {
-  for (int i = 0; i < vertices.length; i++) {
-    vertices[i].scale(scale);
-  }
-}
-
+/// interpolates the modelvectors, so only the breast area is changed and
+/// on the baundary the change is interpolated
 List<double> interpolateVectors(List<double> adjustedVec, Globals g) {
   List<double> dists = [];
 
-  for (int i in g.brestIndices) {
+  for (int i in g.breastIndices) {
     dists.add(getNearestDist(g.outline, adjustedVec, adjustedVec[3 * i],
         adjustedVec[3 * i + 1], adjustedVec[3 * i + 2]));
   }
 
-  List<int> idxs_exp = expandIndices(g.brestIndices);
-  List<double> baseVec = copyDoubleList(g.baseVec);
+  List<int> idxs_exp = expandIndices(g.breastIndices);
+  List<double> baseVec = deepCopyDoubleList(g.baseVec);
 
   for (int i = 0; i < idxs_exp.length; i++) {
     double dist = dists[i ~/ 3];
@@ -377,6 +353,7 @@ List<double> interpolateVectors(List<double> adjustedVec, Globals g) {
   return baseVec;
 }
 
+/// calculates for each vertex the nearest distance to the outline
 double getNearestDist(
     List<int> outline, List<double> vec, double x, double y, double z) {
   double minDist = 100000;
@@ -395,9 +372,10 @@ double getNearestDist(
   return minDist;
 }
 
-List<int> expandIndices(List<int> brestIndices) {
+/// used to get from 3d indices to flattened 1d indices
+List<int> expandIndices(List<int> breastIndices) {
   List<int> ret = [];
-  for (int i in brestIndices) {
+  for (int i in breastIndices) {
     ret.add(3 * i);
     ret.add(3 * i + 1);
     ret.add(3 * i + 2);
@@ -406,7 +384,7 @@ List<int> expandIndices(List<int> brestIndices) {
   return ret;
 }
 
-List<double> copyDoubleList(List<double> list) {
+List<double> deepCopyDoubleList(List<double> list) {
   List<double> ret = [];
   for (int i = 0; i < list.length; i++) {
     ret.add(list[i]);
@@ -433,6 +411,7 @@ void setModelAndCamera(
   model.updateTransform();
 }
 
+/// sets the camera position to the given rotation around the x axis
 void camSetDegreeX(Scene scene, double a, double min, double max) {
   double z = scene.camera.position.z;
   double y = scene.camera.position.y;
@@ -446,6 +425,7 @@ void camSetDegreeX(Scene scene, double a, double min, double max) {
   double deg = degrees(theta);
 }
 
+/// sets the camera position to the given rotation around the y axis
 void camSetDegreeY(Scene scene, double a, double min, double max) {
   double z = scene.camera.position.z;
   double x = scene.camera.position.x;
@@ -459,7 +439,10 @@ void camSetDegreeY(Scene scene, double a, double min, double max) {
   double deg = degrees(theta);
 }
 
-Vector3 get3dPointOf_uv(Offset point, double rotation, Globals g) {
+/// gets 3d coordinate of 2d point on screen uses inverse of transformation and
+/// prior knowledge of what the x coordinate should be to recover depth information
+/// [x] defines the x coordinate of the point on the screen
+Vector3 get3dPointOfUV(Offset point, double cameraPosition, Globals g) {
   Matrix4 inv = convert_mlMatrix_to_Matrix4(
       convertMatrix4_to_mlMatrix(g.transform).inverse());
   double u = (point.dx / (g.screenwidth / 2)) - 1.0;
@@ -470,10 +453,11 @@ Vector3 get3dPointOf_uv(Offset point, double rotation, Globals g) {
   uv_near.applyMatrix4(inv);
   uv_far.scale(1 / uv_far.w);
   uv_near.scale(1 / uv_near.w);
+  double x = cameraPosition > 0 ? 9.2 : -8.6;
   Vector3 uv_near3 = Vector3(uv_near.x, uv_near.y, uv_near.z);
   Vector3 uv_far3 = Vector3(uv_far.x, uv_far.y, uv_far.z);
   Vector3 dir = uv_near3 - uv_far3;
-  double a = (9.2 - uv_near3.x) / dir.x;
+  double a = (x - uv_near3.x) / dir.x;
   Vector3 p = uv_near3 + dir * a;
   return p;
 }

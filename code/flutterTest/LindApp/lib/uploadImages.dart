@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:html' as html;
+import 'package:universal_html/html.dart' as html;
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-//import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:test/util.dart';
 
 import 'globals.dart';
@@ -20,7 +20,7 @@ class UploadPage extends StatefulWidget {
 
 class _UploadPageState extends State<UploadPage> {
   late Image pickedImage;
-  //late DropzoneViewController controller;
+  late DropzoneViewController controller;
 
   // variable to hold image to be displayed
   List<int>? _selectedFile;
@@ -71,15 +71,44 @@ class _UploadPageState extends State<UploadPage> {
                             ? Image.memory(
                                 uploadedImage[0],
                               )
-                            : const Text('No image selected'),
+                            : Container(
+                                color: g!.baseColor,
+                                child: Stack(
+                                  children: [
+                                    DropzoneView(
+                                      onCreated: (controller) =>
+                                          this.controller = controller,
+                                      onDrop: acceptFileLeft,
+                                    ),
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Icon(Icons.upload_file, size: 50),
+                                          Text('Drop your image here'),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                       ),
+                      const SizedBox(height: 20),
                       FloatingActionButton.extended(
                         heroTag: 'btn_pickLeftImage',
+                        backgroundColor: g!.baseColor,
                         onPressed: () async {
                           _startFilePicker(0);
                           isUploaded[0] = true;
                         },
-                        label: const Text('Pick left Image'),
+                        label: const Text(
+                          'Pick left Image',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -98,30 +127,43 @@ class _UploadPageState extends State<UploadPage> {
                                 color: g!.baseColor,
                                 child: Stack(
                                   children: [
-                                    /*DropzoneView(
+                                    DropzoneView(
                                       onCreated: (controller) =>
                                           this.controller = controller,
-                                      onDrop: acceptFile,
-                                    ),*/
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(Icons.upload_file),
-                                        Text('Drop your image here'),
-                                      ],
+                                      onDrop: acceptFileFrontal,
+                                    ),
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Icon(
+                                            Icons.upload_file,
+                                            size: 50,
+                                          ),
+                                          Text('Drop your image here'),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                       ),
+                      const SizedBox(height: 20),
                       FloatingActionButton.extended(
                         heroTag: 'btn_pickFrontalImage',
+                        backgroundColor: g!.baseColor,
                         onPressed: () async {
                           _startFilePicker(1);
                           isUploaded[1] = true;
                         },
-                        label: const Text('Pick frontal Image'),
+                        label: const Text(
+                          'Pick frontal Image',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -136,15 +178,49 @@ class _UploadPageState extends State<UploadPage> {
                             ? Image.memory(
                                 uploadedImage[2],
                               )
-                            : const Text('No image selected'),
+                            : Container(
+                                color: g!.baseColor,
+                                child: Stack(
+                                  children: [
+                                    DropzoneView(
+                                      onCreated: (
+                                        controller,
+                                      ) =>
+                                          this.controller = controller,
+                                      onDrop: acceptFileRight,
+                                    ),
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: const [
+                                          Icon(
+                                            Icons.upload_file,
+                                            size: 50,
+                                          ),
+                                          Text('Drop your image here'),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                       ),
+                      const SizedBox(height: 20),
                       FloatingActionButton.extended(
                         heroTag: 'btn_pickRightImage',
+                        backgroundColor: g!.baseColor,
                         onPressed: () async {
                           _startFilePicker(2);
                           isUploaded[2] = true;
                         },
-                        label: const Text('Pick right Image'),
+                        label: const Text(
+                          'Pick right Image',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -168,10 +244,10 @@ class _UploadPageState extends State<UploadPage> {
             },
           ),
           FloatingActionButton.extended(
-            backgroundColor: Colors.indigo,
+            backgroundColor: g!.baseColor,
             heroTag: 'btn_SendPics',
             onPressed: () {
-              String ident = getIdent();
+              String ident = getIdentifier();
               int nd = g!.nippleDistance.round();
               debugPrint('Sending Pictures');
               debugPrint('ident: $ident');
@@ -181,7 +257,13 @@ class _UploadPageState extends State<UploadPage> {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
-            label: const Text('Send Pictures'),
+            label: const Text(
+              'Send Pictures',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
           ),
           const SizedBox(
             height: 20,
@@ -191,13 +273,30 @@ class _UploadPageState extends State<UploadPage> {
     );
   }
 
-  Future acceptFile(dynamic event) async {
+  Future acceptFileFrontal(dynamic event) async {
     final name = event.name;
-    //String url = await controller.createFileUrl(event);
+    String url = await controller.createFileUrl(event);
     debugPrint('Name: $name');
-    setState(() async {
-      //uploadedImage[1] = await networkImgToBytes(url);
-      isUploaded[1] = true;
-    });
+    uploadedImage[1] = await networkImgToBytes(url);
+    isUploaded[1] = true;
+    setState(() {});
+  }
+
+  Future acceptFileLeft(dynamic event) async {
+    final name = event.name;
+    String url = await controller.createFileUrl(event);
+    debugPrint('Name: $name');
+    uploadedImage[0] = await networkImgToBytes(url);
+    isUploaded[0] = true;
+    setState(() {});
+  }
+
+  Future acceptFileRight(dynamic event) async {
+    final name = event.name;
+    String url = await controller.createFileUrl(event);
+    debugPrint('Name: $name');
+    uploadedImage[2] = await networkImgToBytes(url);
+    isUploaded[2] = true;
+    setState(() {});
   }
 }

@@ -10,13 +10,16 @@ class Globals {
   late Object baseModel;
   List<int> outline = [];
   List<double> baseVec = [];
-  List<int> brestIndices = [];
+  List<int> breastIndices = [];
   List<Offset> line = [];
+  List<int> breastLineIndicesRight = [];
+  List<int> breastLineIndicesLeft = [];
   double screenwidth = 0;
   double screenheight = 0;
   ml.Vector meanVec = ml.Vector.fromList([]);
   ml.Matrix eigenVecsMat = ml.Matrix.fromList([]);
   ml.Vector eigValsVec = ml.Vector.fromList([]);
+  ml.Vector baseEigVals = ml.Vector.fromList([]);
 
   double baseSize = 0;
   double size = 0;
@@ -27,13 +30,10 @@ class Globals {
   double nippleDistance = 20;
   double distCutoff = 5;
 
-  // rgba(111,39,145,255)
   Color baseColor = const Color.fromARGB(255, 111, 39, 145);
   Matrix4 transform = Matrix4.identity();
 
-  // scales x,y,z obj*scale = cube space
-  final List<double> scales = [0.011431561, 0.008130968, 0.007232266];
-  final double cubeScale = 15;
+  final double cubeScale = 15 * 0.011431561;
 
   // size, vertLift, clWidth
   final List<double> stddevs = [
@@ -42,37 +42,52 @@ class Globals {
     25.940261854601
   ];
 
-  String obj = '';
-  String mtl = '';
-  late Image image;
+  void initBreasLineIndices() async {
+    String idxRight = await rootBundle
+        .loadString('assets/breast_indices/breastLineIndicesRight.txt');
+    String idxLeft = await rootBundle
+        .loadString('assets/breast_indices/breastLineIndicesLeft.txt');
+    List<String> valuesRight = idxRight.split(', ');
+    List<String> valuesLeft = idxLeft.split(', ');
+    for (var i = 0; i < valuesRight.length; i++) {
+      if (valuesRight[i] == '') continue;
+      breastLineIndicesRight.add(int.parse(valuesRight[i]));
+    }
+    for (var i = 0; i < valuesLeft.length; i++) {
+      if (valuesLeft[i] == '') continue;
+      breastLineIndicesLeft.add(int.parse(valuesLeft[i]));
+    }
+    debugPrint(
+        'initialized breast lines indices with lengths ${breastLineIndicesLeft.length} and ${breastLineIndicesRight.length}');
+  }
 
-  void initBrestIndices() async {
+  void initbreastIndices() async {
     String ind1 = await rootBundle
-        .loadString('breast_indices/leftBreastIdxLargeArea.txt');
+        .loadString('assets/breast_indices/leftBreastIdxLargeArea.txt');
     String ind2 = await rootBundle
-        .loadString('breast_indices/rightBreastIdxLargeArea.txt');
+        .loadString('assets/breast_indices/rightBreastIdxLargeArea.txt');
     List<String> lines1 = ind1.split('\n');
     List<String> lines2 = ind2.split('\n');
-    brestIndices = [];
+    breastIndices = [];
     for (var i = 0; i < lines1.length; i++) {
       if (lines1[i] == '') continue;
-      brestIndices.add(int.parse(lines1[i]));
+      breastIndices.add(int.parse(lines1[i]));
     }
-    brestIndices.sort();
+    breastIndices.sort();
     for (var i = 0; i < lines2.length; i++) {
       if (lines2[i] == '') continue;
-      brestIndices.add(int.parse(lines2[i]));
+      breastIndices.add(int.parse(lines2[i]));
     }
-    brestIndices.sort();
-    brestIndices = brestIndices.toSet().toList();
-    debugPrint('initialized indices with length ${brestIndices.length}');
+    breastIndices.sort();
+    breastIndices = breastIndices.toSet().toList();
+    debugPrint('initialized indices with length ${breastIndices.length}');
   }
 
   void initOutline() async {
     String data1 = await rootBundle
-        .loadString('breast_indices/leftBreastIdxLargeAreaOutline.txt');
+        .loadString('assets/breast_indices/leftBreastIdxLargeAreaOutline.txt');
     String data2 = await rootBundle
-        .loadString('breast_indices/rightBreastIdxLargeAreaOutline.txt');
+        .loadString('assets/breast_indices/rightBreastIdxLargeAreaOutline.txt');
     List<String> lines1 = data1.split('\n');
     List<String> lines2 = data2.split('\n');
     outline = [];
@@ -88,7 +103,7 @@ class Globals {
   }
 
   void initMean() async {
-    String data = await rootBundle.loadString('mean.txt');
+    String data = await rootBundle.loadString('assets/mean.txt');
     List<String> lines = data.split('\n');
     List<double> mean = [];
     for (var i = 0; i < lines.length; i++) {
@@ -100,7 +115,7 @@ class Globals {
   }
 
   void initEigenVecs() async {
-    String data = await rootBundle.loadString('eigVecs.csv');
+    String data = await rootBundle.loadString('assets/eigVecs.csv');
     List<List<double>> eigenVecs = [];
     List<String> lines = data.split('\n');
     for (int i = 0; i < lines.length; i++) {

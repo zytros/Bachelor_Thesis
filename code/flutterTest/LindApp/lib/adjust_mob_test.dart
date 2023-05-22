@@ -26,11 +26,11 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
   @override
   void initState() {
     setPosition(g!.currentModel, Vector3(0, 3, 0));
-    setScaleUniform(g!.currentModel, g!.scales[0] * g!.cubeScale);
+    setScaleUniform(g!.currentModel, g!.cubeScale);
     setRotation(g!.currentModel, Vector3(180, 0, 0));
     g!.currentModel.updateTransform();
 
-    g!.eigValsVec = calcEigVals(g!.baseModel, g!.eigenVecsMat, g!.meanVec, g!);
+    g!.eigValsVec = calculateEigenValues(g!.baseModel, g!.meanVec, g!);
     g!.baseVec = createModelVector(g!.size, g!.clWidth, g!.vertLift, g!);
     changeModel(g!.currentModel,
         createModelVector(g!.size, g!.clWidth, g!.vertLift, g!), g!);

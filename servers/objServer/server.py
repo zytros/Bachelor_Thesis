@@ -38,7 +38,7 @@ with open(text, "rb") as imageFile:
     imgStr = base64.b64encode(imgf).decode('utf-8')
     
 hostName = "localhost"
-serverPort = 8080
+serverPort = 28080
 
 def saveImg(img, ident, imgNR):
     if os.path.exists(ident) == False:

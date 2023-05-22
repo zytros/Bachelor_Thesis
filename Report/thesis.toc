@@ -1,20 +1,35 @@
 \contentsline {chapter}{List of Figures}{vii}{chapter*.3}%
 \contentsline {chapter}{List of Tables}{ix}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{1}{section.1.2}%
 \contentsline {chapter}{\numberline {2}Related Work}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Appearance Modeling}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Taxonomy}{3}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Appearance Models}{4}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}Human Skin Rendering}{4}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Your Central Work}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}First Section}{7}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Fist Subsection}{8}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Another Subsection}{8}{subsection.3.1.2}%
-\contentsline {section}{\numberline {3.2}Second Section}{9}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Conclusion and Outlook}{11}{chapter.4}%
-\contentsline {chapter}{\numberline {A}Information For The Few}{13}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Foo Bar Baz}{13}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Barontes}{14}{section.A.2}%
-\contentsline {section}{\numberline {A.3}A Long Table with Booktabs}{14}{section.A.3}%
-\contentsline {chapter}{Bibliography}{17}{table.A.1}%
+\contentsline {section}{\numberline {2.1}Displaying 3D Models}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Modification of 3D Models}{3}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Methods}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Image Acquisition}{5}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Image Acquisition on Android}{6}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Image Acquisition on Web}{6}{subsection.3.1.2}%
+\contentsline {section}{\numberline {3.2}Communication with the backend Pipeline}{7}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Python}{7}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Flutter}{8}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Visualusation of the 3D Model}{9}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Modification of the 3D Model through PCA}{9}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Principal Component Analysis}{9}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Region specific modification}{9}{subsection.3.4.2}%
+\contentsline {section}{\numberline {3.5}Model modification through Correction UI}{9}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Problem specification}{9}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Methods}{9}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Newton's method}{9}{subsection.3.5.3}%
+\contentsline {chapter}{\numberline {4}Evaluation}{11}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCA}{11}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Correction UI}{11}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Conclusion and Outlook}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conclusion}{13}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Outlook and Future Work}{13}{section.5.2}%
+\contentsline {chapter}{\numberline {A}Appendix}{15}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Foo Bar Baz}{15}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Barontes}{16}{section.A.2}%
+\contentsline {section}{\numberline {A.3}A Long Table with Booktabs}{16}{section.A.3}%
+\contentsline {chapter}{Bibliography}{19}{table.A.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
