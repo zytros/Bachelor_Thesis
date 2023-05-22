@@ -4,16 +4,19 @@ This chapter describes the
 
 \section{Image Acquisition}
 
-The initial phase involves the acquisition of patient data. For our specific objectives, a triad of torso images is essential, comprising a frontal view, a left lateral view, and a right lateral view. These images provide comprehensive visual information required for subsequent analysis and augmentation processes.
-Given our objective of maximizing the versatility of our application, we aim to enable the utilization of images from diverse sources. 
-This entails providing users with the flexibility to capture patient images using the device's camera or select existing images from the gallery. 
-By incorporating such functionality, our application caters to varying user preferences and facilitates seamless integration with different image acquisition methods, enhancing the overall usability and accessibility of the app.
+The initial phase involves the acquisition of patient data. For our specific objectives, a triad of torso images is essential, comprising a frontal view, a left lateral view, and a right lateral view. 
+These images provide comprehensive visual information required for subsequent analysis and augmentation processes. Given our objective of maximizing the versatility of our application, 
+we aim to enable the utilization of images from diverse sources. This entails providing users with the flexibility to capture patient images using the device's camera or select existing images from the gallery. 
+By incorporating such functionality, our application caters to varying user preferences and facilitates seamless integration with different image acquisition methods, 
+enhancing the overall usability and accessibility of the app.
 
 Within the Flutter framework, a comprehensive range of image acquisition widgets is available, including the ImagePicker and Camera widgets. 
-The ImagePicker widget empowers users to select an image from the gallery of the device, while the Camera widget facilitates real-time image capture utilizing the device's integrated camera or an external camera like a webcam. 
-These widgets serve as essential components within the Flutter ecosystem, offering intuitive and efficient means of acquiring images from distinct sources, thus enhancing the flexibility and functionality of our application.
+The ImagePicker widget empowers users to select an image from the gallery of the device, while the Camera widget facilitates real-time image capture utilizing the device's integrated camera 
+or an external camera like a webcam. These widgets serve as essential components within the Flutter ecosystem, offering intuitive and efficient means of acquiring images from distinct sources, 
+thus enhancing the flexibility and functionality of our application.
 
-At this stage, we confront a challenge pertaining to platform-specific code. The web application, being browser-based, presents a hurdle in terms of accessing the device's memory, which poses inherent difficulties. In contrast, the Android platform offers seamless access to the device's memory without encountering similar obstacles. 
+At this stage, we confront a challenge pertaining to platform-specific code. The web application, being browser-based, presents a hurdle in terms of accessing the device's memory, 
+which poses inherent difficulties. In contrast, the Android platform offers seamless access to the device's memory without encountering similar obstacles. 
 This distinction underscores the need for devising a solution that accommodates the limitations imposed by web-based environments, ensuring compatibility and functionality across platforms.
 
 \subsection{Image Acquisition on Android}
@@ -34,33 +37,36 @@ This storage mechanism allows for efficient management and retrieval of image da
 A Blob represents a file-like object of immutable, raw data. Blobs represent data that isn't necessarily in a JavaScript-native format. 
 
 In our web-based implementation, the Camera widget generates Binary Large Objects (BLOBs) automatically for the captured images, providing us with URLs instead of conventional file paths for subsequent referencing. 
-Similar to the Android implementation, we guide the user to capture three torso images. Given that a device may possess multiple cameras or webcams, we incorporate functionality that enables the user to select their preferred camera. 
-The Flutter framework proves invaluable in this regard, as it streamlines the management of diverse camera and webcam options available on the device, ensuring seamless compatibility and optimal utilization.
+Similar to the Android implementation, we guide the user to capture three torso images. Given that a device may possess multiple cameras or webcams, we incorporate functionality that enables the user 
+to select their preferred camera. The Flutter framework proves invaluable in this regard, as it streamlines the management of diverse camera and webcam options available on the device, 
+ensuring seamless compatibility and optimal utilization.
 
-In addition to capturing images through the device's camera, we offer users the alternative option of selecting images from their device's gallery. This feature proves particularly useful for users operating desktop computers, 
-where capturing satisfactory images with a webcam can be challenging and inconvenient. Given the recurring constraint of limited access to the device's memory, we rely on the Flutter framework to present a viable solution. 
-Leveraging the ImagePicker widget within Flutter, users can seamlessly select or drag and drop images from their devices and upload them to the web application. This functionality parallels the familiar concept of file uploads on websites, 
-a ubiquitous feature found across numerous online platforms. \textbf{TODO: Add image of ImagePicker widget and drag and drop}
+In addition to capturing images through the device's camera, we offer users the alternative option of selecting images from their device's gallery. This feature proves particularly useful 
+for users operating desktop computers, where capturing satisfactory images with a webcam can be challenging and inconvenient. Given the recurring constraint of limited access to the device's memory, 
+we rely on the Flutter framework to present a viable solution. Leveraging the ImagePicker widget within Flutter, users can seamlessly select or drag and drop images from their devices 
+and upload them to the web application. This functionality parallels the familiar concept of file uploads on websites, a ubiquitous feature found across numerous online platforms. 
+\textbf{TODO: Add image of ImagePicker widget and drag and drop}
 
 \section{Communication with the backend Pipeline}
 
 At this juncture, we find ourselves faced with the task of obtaining a 3D model from the captured torso images of the patient. To accomplish this, we adopt the existing pipeline developed by Arbrea Labs, 
 which serves as the foundation for generating the requisite 3D model. However, to initiate this process, establishing a connection to a dedicated server hosting the pipeline becomes imperative. 
-Subsequently, the client transmits the acquired images alongside additional pertinent data to the server. The server, in turn, employs the received data to invoke the pipeline, initiating the creation of the 3D model. 
-Once generated, the resulting model is transmitted back to the client, where it is stored for subsequent stages of processing, augmentation, and visualization.
+Subsequently, the client transmits the acquired images alongside additional pertinent data to the server. The server, in turn, employs the received data to invoke the pipeline, 
+initiating the creation of the 3D model. Once generated, the resulting model is transmitted back to the client, where it is stored for subsequent stages of processing, augmentation, and visualization.
 
 In light of the straightforward requirements for the server component, we have opted to utilize a basic Python server that leverages Python's built-in http.server implementation. 
 This minimalistic server implementation provides the necessary functionality to handle HTTP requests and responses without the need for complex external dependencies.
 
 \subsection{Python}
 
-Within the server-side architecture of our application, the primary objective is to receive three images from the client. Furthermore, considering the pipeline's reliance on the distance between the patient's nipples, 
-we require the client to transmit this essential information alongside a unique identifier. When a POST request is received, the server anticipates a JSON object comprising the three images, with the frontal image listed first, 
-followed by the right-side image, and concluding with the left-side image. The JSON object also encompasses the distance between the nipples and the unique identifier.
+Within the server-side architecture of our application, the primary objective is to receive three images from the client. Furthermore, considering the pipeline's reliance on the distance 
+between the patient's nipples, we require the client to transmit this essential information alongside a unique identifier. When a POST request is received, the server anticipates a JSON object 
+comprising the three images, with the frontal image listed first, followed by the right-side image, and concluding with the left-side image. The JSON object also encompasses the distance 
+between the nipples and the unique identifier.
 
-Subsequently, the server proceeds to create a dedicated directory named after the unique identifier, serving as a repository for storing the received images. Given that the incoming images are not in a standard image file format, 
-a conversion process becomes necessary. To accomplish this, we employ the Python Imaging Library (PIL), a powerful image processing library. By leveraging the functionalities offered by PIL, 
-we can effectively convert the received image data into a compatible image file format that can be readily utilized within the pipeline. 
+Subsequently, the server proceeds to create a dedicated directory named after the unique identifier, serving as a repository for storing the received images. Given that the incoming 
+images are not in a standard image file format, a conversion process becomes necessary. To accomplish this, we employ the Python Imaging Library (PIL), a powerful image processing library. 
+By leveraging the functionalities offered by PIL, we can effectively convert the received image data into a compatible image file format that can be readily utilized within the pipeline. 
 
 Additionally, a text file is generated within this directory, containing the recorded distance between the nipples. 
 This organization ensures efficient and easy to understand data management and facilitates seamless integration within the subsequent stages of processing.
@@ -109,19 +115,152 @@ As previously discussed, the visualization of the 3D model is primarily facilita
 This package encompasses a 3D model viewer, which incorporates a standardized implementation of a computer graphics pipeline. 
 In order to effectively render the 3D models, Cube relies on an internal representation of these models, which is described and structured by the object.dart file.
 Understanding this representation is crucial for our applycation, because we want to be able to change vertices of the model, and as discussed above,
-we have a different method of initializing the model. 
+we have a different method of initializing the model.
 
-Inside the object.dart file we can find a mesh object, which is defined in the mesh.dart file. This mesh object contains a list of vertices, polygons,
-normals and other information about the model, used to visualize it. A minor but important detail is that there is a function,
-that duplicates vertices that have multiple texture coordinates, so that each vertex has only one texture coordinate. We need to keep this in mind 
-when we later want to change the vertices of the model.
+It is worth mentioning that in cases where we have two objects within the scene, one loaded from local memory and the other fetched from the server, 
+there may be a noticeable distinction in their appearance, manifesting as a bluish hue. This discrepancy arises due to the contrasting color descriptions utilized, 
+specifically a mixture of RGB (Red, Green, Blue) and RGBA (Red, Green, Blue, Alpha) color formats. While this discrepancy surfaced unexpectedly during 
+the debugging phase, it is essential to note that it does not significantly impact our application since we rely on the server as the source of our models.
 
-The Cube package also provides us with the transformation matrices, namely the model, view and projection matrices. We need to access these matrices later,
-so knowing that they can be found in scene.dart simplifies our later work.
+\textbf{TODO: Add image of the two models}
+
+Within the object.dart file, one can locate the presence of a mesh object, as explicitly defined in the mesh.dart file. This particular mesh object encapsulates an 
+array of vertices, polygons, normals, and various other essential details pertaining to the model, which collectively contribute to its visual representation. 
+It is worth noting a significant but nuanced aspect, where a function is employed to duplicate vertices that possess multiple texture coordinates. 
+This duplication process ensures that each vertex within the mesh object maintains a singular texture coordinate. This particular detail warrants 
+consideration when attempting to manipulate the vertices of the model at a later stage.
+
+The Cube package furnishes us with the essential transformation matrices, specifically the model, view, and projection matrices. 
+These matrices are of utmost importance as they enable us to perform various transformations on the 3D model and facilitate its visualization. 
+The presence of these matrices within the scene.dart file streamlines our subsequent tasks, as we can readily access and utilize them when required.
 
 \section{Modification of the 3D Model through PCA}
 
+Our primary objective revolves around the ability to manipulate the 3D breast model to simulate the outcomes of a breast augmentation surgery. 
+Numerous options exist to achieve this goal. However, our chosen approach entails employing the Principal Component Analysis (PCA) method, 
+a statistical procedure that facilitates a substantial reduction in the dimensionality of our data. This methodology aligns with the techniques employed by Arbrea, 
+thereby enabling potential future enhancements to be implemented in a manner consistent with those utilized in the Lind App.
+
 \subsection{Principal Component Analysis}
+
+Principal Component Analysis (PCA) is a statistical technique used to analyze and reduce the dimensionality of a dataset while preserving its essential characteristics. 
+It identifies the principal components, which are linear combinations of the original variables that capture the maximum amount of variance in the data. 
+By projecting the data onto these principal components, PCA enables us to interpret complex datasets like for example 3D models of the female torso. PCA aids in uncovering patterns, 
+relationships, and underlying structures in high-dimensional data, making it a valuable tool for dimensionality reduction and data compression.
+
+Due to the convenience and functionality provided by Python for performing Principal Component Analysis (PCA), we opted to conduct the PCA fitting and initial analysis in Python. 
+Python offers comprehensive libraries and tools, such as scikit-learn, that facilitate the implementation of PCA and provide extensive support for data analysis and manipulation. 
+By leveraging Python's capabilities, we can efficiently extract the principal components from our dataset and explore their significance and contribution to the variance. 
+Subsequently, we can utilize the obtained PCA results in our Flutter application for further processing and visualization of the modified 3D models.
+
+Our initial step involved acquiring a dataset from Arbrea, which consisted of 266 3D models. Since our objective was to modify only the vertices of the 3D models, we extracted the 
+vertex information exclusively from the dataset. This resulted in a modified dataset comprising 266 3D models, with each model consisting of 3,354 vertices, each defined by three coordinates (x, y, and z). 
+Consequently, the dimensionality of each 3D model was 10,062, representing a vector of length 10,062.
+
+To perform the Principal Component Analysis (PCA), we utilized the PCA implementation provided by the scikit-learn library (SciKit). By fitting our dataset to the PCA, 
+we obtained the mean vector $\mu$ (also of length 10,062) and the covariance matrix $\Sigma$ (a 10,062 x 10,062 matrix). To reduce the dimensionality of the dataset and analyze its principal components, 
+we utilized the numpy.linalg.eig function in numpy, which computes the eigenvalues $\lambda_1...\lambda_n$ and the corresponding eigenvectors $v_1...v_n$ of the covariance matrix $\Sigma$. This decomposition process took approximately four minutes to complete. 
+Subsequently, we saved the mean vector, standard deviations, and eigen vectors to be used for later reconstruction of the 3D models.
+
+At this stage, we saved all the eigen vectors, as the number of principal components to retain was not yet determined. Theoretically, only the first $k$ eigen vectors would be necessary, 
+where $k$ represents the desired number of principal components. However, to allow flexibility in selecting the number of principal components, we preserved all of them in our saved results.
+
+To get the $k$ eigenvalues $\lambda_k$ corresponding to a specific model $w$ we use the following formula: 
+\begin{align}\label{eq:lambda_k}
+    \lambda_k = U_k * (w - \mu)
+\end{align}
+
+Where $U_k$ are the first $k$ eigenvectors $v_1...v_k$ arranged in a matrix, and $\mu$ is the mean vector, both determined by the principal component analysis we did earlier. 
+
+Through the Principal Component Analysis (PCA), we have successfully achieved a significant reduction in dimensionality. Initially, our input vector $w$, had a high dimensionality of 10,062. 
+However, after applying the PCA, we obtained $\lambda_k$ with a reduced dimensionality of $k$. This reduction in dimensionality allows processing of the data through capturing of the most important 
+information through the principal components.
+
+We can now use $\lambda_k$ to reconstruct our 3D model $\hat{w}$, by using the following formula:
+\begin{align}\label{eq:reconstruction}
+    \hat{w} = U_k * \lambda_k + \mu
+\end{align}
+
+
+The next step was to analyze the principal components, to give them a meaning and understand their contribution to the model. This was done by setting all but one eigenvalue $\lambda_n$ in $lambda_k$ to zero,
+and setting $lambda_n$ to the standard deviation $\sigma_n$ of the corresponding eigenvalue.:
+\begin{align}\label{eq:one_eigenvalue}
+    \bar{\lambda_k} = [0, ... , 0, \sigma_n, 0,... ,0]^T
+\end{align}
+
+We proceeded to reconstruct our model $\hat{w_k}$ by setting $\lambda_k$ to (\ref{eq:one_eigenvalue}) in (\ref{eq:reconstruction}). Applying this reconstruction, we obtained a modified version of the model 
+that showcased the effects of manipulating a specific eigenvalue.
+
+To visualize the reconstructed model, we displayed it alongside the original model, enabling a direct comparison between the two. This allowed us to observe and understand the impact 
+of altering a specific eigenvalue on the appearance and shape of the model. This process provided valuable insights into the interpretation and significance of individual eigenvalues.
+
+\subsection{Analysis of the principal components}
+
+\subsubsection{First principal component}
+
+Upon analyzing the principal components, we observed that the first principal component primarily represented the general form of the model, indicating the overall size of the patient. 
+After careful consideration, we concluded that modifying this principal component to alter the breast would not be advisable for two main reasons.
+
+Firstly, changing the first principal component would result in a reconstructed model that deviates from anatomical correctness. Since the first principal component predominantly captures the 
+overall size and structure of the patient, manipulating it to modify the breast would lead to unrealistic proportions and potentially compromise the integrity of the model.
+
+Secondly, altering the first principal component may result in a reconstructed model that does not resemble the actual patient. 
+Modifying it extensively could lead to a reconstructed model that does not accurately reflect the patient's unique features, thereby rendering it unsuitable for our purposes.
+
+\textbf{TODO: Add images of the first principal component}
+
+\subsubsection{Second principal component}
+
+Upon analyzing the second principal component, we discovered that it primarily captured the size of the breast. This finding was highly significant for our breast augmentation application, 
+as breast size is a crucial factor in the surgical procedure.
+
+An intriguing observation was that the influence of the second principal component on other aspects of the breast was relatively minimal. This implied that modifying the breast size 
+using this principal component would have a localized effect, primarily altering the size of the breast while leaving other aspects of the breast area largely unaffected.
+
+This insight was particularly valuable as it allowed us to focus on breast size modification without compromising the overall structure and characteristics of the breast. 
+By selectively adjusting the second principal component, we could achieve targeted changes in breast size, enabling patients to visualize and assess the potential outcomes of breast augmentation surgery accurately.
+
+\textbf{TODO: Add images of the second principal component}
+
+\subsubsection{Third principal component}
+
+After analyzing the third principal component, we discovered that it predominantly represented the vertical lift of the breast. This finding was highly relevant for our breast augmentation application, 
+as breast lift (also known as mastopexy) is a meaningful factor in the surgical procedure.
+
+Similar to the second principal component, we observed that the influence of the third principal component on other aspects of the breast was relatively limited. 
+This suggested that modifying the breast lift could be accomplished by selectively adjusting the third principal component while maintaining the integrity of other breast attributes.
+
+This insight enabled us to focus on enhancing the breast lift aspect without compromising the overall structure and characteristics of the breast. By manipulating the third principal component, 
+patients could visualize and assess the potential outcomes of breast lift surgery accurately.
+
+\textbf{TODO: Add images of the third principal component}
+
+\subsubsection{Fourth principal component}
+
+Our findings of the fourth principal component showed us that it is primarily responsible for the cleavage width of the breast. This finding was interesting to us, since also this is a factor that we want
+to be able to change.
+
+Similar to our previous findings, we noted that manipulating the fourth principal component had minimal impact on other aspects of the breast. This implied that altering the cleavage width could 
+be achieved by selectively adjusting the fourth principal component while preserving the overall appearance of the breast.
+
+The ability to isolate and modify the cleavage width component independently offered considerable flexibility in tailoring the breast augmentation process to achieve desired aesthetic outcomes. 
+
+\textbf{TODO: Add images of the fourth principal component}
+
+\subsubsection{Remaining principal components}
+
+After analyzing the remaining principal components beyond the fourth component, we did not identify any significant or relevant meanings that could be attributed to them in the context of our breast 
+augmentation application. This outcome was not unexpected, given that the standard deviations associated with these components were relatively small.
+
+The relatively small standard deviations indicated that these components were less likely to capture notable variations or distinct characteristics of the breast shape within our dataset. 
+Thus, the probability of a patient's breast exhibiting significant features associated with these components was deemed to be low. Consequently, we did not implement functionality in our 
+software to modify these components.
+
+However, as the project progressed, we gained further insights into the meaning of some of these remaining principal components. While these components were found to contribute to the 
+visualization quality, they were not deemed necessary to be modified for our application's purposes.
+
+It is worth noting that despite not being directly modified, these remaining principal components still contributed to capturing and displaying various characteristics of the breast 
+shape when using the first 30 principal components. This allowed for a comprehensive representation of the breast shape while focusing on the key components relevant to breast augmentation.
 
 \subsection{Region specific modification}
 
