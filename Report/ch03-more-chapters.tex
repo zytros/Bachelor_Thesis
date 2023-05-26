@@ -182,10 +182,10 @@ We can now use $\lambda_k$ to reconstruct our 3D model $\hat{w}$, by using the f
 \end{align}
 
 
-The next step was to analyze the principal components, to give them a meaning and understand their contribution to the model. This was done by setting all but one eigenvalue $\lambda_n$ in $lambda_k$ to zero,
-and setting $lambda_n$ to the standard deviation $\sigma_n$ of the corresponding eigenvalue.:
+The next step was to analyze the principal components, to give them a meaning and understand their contribution to the model. This was done by setting all but one eigenvalue $\lambda_i$ in $\lambda_k$ to zero,
+and setting $\lambda_i$ to the standard deviation $\sigma_i$ of the corresponding eigenvalue.:
 \begin{align}\label{eq:one_eigenvalue}
-    \bar{\lambda_k} = [0, ... , 0, \sigma_n, 0,... ,0]^T
+    \bar{\lambda_k} = [0, ...\ , 0, \sigma_i, 0,...\ ,0]^T
 \end{align}
 
 We proceeded to reconstruct our model $\hat{w_k}$ by setting $\lambda_k$ to (\ref{eq:one_eigenvalue}) in (\ref{eq:reconstruction}). Applying this reconstruction, we obtained a modified version of the model 
@@ -193,6 +193,27 @@ that showcased the effects of manipulating a specific eigenvalue.
 
 To visualize the reconstructed model, we displayed it alongside the original model, enabling a direct comparison between the two. This allowed us to observe and understand the impact 
 of altering a specific eigenvalue on the appearance and shape of the model. This process provided valuable insights into the interpretation and significance of individual eigenvalues.
+
+\subsubsection{Deconstruction and Reconstruction in Flutter}
+\textbf{TODO: This section needs to be rewritten.}
+
+After performing the Principal Component Analysis (PCA) in Python, we needed to bring this functionality to our Flutter application. For this we wrote the mean $\mu$, standard deviations
+$\sigma_1...\sigma_k$ and eigen vectors $v_1...v_k$ to seperate files. As the number of principal components $k$ we decided on the number 30. In our Flutter Application we then read these files
+into memory for further usage. 
+
+As we wanted to be able to deconstruct and reconstruct the 3D models in real time, we needed to be able to perform the operations in Flutter. To do this we first needed to be able to perform 
+the matrix multiplications needed in reasonable time. For this we used the ml\_linalg library, which provides a matrix and a vector class, as well as the support of SIMD instructions. This allowed us to rely on 
+ml\_linalg for fast matrix multiplication. 
+
+As a first step, after recieving the 3D model from the server, we deconstruct it to get the 30 principal components, according to (\ref{eq:lambda_k}). We then save the vector $\lambda_k$ two times,
+one vector to be used for reconstructing a modified model, and one vector to be used for reconstructing the original model as a reference. we then proceed to reconstruct the model
+$\hat{w}$ according to (\ref{eq:reconstruction}), using $\lambda_k$.
+
+For changing the model, we give the user the ability to use slider to change the value of the specific principal components explained below. We allow the user to change a eigenvalue $\lambda_i$ 
+by $\pm\ 3\sigma_i$, so we can cover $99.73\%$ of the data, with respect to the PCA fitted on our data. Then every time the user changes a value with a slider, we reconstruct the
+model as described above.
+
+\textbf{TODO: Add images of sliders}
 
 \subsection{Analysis of the principal components}
 
@@ -264,11 +285,229 @@ shape when using the first 30 principal components. This allowed for a comprehen
 
 \subsection{Region specific modification}
 
+As previously mentioned, the second to fourth principal components primarily affect the breast area while having minimal impact on other aspects of the breast. 
+However, it is important to note that these effects are specific to the breast area and do not extend to the rest of the torso or body.
+
+When modifying these components, we observed that the changes in breast size, lift, and cleavage width were isolated to the breast region. 
+However, the rest of the torso, including surrounding areas, underwent deformation as well. This unintended deformation of the torso was deemed undesirable as it compromised the overall 
+resemblance of the augmented model to the patient's actual body.
+
+\textbf{TODO: Add images of the torso deformation}
+
+Maintaining a realistic representation of the patient's body is crucial for a successful breast augmentation simulation. Thus, it was necessary to ensure that changes to the breast 
+area did not result in significant distortions or alterations to the rest of the torso.
+
+There are two potential approaches to address the issue of undesired changes in the torso when modifying the breast area. The first approach would involve modifying all the 
+principal components that affect the torso in order to counteract the unintended changes caused by desired modifications in the breast area. However, 
+this approach contradicts the purpose of using PCA, as it aims to enable targeted modifications to specific aspects of the breast while preserving the overall body shape.
+
+The second approach, which we adopted, focuses on refining the selection and manipulation of principal components related to the breast area while minimizing the impact on the rest of the torso. 
+This approach acknowledges the trade-off between realistic breast modifications and maintaining the overall resemblance to the patient's body shape. By carefully selecting and manipulating 
+specific principal components, we can achieve desired breast modifications while minimizing distortions in the surrounding areas.
+
+In the 3D model obtained from the pipeline, each vertex retains its original position, meaning that a vertex located in the nipple area will remain in the nipple area throughout the modifications. 
+Therefore, to isolate and manipulate the breast area, it is sufficient to know the indices of the vertices that correspond to this specific region.
+
+Fortunately, Arbrea Labs has already performed the necessary work of identifying and indexing the vertices that constitute the breast area within the 3D model. This information is provided to us, 
+saving us the effort of manually determining these vertex indices.
+
+\textbf{TODO: Add images of the breast area}
+
+Upon observing the modified model, we noticed the presence of sharp and unnatural transitions between the breast area and the surrounding torso. This abrupt change occurs because the boundary 
+region between the breast and the rest of the torso abruptly shifts from the original model $\hat{w}$ to the modified model $\hat{w}'$. To mitigate this issue and create a more visually 
+appealing result, we opted to implement interpolation between the two models in the boundary region.
+
+In our implementation, we adopted a two-step process to handle the interpolation of the modified model $\hat{w}'$ with the original model $\hat{w}$ in the boundary region. Firstly, 
+we identified all the vertices located outside the breast region and assigned them the corresponding vertices from the original model $\hat{w}$. This step ensures that the geometry 
+outside the breast area remains unaltered.
+
+Next, we focused on the vertices inside the breast region that lie outside a certain distance threshold $d$ from the boundary. For these vertices, we replaced them with the corresponding 
+vertices from the modified model $\hat{w}'$, preserving the desired modifications within the breast area. The distance threshold $d$ used in determining the extent of 
+modifications applied to the breast area must be chosen carefully. By adjusting the value of $d$, we can regulate the range over which the interpolated modifications take effect. 
+A smaller value of $d$ confines the modifications closer to the boundary region, resulting in a more localized, steeper change. Conversely, a larger value of $d$ leads to a more conservative
+change.
+
+For the remaining vertices lying between the breast region and the boundary, we computed their nearest distances to the boundary vertices, denoted as $d_i$. Based on these distances, 
+we performed a weighted average between the original model $\hat{w}$ and the modified model $\hat{w}'$ for each vertex $v_i$. The weight assigned to each model was determined by the 
+distance $d_i$, where vertices further away of the boundary were more influenced by the modified model $\hat{w}'$, while vertices closer to the boundary retained a stronger resemblance to the 
+original model $\hat{w}$.
+
+\begin{align}\label{eq:interpolation}
+    v_i = \frac{d_i}{d} \hat{w} ' + \left(1 - \frac{d_i}{d}\right) \hat{w}
+\end{align}
+
+By employing this weighted interpolation strategy, we achieved a smooth and gradual transition between the modified and original models, effectively mitigating the sharp changes 
+observed in the boundary region. This approach ensures a more natural and visually pleasing result, where the modifications within the breast area blend seamlessly with the 
+surrounding geometry.
+
 \section{Model modification through Correction UI}
+
+Another objective of this thesis is to develop an interactive user interface that enables users to modify the breast model in a user-friendly and intuitive manner. A key feature we aim to 
+incorporate is the ability for users to draw a line on the breast model, indicating their desired breast shape. The application then utilizes the principal components $\lambda_k$ to modify 
+the breast model in an attempt to align it as closely as possible with the drawn line. By manipulating the principal components $\lambda_k$, we ensure that the resulting breast model 
+maintains a realistic appearance.
+
+It is important to note that achieving an exact fit between the drawn line and the modified breast model may not be feasible. Instead, our approach focuses on minimizing the distance 
+between the drawn line and the modified breast model to achieve the best possible alignment. This approach strikes a balance between user customization and maintaining the natural 
+aesthetics of the breast model. The real-time nature of our application further enhances the user experience, allowing users to observe the changes to the breast model in immediate 
+response to their input.
 
 \subsection{Problem specification}
 
+To achieve the desired functionality, we first needed to define our problem in mathematical terms. The easiest way to achieve this is to consider the problem as a minimization problem, where
+we try to minimize the distance between the drawn line and the modified breast model. We knew the goal was to solve a problem similar to this:
+
+\begin{align}\label{argmin:full}
+    \underset{\lambda_k}{\arg\min} = \lVert f(line) - s(g(\lambda_k)) \rVert
+\end{align}
+
+Where $f(line)$ is the function that takes a user drawn line, and returns a plane in 3D space, corresponding to the user-drawn line. $g(\lambda_k)$ is the function that takes the principal components $\lambda_k$ and performs The
+reconstruction of the breast model. $s(\hat{w})$ is the function that takes the reconstructed breast model $\hat{w}$ and returns the shilouette of the breast area.
+
+But also here we stand before multiple questions. For minimizing this distance we need to know $line$ $f$, $g$ and $s$. Since we know how to reconstruct the 3D model $\hat{w}$ from PCA parameters
+$\lambda_k$, we know $g(\lambda_k)$. Getting the $line$ drawn by the user also is not a problem, because Flutter provides us with the Gesture Detector widget, which provides us with the 
+coordinates of the latest touch or mouse events. We can just save these coordinates in a list for later use. 
+
+For the rest of the functions we decided to simplify our problem. The way in which we simplify our problem is by assuming the shilouette of the 3D model stays on a constant x coordinate. This means
+that the line defined by the shilouette is the intersection of the breast model with a plane parallel to the $yz$ plane defined by a constant $x$ coordinate. We further simplify our problem by 
+taking the vertices closest to this intersection, and using them to define the line this means we have now defined the function $s$. This simplification also means that we have a significantly
+easier solution to our function $f$, As we don't need to take the distance from the shilouette to a plane, but instead we can just take the distance from the shilouette to a list of points.
+
+\subsection{Getting a line in 3D from 2D}
+
+As we now have a simpler function $f$ to find, we can start by again looking at the implementation of the Cube package. 
+
+The idea behind our approach is to reverse project the 2D points in image space to
+a line in 3D space, and then intersect these lines with the same $yz$ plane as the shilouette to get a list of points in 3D space.
+
+The Cube implementation uses a standard graphics pipeline to project the 3D model coorinates to 2D image space. This means that first the 3D model coordinates get transformed by the model transform, then
+they get transformed by a view transform, and finally they get transformed by a projection transform:
+
+\[
+    I = T \cdot w
+\]
+where 
+\[
+    T = P \cdot V \cdot M
+\]
+
+Where $I$ is the 2D image space coordinates, $P$ is the projection transform, $V$ is the view transform, $M$ is the model transform and $w$ is the 3D model coordinates. 
+
+It is important to know that the projection transform is a perspective projection, which means that the 3D model coordinates $(x,y,z)$ get projected to the $[-1,1] \times [-1,1] \times [0,1]$ device coordinates corresponding to the
+view frustum of the camera. Cube then uses $(x,y) \in [-1,1] \times [-1,1]$ coordinates to draw the 3D model on the screen, and saves the $z$ coordinate for later use.
+
+We can now modify the Cube package, so it gives us the transformation matrix $T$. We can then use $T^{-1}$ to do the backprojection from 2D image space to 3D model space.
+
+Assuming we are given the coordinates of a drawn pixel on the screen $(u,v)$, we then need to scale these coordinates to the $[-1,1] \times [-1,1]$ range. We do this in the following way:
+\[
+    p_x = \frac{u}{\frac{S_x}{2}} - 1, p_y = -\frac{v}{\frac{S_y}{2}} - 1 
+\]
+
+where $S_x$ and $S_y$ are the width and height of the screen in pixels. Note that $p_y$ is negated, because the point $(0,0)$ lies in the top left corner. We now have have a 2D point $p_I = (p_x,p_y)$ in image space, we can now use this point to get a line in 3D space. 
+We do this by first defining two points in homogeneous coordinates:
+
+\[
+    p_{I1} \coloneqq 
+    \begin{bmatrix}
+        p_x \\ p_y \\ 0 \\ 1
+    \end{bmatrix},
+    p_{I2} \coloneqq
+    \begin{bmatrix}
+        p_x \\ p_y \\ 1 \\ 1
+    \end{bmatrix}
+\]
+
+We now have two points, $p_{I1}$ at the near plane of the frustum, and $p_{I2}$ at the far plane of the frustum. We now use the inverse transform $T^{-1}$ to get the 3D coordinates of the points in model space:
+
+\[p_{M1} = T^{-1} \cdot p_{I1}\]
+\[p_{M2} = T^{-1} \cdot p_{I2}\]
+
+In a next step we need to normalize the homogeneous coordinates of $p_{M1}$ and $p_{M2}$ to normal 3D coordinates, lets define $s \coloneqq p_{M1}$ and $t \coloneqq p_{M2}$, then:
+\[
+    q = 
+    \begin{bmatrix}
+    s_x/s_w \\ s_y/s_w \\ s_z/s_w
+    \end{bmatrix},
+    r = 
+    \begin{bmatrix}
+    t_x/t_w \\ t_y/t_w \\ t_z/t_w
+    \end{bmatrix}
+    \]
+
+We now connect $q$ and $r$ with a line and intersect this line with the $yz$ plane defined by a constant $x$ coordinate. This is done by calculating the vector $v$ that points from $q$ to $r$:
+
+\[v = q - r\]
+
+Then we solve for $p$, the point where the line intersects the $yz$ plane:
+
+\[p = q + v * \alpha\] Where \[\alpha = \frac{x - q_x}{v_x}\]
+
+Note that $x$ is the constant $x$ coordinate of the $yz$ plane.
+
+This then gives us the point $p$ in model space. We can now repeat this process for all the points in the list of points we got from the Gesture Detector widget. This gives us our line, and thus this is our function $f$.
+
 \subsection{Methods}
 
-\subsection{Newton's method}
+We now need to solve the minimization problem from (\ref{argmin:full}). As this is a non-linear optimization problem, we have multiple different methods to solve this. In the following section we will discuss
+some of the methods we considered using. 
+
+\subsubsection{Newton's Method}
+
+Newton's method is a root finding algorithm, which tries to find a root of a function $f$. It uses an iterative approach in conjunction with the function's derivative $f'$. 
+
+The idea is to start with a initial guess $x_0$ and then approximate the function $f$ by its tangent line at $x_0$. Then the algorithm calculates the $x$-intercept of this tangent line, and uses this as the next guess $x_1$. 
+The algortithm uses the following formula to calculate the next guess:
+\[
+    x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}  
+\]
+Newton's method has quadratic convergance under certain assumptions. This means that if the assumptions don't hold, the algorithm might not converge at all, or be in a local minimum. This can be due to multiple factors, we 
+list some of them here:
+
+\begin{itemize}
+    \item The function $f$ has a stationary point. This means that while calculating the next guess, the algorithm will divide by zero, and thus crash or terminate.
+    \item The function $f$ is not differentiable
+    \item For certain functions $f$ and certain initial guesses $x_0$ Newton's method might also overshoot the root, and diverge away from the root.
+\end{itemize}
+
+In practice we can solve some of these problems by using different initial guesses $x_0$, and lower the stepsize $m$ of the algorithm. This means that the algorithm will make smaller steps and we can even lower the stepsize 
+in each iteration, so we make large steps in the beginning and smaller steps when we get closer to the root. This variation is called damped Newton's method. The formula for calculating the next guess in damped Newton's method is as follows:
+
+\[
+    x_{n+1} = x_n - m \cdot \frac{f(x_n)}{f'(x_n)}
+\]
+
+\subsubsection{Quasi-Newton Method}
+
+The quasi Newton method is a variation of Newton's method. Essentially it approximates the derivative $f'$ of $f$ in some form. This is particularly useful if the derivative $f'$ is hard to calculate, or unavailable at all.
+
+\subsubsection{Limited Memory BFGS}
+
+The Limited Memory BFGS method (L-BFGS) is a quasi Newton method, which uses an estimate of the inverse Hessian matrix to navigate through the variable space. 
+
+This algorithm was used by us to do a first implementation of our minimization problem. We used the L-BFGS-B implementation from the scipy.optimize package in Python. This implementation didn't require any information on the derivative
+or the Hessian matrix of the function $f$. This was useful for us, as we didn't have to calculate the derivative of $f$ by hand. 
+
+Our function $f(x)$ that is to be minimized first calculated the 3D model of through PCA reconstruction as in (\ref{eq:reconstruction}). Then it calculated the closest distance between each predefined vertex on the breast and the 
+vertices on the line. It then summed up all these distances and returned the sum. As you can see it looks similar to (\ref{argmin:full})
+
+\[
+    f(x) = \sum_{v \in V}^{} \min_{p \in L} \lVert p - v \rVert
+\]
+
+Where $v \in V$ are the vertices on the breast, and $p \in L$ are the points on the line.
+
+Since the algorithm tries to estimate the inverse Hessian matrix, it uses many evaluations of the function $f$. This of course is very time intensive and undesirable for a real-time use case. We then decided to use a different 
+implementation of this algorithm, which uses parallelism to speed up the minimization process. We further simplified our function $f(x)$ by only considering principal components 2 to 8 as input to our function $f$. We did this because
+on our testing machine we had 8 cores, and this implementation gives us a speedup of $1+p$, where $p$ is the number of parameters, so our principal components, and $1+p$ cores are available. We tested different amount of iterations to get an 
+idea on how many iterations we need to get a good result. Please see the evaluation section for more information on this.
+
+\textbf{TODO: cite paper}
+
+\subsubsection{Deep Reinformcement Learning}
+
+As another idea we had Deep Reinformcement Learning in our mind. This of course is a very diffe
+
+
+
+\subsection{Our Implementation}
 

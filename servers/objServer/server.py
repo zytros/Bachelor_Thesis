@@ -31,7 +31,7 @@ file = open('objs/fitModel_Demo_Augmentation.mtl', 'r')
 mtl = file.read()
 file.close()
 imgStr = ''
-text = 'objs/texture_Demo_Augmentation.png'
+text = 'objs/texture_Demo_Augmentation_nipplecover.png'
 ident = 'ident0.png'
 with open(text, "rb") as imageFile:
     imgf = imageFile.read()

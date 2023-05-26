@@ -16,26 +16,32 @@
 \contentsline {section}{\numberline {3.3}Visualusation of the 3D Model}{9}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Modification of the 3D Model through PCA}{9}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Principal Component Analysis}{10}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Analysis of the principal components}{11}{subsection.3.4.2}%
-\contentsline {subsubsection}{\nonumberline First principal component}{11}{subsubsection*.7}%
-\contentsline {subsubsection}{\nonumberline Second principal component}{11}{subsubsection*.9}%
-\contentsline {subsubsection}{\nonumberline Third principal component}{12}{subsubsection*.11}%
-\contentsline {subsubsection}{\nonumberline Fourth principal component}{12}{subsubsection*.13}%
-\contentsline {subsubsection}{\nonumberline Remaining principal components}{13}{subsubsection*.15}%
-\contentsline {subsection}{\numberline {3.4.3}Region specific modification}{13}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Model modification through Correction UI}{13}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Problem specification}{13}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Methods}{13}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Newton's method}{13}{subsection.3.5.3}%
-\contentsline {chapter}{\numberline {4}Evaluation}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PCA}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Correction UI}{15}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Conclusion and Outlook}{17}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Conclusion}{17}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Outlook and Future Work}{17}{section.5.2}%
-\contentsline {chapter}{\numberline {A}Appendix}{19}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Foo Bar Baz}{19}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Barontes}{20}{section.A.2}%
-\contentsline {section}{\numberline {A.3}A Long Table with Booktabs}{20}{section.A.3}%
-\contentsline {chapter}{Bibliography}{23}{table.A.1}%
+\contentsline {subsubsection}{\nonumberline Deconstruction and Reconstruction in Flutter}{11}{subsubsection*.7}%
+\contentsline {subsection}{\numberline {3.4.2}Analysis of the principal components}{12}{subsection.3.4.2}%
+\contentsline {subsubsection}{\nonumberline First principal component}{12}{subsubsection*.9}%
+\contentsline {subsubsection}{\nonumberline Second principal component}{12}{subsubsection*.11}%
+\contentsline {subsubsection}{\nonumberline Third principal component}{12}{subsubsection*.13}%
+\contentsline {subsubsection}{\nonumberline Fourth principal component}{13}{subsubsection*.15}%
+\contentsline {subsubsection}{\nonumberline Remaining principal components}{13}{subsubsection*.17}%
+\contentsline {subsection}{\numberline {3.4.3}Region specific modification}{14}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Model modification through Correction UI}{15}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Problem specification}{16}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Getting a line in 3D from 2D}{16}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Methods}{18}{subsection.3.5.3}%
+\contentsline {subsubsection}{\nonumberline Newton's Method}{18}{subsubsection*.19}%
+\contentsline {subsubsection}{\nonumberline Quasi-Newton Method}{19}{subsubsection*.21}%
+\contentsline {subsubsection}{\nonumberline Limited Memory BFGS}{19}{subsubsection*.23}%
+\contentsline {subsubsection}{\nonumberline Deep Reinformcement Learning}{20}{subsubsection*.25}%
+\contentsline {subsection}{\numberline {3.5.4}Our Implementation}{20}{subsection.3.5.4}%
+\contentsline {chapter}{\numberline {4}Evaluation}{21}{chapter.4}%
+\contentsline {section}{\numberline {4.1}PCA}{21}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Correction UI}{21}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Conclusion and Outlook}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conclusion}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Outlook and Future Work}{23}{section.5.2}%
+\contentsline {chapter}{\numberline {A}Appendix}{25}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Foo Bar Baz}{25}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Barontes}{26}{section.A.2}%
+\contentsline {section}{\numberline {A.3}A Long Table with Booktabs}{26}{section.A.3}%
+\contentsline {chapter}{Bibliography}{29}{table.A.1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

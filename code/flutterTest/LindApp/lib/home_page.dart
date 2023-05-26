@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
     g.initbreastIndices();
     g.initOutline();
     g.initBreasLineIndices();
-    String url = 'http://lsic.duckdns.org:28080/';
+    String url = 'http://localhost:28080/';
     g.baseModel = Object(
         fileName: url,
         position: Vector3(0, 2, 0),
