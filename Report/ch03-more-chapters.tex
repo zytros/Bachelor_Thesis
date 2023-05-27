@@ -1,6 +1,13 @@
 \chapter{Methods}
 
-This chapter describes the 
+This chapter provides a detailed description of our approach, outlining the sequential steps we undertook to accomplish our goals. We present a thorough analysis of the challenges we encountered during 
+the development process and offer comprehensive explanations for the decisions made in our approach.
+
+We begin by explaining the rationale behind our chosen methodology and highlight the specific objectives we aimed to achieve. We then proceed to discuss the individual steps involved in our approach, 
+providing a comprehensive overview of each stage's purpose and significance.
+
+Throughout this chapter, we delve into the problems we encountered during the implementation of our approach. We discuss the reasoning behind the strategies adopted to address these challenges, 
+providing insights into the decision-making process.
 
 \section{Image Acquisition}
 
@@ -109,12 +116,12 @@ It is important to note that Dart employs base 16 encoding for strings, unlike P
 particularly when performing a GET request for the .png file, caution must be exercised. We must first decode and re-encode the data appropriately 
 before utilizing it within the Cube parser. This ensures compatibility and proper handling of the data within the application.
 
-\section{Visualusation of the 3D Model}
+\section{Visualization of the 3D Model}
 
 As previously discussed, the visualization of the 3D model is primarily facilitated by the integration of the Flutter package Cube. 
 This package encompasses a 3D model viewer, which incorporates a standardized implementation of a computer graphics pipeline. 
 In order to effectively render the 3D models, Cube relies on an internal representation of these models, which is described and structured by the object.dart file.
-Understanding this representation is crucial for our applycation, because we want to be able to change vertices of the model, and as discussed above,
+Understanding this representation is crucial for our application, because we want to be able to change vertices of the model, and as discussed above,
 we have a different method of initializing the model.
 
 It is worth mentioning that in cases where we have two objects within the scene, one loaded from local memory and the other fetched from the server, 
@@ -123,6 +130,23 @@ specifically a mixture of RGB (Red, Green, Blue) and RGBA (Red, Green, Blue, Alp
 the debugging phase, it is essential to note that it does not significantly impact our application since we rely on the server as the source of our models.
 
 \textbf{TODO: Add image of the two models}
+
+In our implementation we have two screens, which display the 3D models. In the first screen we display the 3D model for breast modification. We implement three different views,
+one from the front, where the model can rotate around the y-axis:
+
+\textbf{TODO: Add image of the model from the front}
+
+One from the top, where the model can slightly rotate around the x-axis:
+
+\textbf{TODO: Add images from top}
+
+And finally a view from below, in which the user can also slightly rotate the model around the x-axis:
+
+\textbf{TODO: add images from below}
+
+The second screen displays the modified model next to the unmodified model, where the user can compare the two models.
+
+\textbf{TODO: Add images of the two models}
 
 Within the object.dart file, one can locate the presence of a mesh object, as explicitly defined in the mesh.dart file. This particular mesh object encapsulates an 
 array of vertices, polygons, normals, and various other essential details pertaining to the model, which collectively contribute to its visual representation. 
@@ -134,7 +158,7 @@ The Cube package furnishes us with the essential transformation matrices, specif
 These matrices are of utmost importance as they enable us to perform various transformations on the 3D model and facilitate its visualization. 
 The presence of these matrices within the scene.dart file streamlines our subsequent tasks, as we can readily access and utilize them when required.
 
-\section{Modification of the 3D Model through PCA}
+\section{Modification of the 3D Model through PCA}\label{sec:modification}
 
 Our primary objective revolves around the ability to manipulate the 3D breast model to simulate the outcomes of a breast augmentation surgery. 
 Numerous options exist to achieve this goal. However, our chosen approach entails employing the Principal Component Analysis (PCA) method, 
@@ -195,23 +219,20 @@ To visualize the reconstructed model, we displayed it alongside the original mod
 of altering a specific eigenvalue on the appearance and shape of the model. This process provided valuable insights into the interpretation and significance of individual eigenvalues.
 
 \subsubsection{Deconstruction and Reconstruction in Flutter}
-\textbf{TODO: This section needs to be rewritten.}
 
-After performing the Principal Component Analysis (PCA) in Python, we needed to bring this functionality to our Flutter application. For this we wrote the mean $\mu$, standard deviations
-$\sigma_1...\sigma_k$ and eigen vectors $v_1...v_k$ to seperate files. As the number of principal components $k$ we decided on the number 30. In our Flutter Application we then read these files
-into memory for further usage. 
+After conducting the Principal Component Analysis (PCA) in Python, we aimed to integrate this functionality into our Flutter application. To achieve this, we stored the calculated mean vector $\mu$, 
+standard deviations $\sigma_1, \ldots, \sigma_k$, and eigenvectors $v_1, \ldots, v_k$ in separate files. In our application, we utilized these files by reading them into memory for subsequent operations.
 
-As we wanted to be able to deconstruct and reconstruct the 3D models in real time, we needed to be able to perform the operations in Flutter. To do this we first needed to be able to perform 
-the matrix multiplications needed in reasonable time. For this we used the ml\_linalg library, which provides a matrix and a vector class, as well as the support of SIMD instructions. This allowed us to rely on 
-ml\_linalg for fast matrix multiplication. 
+To enable real-time deconstruction and reconstruction of 3D models, we required efficient matrix multiplication capabilities within the Flutter environment. To address this, we leveraged the ml\_linalg library, 
+which offers matrix and vector classes, along with support for SIMD (Single Instruction, Multiple Data) instructions. This allowed us to perform fast matrix multiplications by relying on the ml\_linalg library.
 
-As a first step, after recieving the 3D model from the server, we deconstruct it to get the 30 principal components, according to (\ref{eq:lambda_k}). We then save the vector $\lambda_k$ two times,
-one vector to be used for reconstructing a modified model, and one vector to be used for reconstructing the original model as a reference. we then proceed to reconstruct the model
-$\hat{w}$ according to (\ref{eq:reconstruction}), using $\lambda_k$.
+Upon receiving a 3D model from the server, we initiated the deconstruction process to obtain the first 30 principal components, as defined in equation (\ref{eq:lambda_k}). We saved the resulting vector 
+$\lambda_k$ twice: one for reconstructing modified models and another as a reference for reconstructing the original model. We then proceeded to reconstruct the model $\hat{w}$ based on 
+(\ref{eq:reconstruction}), utilizing the obtained $\lambda_k$ vector.
 
-For changing the model, we give the user the ability to use slider to change the value of the specific principal components explained below. We allow the user to change a eigenvalue $\lambda_i$ 
-by $\pm\ 3\sigma_i$, so we can cover $99.73\%$ of the data, with respect to the PCA fitted on our data. Then every time the user changes a value with a slider, we reconstruct the
-model as described above.
+To enable user interaction and model modification, we implemented sliders that allow users to adjust the values of specific principal components. The range of adjustment was set to $\pm 3\sigma_i$, 
+which covers approximately 99.73\% of the data based on the PCA analysis performed on our dataset. Each time a user modifies a slider value, we recompute the model reconstruction using the 
+above-mentioned process, resulting in an updated model representation.
 
 \textbf{TODO: Add images of sliders}
 
@@ -340,7 +361,7 @@ By employing this weighted interpolation strategy, we achieved a smooth and grad
 observed in the boundary region. This approach ensures a more natural and visually pleasing result, where the modifications within the breast area blend seamlessly with the 
 surrounding geometry.
 
-\section{Model modification through Correction UI}
+\section{Model modification through Correction UI}\label{sec:correction_ui}
 
 Another objective of this thesis is to develop an interactive user interface that enables users to modify the breast model in a user-friendly and intuitive manner. A key feature we aim to 
 incorporate is the ability for users to draw a line on the breast model, indicating their desired breast shape. The application then utilizes the principal components $\lambda_k$ to modify 
@@ -354,33 +375,38 @@ response to their input.
 
 \subsection{Problem specification}
 
-To achieve the desired functionality, we first needed to define our problem in mathematical terms. The easiest way to achieve this is to consider the problem as a minimization problem, where
-we try to minimize the distance between the drawn line and the modified breast model. We knew the goal was to solve a problem similar to this:
+To attain the desired functionality, it was necessary to formulate the problem mathematically. The most straightforward approach was to treat the problem as a minimization problem, 
+aiming to minimize the distance between the user-drawn line and the modified breast model. This problem can be conceptualized as follows:
 
 \begin{align}\label{argmin:full}
     \underset{\lambda_k}{\arg\min} = \lVert f(line) - s(g(\lambda_k)) \rVert
 \end{align}
 
-Where $f(line)$ is the function that takes a user drawn line, and returns a plane in 3D space, corresponding to the user-drawn line. $g(\lambda_k)$ is the function that takes the principal components $\lambda_k$ and performs The
-reconstruction of the breast model. $s(\hat{w})$ is the function that takes the reconstructed breast model $\hat{w}$ and returns the shilouette of the breast area.
+Where $f(f{line})$ represents a function that takes a user-drawn line and returns a corresponding plane in 3D space, representing the user-drawn line. $g(\lambda_k)$ denotes a function 
+that takes the principal components $\lambda_k$ and performs the reconstruction of the breast model. $s(\hat{w})$ represents a function that takes the reconstructed breast model $\hat{w}$ 
+and returns the silhouette of the breast area.
 
-But also here we stand before multiple questions. For minimizing this distance we need to know $line$ $f$, $g$ and $s$. Since we know how to reconstruct the 3D model $\hat{w}$ from PCA parameters
-$\lambda_k$, we know $g(\lambda_k)$. Getting the $line$ drawn by the user also is not a problem, because Flutter provides us with the Gesture Detector widget, which provides us with the 
-coordinates of the latest touch or mouse events. We can just save these coordinates in a list for later use. 
+However, there are several aspects that need to be addressed in order to minimize this distance effectively. To accomplish this, we need to determine the functions $f$, $g$, and $s$ and 
+obtain the necessary inputs.
 
-For the rest of the functions we decided to simplify our problem. The way in which we simplify our problem is by assuming the shilouette of the 3D model stays on a constant x coordinate. This means
-that the line defined by the shilouette is the intersection of the breast model with a plane parallel to the $yz$ plane defined by a constant $x$ coordinate. We further simplify our problem by 
+Fortunately, we already have knowledge of how to reconstruct the 3D model $\hat{w}$ from the PCA parameters $\lambda_k$, which provides us with the function $g(\lambda_k)$.
+
+Obtaining the user-drawn line, denoted as $line$, is also feasible within the Flutter framework. By utilizing the Gesture Detector widget, we can access the coordinates of the latest 
+touch or mouse events, which can be stored in a list for subsequent use.
+
+For the rest of the functions we decided to simplify our problem. The way in which we simplify our problem is by assuming the silhouette of the 3D model stays on a constant x coordinate. This means
+that the line defined by the silhouette is the intersection of the breast model with a plane parallel to the $yz$ plane defined by a constant $x$ coordinate. We further simplify our problem by 
 taking the vertices closest to this intersection, and using them to define the line this means we have now defined the function $s$. This simplification also means that we have a significantly
-easier solution to our function $f$, As we don't need to take the distance from the shilouette to a plane, but instead we can just take the distance from the shilouette to a list of points.
+easier solution to our function $f$, As we don't need to take the distance from the silhouette to a plane, but instead we can just take the distance from the silhouette to a list of points.
 
 \subsection{Getting a line in 3D from 2D}
 
 As we now have a simpler function $f$ to find, we can start by again looking at the implementation of the Cube package. 
 
-The idea behind our approach is to reverse project the 2D points in image space to
-a line in 3D space, and then intersect these lines with the same $yz$ plane as the shilouette to get a list of points in 3D space.
+Our approach involves the reverse projection of 2D points from image space to a line in 3D space. By intersecting these lines with the same $yz$ plane as the silhouette, we obtain a list of points in 3D space. 
+This allows us to reconstruct the breast model based on the user-drawn line and the corresponding 3D points.
 
-The Cube implementation uses a standard graphics pipeline to project the 3D model coorinates to 2D image space. This means that first the 3D model coordinates get transformed by the model transform, then
+The Cube implementation uses a standard graphics pipeline to project the 3D model coordinates to 2D image space. This means that first the 3D model coordinates get transformed by the model transform, then
 they get transformed by a view transform, and finally they get transformed by a projection transform:
 
 \[
@@ -396,14 +422,14 @@ Where $I$ is the 2D image space coordinates, $P$ is the projection transform, $V
 It is important to know that the projection transform is a perspective projection, which means that the 3D model coordinates $(x,y,z)$ get projected to the $[-1,1] \times [-1,1] \times [0,1]$ device coordinates corresponding to the
 view frustum of the camera. Cube then uses $(x,y) \in [-1,1] \times [-1,1]$ coordinates to draw the 3D model on the screen, and saves the $z$ coordinate for later use.
 
-We can now modify the Cube package, so it gives us the transformation matrix $T$. We can then use $T^{-1}$ to do the backprojection from 2D image space to 3D model space.
+We can now modify the Cube package, so it gives us the transformation matrix $T$. We can then use $T^{-1}$ to do the back projection from 2D image space to 3D model space.
 
 Assuming we are given the coordinates of a drawn pixel on the screen $(u,v)$, we then need to scale these coordinates to the $[-1,1] \times [-1,1]$ range. We do this in the following way:
 \[
     p_x = \frac{u}{\frac{S_x}{2}} - 1, p_y = -\frac{v}{\frac{S_y}{2}} - 1 
 \]
 
-where $S_x$ and $S_y$ are the width and height of the screen in pixels. Note that $p_y$ is negated, because the point $(0,0)$ lies in the top left corner. We now have have a 2D point $p_I = (p_x,p_y)$ in image space, we can now use this point to get a line in 3D space. 
+where $S_x$ and $S_y$ are the width and height of the screen in pixels. Note that $p_y$ is negated, because the point $(0,0)$ lies in the top left corner. We now have a 2D point $p_I = (p_x,p_y)$ in image space, we can now use this point to get a line in 3D space. 
 We do this by first defining two points in homogeneous coordinates:
 
 \[
@@ -417,12 +443,12 @@ We do this by first defining two points in homogeneous coordinates:
     \end{bmatrix}
 \]
 
-We now have two points, $p_{I1}$ at the near plane of the frustum, and $p_{I2}$ at the far plane of the frustum. We now use the inverse transform $T^{-1}$ to get the 3D coordinates of the points in model space:
+We now have two points, $p_{I1}$ at the near plane of the frustum, and $p_{I2}$ at the far plane of the frustum. Furthermore, we now use the inverse transform $T^{-1}$ to get the 3D coordinates of the points in model space:
 
 \[p_{M1} = T^{-1} \cdot p_{I1}\]
 \[p_{M2} = T^{-1} \cdot p_{I2}\]
 
-In a next step we need to normalize the homogeneous coordinates of $p_{M1}$ and $p_{M2}$ to normal 3D coordinates, lets define $s \coloneqq p_{M1}$ and $t \coloneqq p_{M2}$, then:
+In a next step we need to normalize the homogeneous coordinates of $p_{M1}$ and $p_{M2}$ to normal 3D coordinates, let's define $s \coloneqq p_{M1}$ and $t \coloneqq p_{M2}$, then:
 \[
     q = 
     \begin{bmatrix}
@@ -460,7 +486,7 @@ The algortithm uses the following formula to calculate the next guess:
 \[
     x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}  
 \]
-Newton's method has quadratic convergance under certain assumptions. This means that if the assumptions don't hold, the algorithm might not converge at all, or be in a local minimum. This can be due to multiple factors, we 
+Newton's method has quadratic convergence under certain assumptions. This means that if the assumptions don't hold, the algorithm might not converge at all, or be in a local minimum. This can be due to multiple factors, we 
 list some of them here:
 
 \begin{itemize}
@@ -505,9 +531,53 @@ idea on how many iterations we need to get a good result. Please see the evaluat
 
 \subsubsection{Deep Reinformcement Learning}
 
-As another idea we had Deep Reinformcement Learning in our mind. This of course is a very diffe
-
+As another idea we had Deep Reinformcement Learning in our mind. This of course is a very different approach since it uses a neural network. We thought that this method is a bit overkill for our problem, but we want to keep it in mind
+for future apllications. Esspecially when we want to optimize the unsimplified model (\ref{argmin:full}) it might be worth to look into this method. Creating the dataset shouldn't be a problem, as we can
+just use our reconstruction function (\ref{eq:reconstruction}) with arbitrary $\lambda_k$ and some noise to generate a large dataset.
 
 
 \subsection{Our Implementation}
 
+In the end we decided to use a simple Newton method. This is because we needed to do our computation in dart, and not in Python. This is a problem because while there are many
+libraries in python, there is next to nothing for dart, so we need to do everything by hand. As the Newton method is a very simple algorithm we decided to implement it ourselves.
+
+Here the main problem was to get the derivative. We had to further approximate our function $f$ by treating the vertices of the line and the breast as constant in one iteration. This of course does not
+reflect reality, as a fixed vertex of the 3D model can move and thus change the point on the line that it is closest to. But this approximation allowed us to simply calculate the derivative of $f$ by hand.
+Let's consider our new loss function $l$:
+\[
+    l(x) = \lVert x_i - y_j \rVert^2
+\]
+where 
+\[
+    x = \hat{p} \cdot U_k + \mu
+\]
+and the $x_i$ are the vertices of the approximated silhouette of the breast, and the $y_i$ are the corresponding closest points on the line. We want the following derivation:
+\[
+    \frac{\partial l}{\partial \hat{p}}
+\]
+This gives us
+\[
+    \sum_{i}{} 2 * d_i * (v_{ix} + v_{iy} + v_{iz})
+\]
+where
+\[
+    d_i = \lVert x_i - y_j \rVert
+\]
+and $v_{ix}$, $v_{iy}$ and $v_{iz}$ are the components corresponding to the $x,y,z$ coordinate of the $i$-th vertex of the breast. This then gives us a approximation of the derivative of $f$ at $x$.
+We can now use this to calculate the next guess $x_{n+1}$ in the Newton method. 
+
+As we can never reach a loss of zero, the method will never converge. This is because the line we draw is most
+certainly not a line that we can represent with recronstructing the 3D model through 30 principal components. This means we could either say we terminate the method after the change between
+iterations is below a certain threshold $\epsilon$
+\[
+    \lvert l_{n+1} - l_n \rvert < \epsilon  
+\]
+or after a certain amount of iterarions is reached. We chose the second option, a limited amount of iterations, because then we can limit the time it takes to calculate a fit of the 3D model
+to the drawn line. 
+
+It is important to note that we limited the number of principal components the algorithm changes, because we would get unrealistic results. We decided on which components to 
+change by trying out different combinations. Since we draw the line only for one breast, but change both of them at the same time, it is important to change them in the same way. Our tool would be useless if
+if would change one breast to a different size than the other. This is the main reason why we can't change all principal components, even if our loss $l$ would be less. 
+
+By trial and error we found out, that changing the fifth principal component leads exactly to unproportional change in one breast but not the other. We further decided to change the first eight 
+principal components. To achieve this we simply set the desired vector components of the derivative to zero.

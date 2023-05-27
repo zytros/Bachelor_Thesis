@@ -1,0 +1,1 @@
+{"rule":"LC_AFTER_PERIOD","sentence":"^\\QWithin the object.dart file, one can locate the presence of a mesh object, as explicitly defined in the mesh.dart file.\\E$"}

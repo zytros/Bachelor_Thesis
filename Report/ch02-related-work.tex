@@ -1,21 +1,39 @@
 % set counter to n-1:
 \setcounter{chapter}{1}
 
-\chapter{Related Work}
+\chapter{Background and Related Work}
 
 Sample references are~\cite{Zwicker04Perspective} and~\cite{Altman89QuaternionScandal}.
 
 \section{Displaying 3D Models}
 
 A pivotal aspect of this thesis revolves around the presentation of 3D models. Given the intended deployment of the application across diverse platforms, the implementation necessitates a cross-platform approach. 
-To address this requirement, we derive inspiration from webGL and openGL, adapting their principles to develop a custom solution. 
-Notably, a substantial portion of the rendering process is executed through the utilization of the Cube Flutter plugin, which we have tailored to align with our specific needs.
+To address this requirement, we use the Cube Flutter package, which we have tailored to align with our specific needs. The Cube package uses Wavefront's obj data format to read 3D models.
+This data format is a simple text-based format that stores 3D models in a human-readable form. In our use case it saves vertex coordinates, vertex normals, vertex texture and faces. Since we later want to change
+the shape of the 3D model the vertex coordinates are most interesting.
 
 
 \section{Modification of 3D Models}
 
-To facilitate the alteration of the 3D models, an adapted approach is employed, drawing inspiration from the methodology presented in the scholarly work by \textbf{Zwicker et al. (2004) titled "Perspective Shape from Shading."}
+To facilitate the alteration of the 3D models, an adapted approach is employed, drawing inspiration from the methodology presented in the scholarly work by %\autocite{rychlikApplications3DPCA2008}
 
-Wavefront OBJ files serve as the file format for storing the 3D models employed in this study. To facilitate their integration with the rendering engine, a parsing mechanism is implemented to extract the necessary geometric and texture information from the OBJ files. 
-Subsequently, a conversion process is executed to transform the extracted data into a compatible format that can be seamlessly rendered by the rendering engine.
+We will discuss the approach in detail in \ref{sec:modification}.
 
+\section{Flutter Framework}
+
+Since our goal is to write a codebase for multiple target platforms, we decided to use the Flutter framework, which allows compilation to multiple target platforms. In our use case our primary focus is the web
+and then Android. In theory Flutter supports multiple other platforms, like iOS, Windows and so on. 
+
+Flutter uses as programming language Dart, which is an object-oriented language with C-style syntax. 
+
+Flutter also allows us to write platform specific code. For the web this is JavaScript, for Android this is Java. Although we didn't use this functionality in this work, this might be a desired for
+any future work.
+
+Another important aspect of Flutter is the widget system. Flutter uses a widget system to build the user interface and to handle user input. This means that we need to build our UI once, and it will
+look similar on all platforms. 
+
+Flutter further comes with a package manager called pub. Pub allows us to use third party packages by simply adding them to the pubspec.yaml file. This allows us to get things like third party widgets, 
+like for example a 3D model viewer, or libraries for mathematical operations that allow us to do quick matrix multiplication.
+
+
+%\printbibliography

@@ -2,6 +2,29 @@
 
 \section{Conclusion}
 
+This thesis has introduced a methodology for the alteration of 3D models within the realm of cross-platform applications. Through the development of a prototype application, 
+we have successfully showcased the practicality and effectiveness of our approach in enabling users to manipulate 3D models through various means.
+
+Additionally, we introduce a breast modification technique utilizing a corrective user interface (UI), designed to facilitate effortless and anatomically accurate adjustments 
+to a 3D model. This approach caters to inexperienced users, providing them with an intuitive interface for modifying the model in a manner that adheres to anatomical principles.
+
+By harnessing techniques from the domains of computer graphics and data processing, and leveraging the capabilities of the Flutter framework, in combination with the existing 
+pipeline developed by Arbrea Labs, we have successfully developed and presented our prototype application.
+
 \section{Outlook and Future Work}
+
+The prototype application presented in this thesis is a proof of concept, and as such, there is room for improvement and further development. 
+
+In a future work we would like to implement a method, which allows a user to change each breast individually.
+
+As discussed in \ref{sec:correction_ui} we needed to simplify the problem to get to our solution. In a future work one can implement a more sophisticated method to get the silhouette of the breast.
+This approach would necessitate more changes to the whole minimization process, which would undo our simplifications. One might also need to change the algorithm used for minimizing our loss function, because
+this loss function would look different.
+
+These changes could further allow the user of our applications to not only change the breast from the side view, but also from every possible view angle, since we now don't rely on predefined vertices anymore.
+Such a feature rich implementation would certainly be a desired feature for any surgeon and patient.
+
+Another desired feature could be a complete offline version of the application, eliminating the need for a server. This could be done by implementing the whole pipeline on the device itself.
+How useful this would be isn't part of this work, but it would be a considerable topic for a future work.
 
 
