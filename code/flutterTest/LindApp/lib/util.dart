@@ -205,7 +205,6 @@ List<double> flattenVector3List(List<Vector3> vecs, Globals g) {
 ml.Vector calculateEigenValues(Object obj, ml.Vector mean, Globals g) {
   List<double> w = flattenVector3List(obj.mesh.init_vertices, g);
   ml.Vector wVec = ml.Vector.fromList(w);
-  debugPrint("wVec: " + wVec.length.toString());
   ml.Vector eigVs =
       (g.eigenVecsMat.transpose() * (wVec - g.meanVec)).toVector();
   List<double> eigVsList = eigVs.toList();

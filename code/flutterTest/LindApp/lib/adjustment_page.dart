@@ -329,7 +329,7 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                           g!.currentModel.scene!.camera.position.x, g!);
                       line.add([v.x, v.y, v.z]);
                     }
-                    debugPrint(line[0][0].toString());
+                    //line = g!.sampleLine;
                     bool side = (_scene.camera.position.x > 0) ? false : true;
                     Minimizer m = Minimizer(
                         g!.eigValsVec, line, g!.eigenVecsMat, g!, side);

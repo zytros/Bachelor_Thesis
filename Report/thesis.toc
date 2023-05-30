@@ -1,8 +1,6 @@
 \contentsline {chapter}{List of Figures}{vii}{chapter*.3}%
 \contentsline {chapter}{List of Tables}{ix}{chapter*.4}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Background}{1}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Problem Statement}{1}{section.1.2}%
 \contentsline {chapter}{\numberline {2}Background and Related Work}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Displaying 3D Models}{3}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Modification of 3D Models}{3}{section.2.2}%
@@ -12,37 +10,42 @@
 \contentsline {subsection}{\numberline {3.1.1}Image Acquisition on Android}{6}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Image Acquisition on Web}{6}{subsection.3.1.2}%
 \contentsline {section}{\numberline {3.2}Communication with the backend Pipeline}{7}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Python}{7}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.1}Python}{8}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Flutter}{8}{subsection.3.2.2}%
 \contentsline {section}{\numberline {3.3}Visualization of the 3D Model}{9}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Modification of the 3D Model through PCA}{10}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Principal Component Analysis}{10}{subsection.3.4.1}%
-\contentsline {subsubsection}{\nonumberline Deconstruction and Reconstruction in Flutter}{12}{subsubsection*.7}%
-\contentsline {subsection}{\numberline {3.4.2}Analysis of the principal components}{12}{subsection.3.4.2}%
-\contentsline {subsubsection}{\nonumberline First principal component}{12}{subsubsection*.9}%
-\contentsline {subsubsection}{\nonumberline Second principal component}{13}{subsubsection*.11}%
-\contentsline {subsubsection}{\nonumberline Third principal component}{13}{subsubsection*.13}%
-\contentsline {subsubsection}{\nonumberline Fourth principal component}{13}{subsubsection*.15}%
-\contentsline {subsubsection}{\nonumberline Remaining principal components}{14}{subsubsection*.17}%
-\contentsline {subsection}{\numberline {3.4.3}Region specific modification}{14}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Model modification through Correction UI}{16}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Problem specification}{16}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Getting a line in 3D from 2D}{17}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Methods}{19}{subsection.3.5.3}%
-\contentsline {subsubsection}{\nonumberline Newton's Method}{19}{subsubsection*.19}%
-\contentsline {subsubsection}{\nonumberline Quasi-Newton Method}{20}{subsubsection*.21}%
-\contentsline {subsubsection}{\nonumberline Limited Memory BFGS}{20}{subsubsection*.23}%
-\contentsline {subsubsection}{\nonumberline Deep Reinformcement Learning}{20}{subsubsection*.25}%
-\contentsline {subsection}{\numberline {3.5.4}Our Implementation}{21}{subsection.3.5.4}%
-\contentsline {chapter}{\numberline {4}Evaluation}{23}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PCA}{23}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Correction UI}{23}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Conclusion and Outlook}{25}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Conclusion}{25}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Outlook and Future Work}{25}{section.5.2}%
-\contentsline {chapter}{\numberline {A}Appendix}{27}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Foo Bar Baz}{27}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Barontes}{28}{section.A.2}%
-\contentsline {section}{\numberline {A.3}A Long Table with Booktabs}{28}{section.A.3}%
-\contentsline {chapter}{Bibliography}{31}{table.A.1}%
+\contentsline {section}{\numberline {3.4}Modification of the 3D Model through PCA}{12}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Principal Component Analysis}{12}{subsection.3.4.1}%
+\contentsline {subsubsection}{\nonumberline Deconstruction and Reconstruction in Flutter}{14}{subsubsection*.13}%
+\contentsline {subsection}{\numberline {3.4.2}Analysis of the principal components}{14}{subsection.3.4.2}%
+\contentsline {subsubsection}{\nonumberline First principal component}{14}{subsubsection*.15}%
+\contentsline {subsubsection}{\nonumberline Second principal component}{15}{subsubsection*.18}%
+\contentsline {subsubsection}{\nonumberline Third principal component}{16}{subsubsection*.21}%
+\contentsline {subsubsection}{\nonumberline Fourth principal component}{17}{subsubsection*.24}%
+\contentsline {subsubsection}{\nonumberline Remaining principal components}{18}{subsubsection*.27}%
+\contentsline {subsection}{\numberline {3.4.3}Region specific modification}{19}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Model modification through Correction UI}{21}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Problem specification}{22}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Getting a line in 3D from 2D}{23}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Methods}{25}{subsection.3.5.3}%
+\contentsline {subsubsection}{\nonumberline Newton's Method}{25}{subsubsection*.32}%
+\contentsline {subsubsection}{\nonumberline Quasi-Newton Method}{25}{subsubsection*.34}%
+\contentsline {subsubsection}{\nonumberline Limited Memory BFGS}{26}{subsubsection*.36}%
+\contentsline {subsubsection}{\nonumberline Deep Reinforcement Learning}{26}{subsubsection*.38}%
+\contentsline {subsection}{\numberline {3.5.4}Our Implementation}{26}{subsection.3.5.4}%
+\contentsline {chapter}{\numberline {4}Evaluation}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Reconstruction Accuracy}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Correction UI}{30}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}L-BFGS-B}{30}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Parallel L-BFGS-B}{32}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Newton's Method}{34}{subsection.4.2.3}%
+\contentsline {subsubsection}{\nonumberline Execution Time of our Implementation}{36}{subsubsection*.48}%
+\contentsline {chapter}{\numberline {5}Conclusion and Outlook}{39}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Conclusion}{39}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Outlook and Future Work}{39}{section.5.2}%
+\contentsline {chapter}{\numberline {A}Appendix}{41}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Libraries and existing Code}{41}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Flutter}{41}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Python}{42}{subsection.A.1.2}%
+\contentsline {section}{\numberline {A.2}Performance Tests}{42}{section.A.2}%
+\contentsline {chapter}{Bibliography}{43}{section.A.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

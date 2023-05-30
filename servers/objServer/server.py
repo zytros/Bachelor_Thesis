@@ -24,14 +24,14 @@ def checkUseMTL(obj):
             return True
     return False
 
-file = open('objs/fitModel_Demo_Augmentation.obj', 'r')
+file = open('objs/fitModel_Hgcutc.obj', 'r')
 obj = addUseMTL(file.read())
 file.close()
-file = open('objs/fitModel_Demo_Augmentation.mtl', 'r')
+file = open('objs/fitModel_Hgcutc.mtl', 'r')
 mtl = file.read()
 file.close()
 imgStr = ''
-text = 'objs/texture_Demo_Augmentation_nipplecover.png'
+text = 'objs/texture_Hgcutc_nipplecover.png'
 ident = 'ident0.png'
 with open(text, "rb") as imageFile:
     imgf = imageFile.read()

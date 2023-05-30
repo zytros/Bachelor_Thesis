@@ -1,17 +1,19 @@
-\newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{ZRB{\etalchar{+}}04}
+\begin{thebibliography}{RSM08}
 
-\bibitem[Alt89]{Altman89QuaternionScandal}
-Simon~L. Altman.
-\newblock Hamilton, grassmann, rodrigues, and the quaternion scandal---what
-  went wrong with one of the major mathematical discoveries of the nineteenth
-  century?
-\newblock {\em A Mathematical Association of America journal}, dec 1989.
+\bibitem[Ger20]{florian_gerber_2020_3888570}
+Florian Gerber.
+\newblock florafauna/optimparallel-python: test zenodo, June 2020.
 
-\bibitem[ZRB{\etalchar{+}}04]{Zwicker04Perspective}
-Matthias Zwicker, Jussi R\"as\"anen, Mario Botsch, Carsten Dachsbacher, and
-  Mark Pauly.
-\newblock Perspective accurate splatting.
-\newblock In {\em Proceedings of Graphics Interface}, pages 247--254, 2004.
+\bibitem[GF19]{RJ-2019-030}
+Florian Gerber and Reinhard Furrer.
+\newblock {optimParallel: An R Package Providing a Parallel Version of the
+  L-BFGS-B Optimization Method}.
+\newblock {\em {The R Journal}}, 11(1):352--358, 2019.
+
+\bibitem[RSM08]{rychlik2008applications}
+Michal Rychlik, Witold Stankiewicz, and Marek Morzy{\'n}ski.
+\newblock Applications of 3d pca method for extraction of mean shape and
+  geometrical features of biological objects set.
+\newblock {\em Mathematical Modelling and Analysis}, 13(3):413--420, 2008.
 
 \end{thebibliography}

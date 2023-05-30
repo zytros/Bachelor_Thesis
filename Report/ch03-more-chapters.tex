@@ -1,9 +1,9 @@
-\chapter{Methods}
+\chapter{Methods}\label{ch03_methods}
 
 This chapter provides a detailed description of our approach, outlining the sequential steps we undertook to accomplish our goals. We present a thorough analysis of the challenges we encountered during 
 the development process and offer comprehensive explanations for the decisions made in our approach.
 
-We begin by explaining the rationale behind our chosen methodology and highlight the specific objectives we aimed to achieve. We then proceed to discuss the individual steps involved in our approach, 
+We begin by explaining the rationale behind our chosen methodology and highlight the specific objectives we aimed to achieve. Furthermore, we then proceed to discuss the individual steps involved in our approach, 
 providing a comprehensive overview of each stage's purpose and significance.
 
 Throughout this chapter, we delve into the problems we encountered during the implementation of our approach. We discuss the reasoning behind the strategies adopted to address these challenges, 
@@ -33,7 +33,7 @@ Utilizing the Camera widget, we facilitate real-time image capture, subsequently
 
 Given the requirements of Arbrea's established pipeline, 
 which necessitates three torso images encompassing a frontal view, a right-side view, and a left-side view, the user is instructed to capture and retain three distinct pictures. 
-We then save these images on the divece's memory and subsequently pass them to the next stage of the pipeline.
+We then save these images on the device's memory and subsequently pass them to the next stage of the pipeline.
 
 \subsection{Image Acquisition on Web}
 
@@ -52,7 +52,13 @@ In addition to capturing images through the device's camera, we offer users the 
 for users operating desktop computers, where capturing satisfactory images with a webcam can be challenging and inconvenient. Given the recurring constraint of limited access to the device's memory, 
 we rely on the Flutter framework to present a viable solution. Leveraging the ImagePicker widget within Flutter, users can seamlessly select or drag and drop images from their devices 
 and upload them to the web application. This functionality parallels the familiar concept of file uploads on websites, a ubiquitous feature found across numerous online platforms. 
-\textbf{TODO: Add image of ImagePicker widget and drag and drop}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/upload_drag_and_drop.png}
+    \caption{Upload Screen}
+    \label{fig:deag_and_drop}
+\end{figure}
 
 \section{Communication with the backend Pipeline}
 
@@ -129,24 +135,49 @@ there may be a noticeable distinction in their appearance, manifesting as a blui
 specifically a mixture of RGB (Red, Green, Blue) and RGBA (Red, Green, Blue, Alpha) color formats. While this discrepancy surfaced unexpectedly during 
 the debugging phase, it is essential to note that it does not significantly impact our application since we rely on the server as the source of our models.
 
-\textbf{TODO: Add image of the two models}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/blue_tone.png}
+    \caption[Bluish hue]{Screenshot of an early prototype displaying a bluish hue. Note that the nipple covers were painted on the image after it was taken.}
+    \label{fig:blue_tone}
+\end{figure}
 
-In our implementation we have two screens, which display the 3D models. In the first screen we display the 3D model for breast modification. We implement three different views,
+In our implementation we decided on having two screens, which display the 3D models. In the first screen we display the 3D model for breast modification. We implement three different views,
 one from the front, where the model can rotate around the y-axis:
 
-\textbf{TODO: Add image of the model from the front}
+\begin{figure}[H]
+    \centering
+    \includegraphics{figures/20230529-frontal_view.jpg}
+    \caption{Frontal view of the 3D model}
+    \label{fig:frontal_view}
+\end{figure}
 
 One from the top, where the model can slightly rotate around the x-axis:
 
-\textbf{TODO: Add images from top}
+\begin{figure}[H]
+    \centering
+    \includegraphics{figures/20230529-top_view.jpg}
+    \caption{Top-down view of the 3D model}
+    \label{fig:top_view}
+\end{figure}
 
 And finally a view from below, in which the user can also slightly rotate the model around the x-axis:
 
-\textbf{TODO: add images from below}
+\begin{figure}[H]
+    \centering
+    \includegraphics{figures/20230529-bottom_view.jpg}
+    \caption{Bottom up view of the 3D model}
+    \label{fig:bottom_view}
+\end{figure}
 
 The second screen displays the modified model next to the unmodified model, where the user can compare the two models.
 
-\textbf{TODO: Add images of the two models}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{figures/20230529-comparison_screen.jpg}
+    \caption{Comparison Screen}
+    \label{fig:comparison_screen}
+\end{figure}
 
 Within the object.dart file, one can locate the presence of a mesh object, as explicitly defined in the mesh.dart file. This particular mesh object encapsulates an 
 array of vertices, polygons, normals, and various other essential details pertaining to the model, which collectively contribute to its visual representation. 
@@ -173,7 +204,7 @@ By projecting the data onto these principal components, PCA enables us to interp
 relationships, and underlying structures in high-dimensional data, making it a valuable tool for dimensionality reduction and data compression.
 
 Due to the convenience and functionality provided by Python for performing Principal Component Analysis (PCA), we opted to conduct the PCA fitting and initial analysis in Python. 
-Python offers comprehensive libraries and tools, such as scikit-learn, that facilitate the implementation of PCA and provide extensive support for data analysis and manipulation. 
+Python offers comprehensive libraries and tools, such as Scikit-learn, that facilitate the implementation of PCA and provide extensive support for data analysis and manipulation. 
 By leveraging Python's capabilities, we can efficiently extract the principal components from our dataset and explore their significance and contribution to the variance. 
 Subsequently, we can utilize the obtained PCA results in our Flutter application for further processing and visualization of the modified 3D models.
 
@@ -181,7 +212,7 @@ Our initial step involved acquiring a dataset from Arbrea, which consisted of 26
 vertex information exclusively from the dataset. This resulted in a modified dataset comprising 266 3D models, with each model consisting of 3,354 vertices, each defined by three coordinates (x, y, and z). 
 Consequently, the dimensionality of each 3D model was 10,062, representing a vector of length 10,062.
 
-To perform the Principal Component Analysis (PCA), we utilized the PCA implementation provided by the scikit-learn library (SciKit). By fitting our dataset to the PCA, 
+To perform the Principal Component Analysis (PCA), we utilized the PCA implementation provided by the Scikit-learn library (SciKit). By fitting our dataset to the PCA, 
 we obtained the mean vector $\mu$ (also of length 10,062) and the covariance matrix $\Sigma$ (a 10,062 x 10,062 matrix). To reduce the dimensionality of the dataset and analyze its principal components, 
 we utilized the numpy.linalg.eig function in numpy, which computes the eigenvalues $\lambda_1...\lambda_n$ and the corresponding eigenvectors $v_1...v_n$ of the covariance matrix $\Sigma$. This decomposition process took approximately four minutes to complete. 
 Subsequently, we saved the mean vector, standard deviations, and eigen vectors to be used for later reconstruction of the 3D models.
@@ -234,8 +265,6 @@ To enable user interaction and model modification, we implemented sliders that a
 which covers approximately 99.73\% of the data based on the PCA analysis performed on our dataset. Each time a user modifies a slider value, we recompute the model reconstruction using the 
 above-mentioned process, resulting in an updated model representation.
 
-\textbf{TODO: Add images of sliders}
-
 \subsection{Analysis of the principal components}
 
 \subsubsection{First principal component}
@@ -249,7 +278,20 @@ overall size and structure of the patient, manipulating it to modify the breast 
 Secondly, altering the first principal component may result in a reconstructed model that does not resemble the actual patient. 
 Modifying it extensively could lead to a reconstructed model that does not accurately reflect the patient's unique features, thereby rendering it unsuitable for our purposes.
 
-\textbf{TODO: Add images of the first principal component}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_base.jpg}&
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_0_comp.jpg}\\
+        (a)&(b)\\
+        \end{tabular}
+    \caption[First principal component]{First principal component.
+    \textup{(a)} Original model.
+    \textup{(b)} Model reconstructed increasing the first principal component by $2 \cdot \sigma_1$.
+    }
+
+    \label{fig:pca_0}
+\end{figure}
 
 \subsubsection{Second principal component}
 
@@ -262,7 +304,21 @@ using this principal component would have a localized effect, primarily altering
 This insight was particularly valuable as it allowed us to focus on breast size modification without compromising the overall structure and characteristics of the breast. 
 By selectively adjusting the second principal component, we could achieve targeted changes in breast size, enabling patients to visualize and assess the potential outcomes of breast augmentation surgery accurately.
 
-\textbf{TODO: Add images of the second principal component}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_base.jpg}&
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_1_comp.jpg}\\
+        (a)&(b)\\
+        \end{tabular}
+    \caption[Second principal component]{Second principal component.
+    \textup{(a)} Original model.
+    \textup{(b)} Model reconstructed increasing the second principal component by $2 \cdot \sigma_2$.
+    }
+
+    \label{fig:pca_1}
+\end{figure}
+
 
 \subsubsection{Third principal component}
 
@@ -275,7 +331,21 @@ This suggested that modifying the breast lift could be accomplished by selective
 This insight enabled us to focus on enhancing the breast lift aspect without compromising the overall structure and characteristics of the breast. By manipulating the third principal component, 
 patients could visualize and assess the potential outcomes of breast lift surgery accurately.
 
-\textbf{TODO: Add images of the third principal component}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_base.jpg}&
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_2_comp.jpg}\\
+        (a)&(b)\\
+        \end{tabular}
+    \caption[Third principal component]{Third principal component.
+    \textup{(a)} Original model.
+    \textup{(b)} Model reconstructed increasing the third principal component by $2 \cdot \sigma_3$.
+    }
+
+    \label{fig:pca_2}
+\end{figure}
+
 
 \subsubsection{Fourth principal component}
 
@@ -287,7 +357,21 @@ be achieved by selectively adjusting the fourth principal component while preser
 
 The ability to isolate and modify the cleavage width component independently offered considerable flexibility in tailoring the breast augmentation process to achieve desired aesthetic outcomes. 
 
-\textbf{TODO: Add images of the fourth principal component}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_base.jpg}&
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_3_comp.jpg}\\
+        (a)&(b)\\
+        \end{tabular}
+    \caption[Fourth principal component]{Fourth principal component.
+    \textup{(a)} Original model.
+    \textup{(b)} Model reconstructed increasing the fourth principal component by $2 \cdot \sigma_4$.
+    }
+
+    \label{fig:pca_3}
+\end{figure}
+
 
 \subsubsection{Remaining principal components}
 
@@ -313,7 +397,20 @@ When modifying these components, we observed that the changes in breast size, li
 However, the rest of the torso, including surrounding areas, underwent deformation as well. This unintended deformation of the torso was deemed undesirable as it compromised the overall 
 resemblance of the augmented model to the patient's actual body.
 
-\textbf{TODO: Add images of the torso deformation}
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_deformation_3.jpg}&
+        \includegraphics[width=0.487\linewidth]{figures/20230529-pca_deformation_4.jpg}\\
+        (a)&(b)\\
+        \end{tabular}
+    \caption[Model deformation]{Deformation of the model through changes in principal components.
+    \textup{(a)} Original model.
+    \textup{(b)} Model reconstructed changing some principal components.
+    }
+
+    \label{fig:pca_deformation}
+\end{figure}
 
 Maintaining a realistic representation of the patient's body is crucial for a successful breast augmentation simulation. Thus, it was necessary to ensure that changes to the breast 
 area did not result in significant distortions or alterations to the rest of the torso.
@@ -332,7 +429,12 @@ Therefore, to isolate and manipulate the breast area, it is sufficient to know t
 Fortunately, Arbrea Labs has already performed the necessary work of identifying and indexing the vertices that constitute the breast area within the 3D model. This information is provided to us, 
 saving us the effort of manually determining these vertex indices.
 
-\textbf{TODO: Add images of the breast area}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.4\textwidth]{figures/20230529-pca_breastspecific_top.jpg}
+    \caption{Model corresponding to breast area vertex indices.}
+    \label{fig:pca_breastspecific_top}
+\end{figure}
 
 Upon observing the modified model, we noticed the presence of sharp and unnatural transitions between the breast area and the surrounding torso. This abrupt change occurs because the boundary 
 region between the breast and the rest of the torso abruptly shifts from the original model $\hat{w}$ to the modified model $\hat{w}'$. To mitigate this issue and create a more visually 
@@ -372,6 +474,20 @@ It is important to note that achieving an exact fit between the drawn line and t
 between the drawn line and the modified breast model to achieve the best possible alignment. This approach strikes a balance between user customization and maintaining the natural 
 aesthetics of the breast model. The real-time nature of our application further enhances the user experience, allowing users to observe the changes to the breast model in immediate 
 response to their input.
+
+\begin{figure}[H]
+    \centering
+    \begin{tabular}{@{}cc@{}}
+        \includegraphics[width=0.487\linewidth]{figures/correction_ui_pre.png}&
+        \includegraphics[width=0.487\linewidth]{figures/correction_ui_post.png}\\
+        (a)&(b)\\
+        \end{tabular}
+    \caption[Correction UI results]{The desired result of the correction UI is to modify the breast model to align with the user-drawn line.
+    \textup{(a)} Original model with user-drawn line.
+    \textup{(b)} Result of the correction process.
+    }
+    \label{fig:ui_correction}
+\end{figure}
 
 \subsection{Problem specification}
 
@@ -472,7 +588,7 @@ Note that $x$ is the constant $x$ coordinate of the $yz$ plane.
 
 This then gives us the point $p$ in model space. We can now repeat this process for all the points in the list of points we got from the Gesture Detector widget. This gives us our line, and thus this is our function $f$.
 
-\subsection{Methods}
+\subsection{Methods}\label{sec:methods}
 
 We now need to solve the minimization problem from (\ref{argmin:full}). As this is a non-linear optimization problem, we have multiple different methods to solve this. In the following section we will discuss
 some of the methods we considered using. 
@@ -481,8 +597,8 @@ some of the methods we considered using.
 
 Newton's method is a root finding algorithm, which tries to find a root of a function $f$. It uses an iterative approach in conjunction with the function's derivative $f'$. 
 
-The idea is to start with a initial guess $x_0$ and then approximate the function $f$ by its tangent line at $x_0$. Then the algorithm calculates the $x$-intercept of this tangent line, and uses this as the next guess $x_1$. 
-The algortithm uses the following formula to calculate the next guess:
+The idea is to start with an initial guess $x_0$ and then approximate the function $f$ by its tangent line at $x_0$. Then the algorithm calculates the $x$-intercept of this tangent line, and uses this as the next guess $x_1$. 
+The algorithm uses the following formula to calculate the next guess:
 \[
     x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}  
 \]
@@ -495,7 +611,7 @@ list some of them here:
     \item For certain functions $f$ and certain initial guesses $x_0$ Newton's method might also overshoot the root, and diverge away from the root.
 \end{itemize}
 
-In practice we can solve some of these problems by using different initial guesses $x_0$, and lower the stepsize $m$ of the algorithm. This means that the algorithm will make smaller steps and we can even lower the stepsize 
+In practice, we can solve some of these problems by using different initial guesses $x_0$, and lower the step size $m$ of the algorithm. This means that the algorithm will make smaller steps, and we can even lower the step size 
 in each iteration, so we make large steps in the beginning and smaller steps when we get closer to the root. This variation is called damped Newton's method. The formula for calculating the next guess in damped Newton's method is as follows:
 
 \[
@@ -506,7 +622,7 @@ in each iteration, so we make large steps in the beginning and smaller steps whe
 
 The quasi Newton method is a variation of Newton's method. Essentially it approximates the derivative $f'$ of $f$ in some form. This is particularly useful if the derivative $f'$ is hard to calculate, or unavailable at all.
 
-\subsubsection{Limited Memory BFGS}
+\subsubsection{Limited Memory BFGS}\label{sec:lbfgsb}
 
 The Limited Memory BFGS method (L-BFGS) is a quasi Newton method, which uses an estimate of the inverse Hessian matrix to navigate through the variable space. 
 
@@ -514,7 +630,7 @@ This algorithm was used by us to do a first implementation of our minimization p
 or the Hessian matrix of the function $f$. This was useful for us, as we didn't have to calculate the derivative of $f$ by hand. 
 
 Our function $f(x)$ that is to be minimized first calculated the 3D model of through PCA reconstruction as in (\ref{eq:reconstruction}). Then it calculated the closest distance between each predefined vertex on the breast and the 
-vertices on the line. It then summed up all these distances and returned the sum. As you can see it looks similar to (\ref{argmin:full})
+vertices on the line. It then summed up all these distances and returned the sum. As one can see it looks similar to (\ref{argmin:full})
 
 \[
     f(x) = \sum_{v \in V}^{} \min_{p \in L} \lVert p - v \rVert
@@ -523,20 +639,18 @@ vertices on the line. It then summed up all these distances and returned the sum
 Where $v \in V$ are the vertices on the breast, and $p \in L$ are the points on the line.
 
 Since the algorithm tries to estimate the inverse Hessian matrix, it uses many evaluations of the function $f$. This of course is very time intensive and undesirable for a real-time use case. We then decided to use a different 
-implementation of this algorithm, which uses parallelism to speed up the minimization process. We further simplified our function $f(x)$ by only considering principal components 2 to 8 as input to our function $f$. We did this because
-on our testing machine we had 8 cores, and this implementation gives us a speedup of $1+p$, where $p$ is the number of parameters, so our principal components, and $1+p$ cores are available. We tested different amount of iterations to get an 
+implementation of this algorithm, which uses parallelism to speed up the minimization process. We used the method shown in \cite{florian_gerber_2020_3888570} and \cite{RJ-2019-030} We further simplified our function $f(x)$ by only considering principal components 2 to 8 as input to our function $f$. 
+This was done, because on our testing machine we had 8 cores, and this implementation gives us a speedup of $1+p$, where $p$ is the number of parameters, so our principal components, and $1+p$ cores are available. Furthermore, we tested different amount of iterations to get an 
 idea on how many iterations we need to get a good result. Please see the evaluation section for more information on this.
 
-\textbf{TODO: cite paper}
+\subsubsection{Deep Reinforcement Learning}
 
-\subsubsection{Deep Reinformcement Learning}
-
-As another idea we had Deep Reinformcement Learning in our mind. This of course is a very different approach since it uses a neural network. We thought that this method is a bit overkill for our problem, but we want to keep it in mind
-for future apllications. Esspecially when we want to optimize the unsimplified model (\ref{argmin:full}) it might be worth to look into this method. Creating the dataset shouldn't be a problem, as we can
+As another idea we had Deep Reinforcement Learning in our mind. This of course is a very different approach since it uses a neural network. We thought that this method is a bit overkill for our problem, but we want to keep it in mind
+for future applications. Especially when we want to optimize the unsimplified model (\ref{argmin:full}) it might be worth to look into this method. Creating the dataset shouldn't be a problem, as we can
 just use our reconstruction function (\ref{eq:reconstruction}) with arbitrary $\lambda_k$ and some noise to generate a large dataset.
 
 
-\subsection{Our Implementation}
+\subsection{Our Implementation}\label{sec:implementation}
 
 In the end we decided to use a simple Newton method. This is because we needed to do our computation in dart, and not in Python. This is a problem because while there are many
 libraries in python, there is next to nothing for dart, so we need to do everything by hand. As the Newton method is a very simple algorithm we decided to implement it ourselves.
@@ -563,21 +677,21 @@ where
 \[
     d_i = \lVert x_i - y_j \rVert
 \]
-and $v_{ix}$, $v_{iy}$ and $v_{iz}$ are the components corresponding to the $x,y,z$ coordinate of the $i$-th vertex of the breast. This then gives us a approximation of the derivative of $f$ at $x$.
+and $v_{ix}$, $v_{iy}$ and $v_{iz}$ are the components corresponding to the $x,y,z$ coordinate of the $i$-th vertex of the breast. This then gives us an approximation of the derivative of $f$ at $x$.
 We can now use this to calculate the next guess $x_{n+1}$ in the Newton method. 
 
 As we can never reach a loss of zero, the method will never converge. This is because the line we draw is most
-certainly not a line that we can represent with recronstructing the 3D model through 30 principal components. This means we could either say we terminate the method after the change between
+certainly not a line that we can represent with reconstructing the 3D model through 30 principal components. This means we could either say we terminate the method after the change between
 iterations is below a certain threshold $\epsilon$
 \[
     \lvert l_{n+1} - l_n \rvert < \epsilon  
 \]
-or after a certain amount of iterarions is reached. We chose the second option, a limited amount of iterations, because then we can limit the time it takes to calculate a fit of the 3D model
+or after a certain amount of iterations is reached. We chose the second option, a limited amount of iterations, because then we can limit the time it takes to calculate a fit of the 3D model
 to the drawn line. 
 
 It is important to note that we limited the number of principal components the algorithm changes, because we would get unrealistic results. We decided on which components to 
-change by trying out different combinations. Since we draw the line only for one breast, but change both of them at the same time, it is important to change them in the same way. Our tool would be useless if
-if would change one breast to a different size than the other. This is the main reason why we can't change all principal components, even if our loss $l$ would be less. 
+change by trying out different combinations. Since we draw the line only for one breast, but change both of them at the same time, it is important to change them in the same way. Our tool would be close to useless
+if it would change one breast to a different size than the other. This is the main reason why we can't change all principal components, even if our loss $l$ would be less. 
 
 By trial and error we found out, that changing the fifth principal component leads exactly to unproportional change in one breast but not the other. We further decided to change the first eight 
 principal components. To achieve this we simply set the desired vector components of the derivative to zero.

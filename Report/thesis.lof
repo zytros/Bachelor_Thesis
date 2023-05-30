@@ -1,7 +1,29 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Upload Screen\relax }}{7}{figure.caption.6}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Bluish hue}}{10}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Frontal view of the 3D model\relax }}{10}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Top-down view of the 3D model\relax }}{11}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Bottom up view of the 3D model\relax }}{11}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Comparison Screen\relax }}{12}{figure.caption.11}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces First principal component}}{15}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Second principal component}}{16}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Third principal component}}{17}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Fourth principal component}}{18}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Model deformation}}{19}{figure.caption.28}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Model corresponding to breast area vertex indices.\relax }}{20}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Correction UI results}}{22}{figure.caption.30}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Reconstruction Accuracy\relax }}{30}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Serial quasi Newton: time and loss vs iterations}}{31}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Serial quasi Newton: time and loss vs principal components}}{31}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Parallel quasi Newton: time and loss vs iterations}}{32}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Parallel quasi Newton: time and loss vs principal components}}{33}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Parallel vs sequential quasi Newton}}{33}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Newton's method: loss vs iteration}}{35}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Newton's method: reducing step size}}{35}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Newton's method: execution time vs length of line}}{36}{figure.caption.49}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

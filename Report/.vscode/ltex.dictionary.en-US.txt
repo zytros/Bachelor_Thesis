@@ -2,3 +2,15 @@ Arbrea
 L-BFGS
 L-BFGS-B
 normals
+ImagePicker
+BLOBs
+Dio
+http
+mtl
+eigen
+SciKit
+SIMD
+mastopexy
+scipy
+unsimplified
+unproportional

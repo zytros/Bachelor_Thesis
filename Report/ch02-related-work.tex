@@ -1,23 +1,26 @@
 % set counter to n-1:
 \setcounter{chapter}{1}
 
-\chapter{Background and Related Work}
+\chapter{Background and Related Work}\label{ch02-related-work}
 
-Sample references are~\cite{Zwicker04Perspective} and~\cite{Altman89QuaternionScandal}.
+In this chapter we will discuss the background of this thesis and related work. We give a brief introduction to the topic of 3D models and how we can modify them. We will also discuss the Flutter framework, which we use to build our application.
+
 
 \section{Displaying 3D Models}
 
 A pivotal aspect of this thesis revolves around the presentation of 3D models. Given the intended deployment of the application across diverse platforms, the implementation necessitates a cross-platform approach. 
 To address this requirement, we use the Cube Flutter package, which we have tailored to align with our specific needs. The Cube package uses Wavefront's obj data format to read 3D models.
+
 This data format is a simple text-based format that stores 3D models in a human-readable form. In our use case it saves vertex coordinates, vertex normals, vertex texture and faces. Since we later want to change
 the shape of the 3D model the vertex coordinates are most interesting.
+In section \ref{sec:future_work} we will discuss possible future work, in which we need access to the other model attributes for finding a silhouette.
 
 
 \section{Modification of 3D Models}
+As mentioned above, we only want to change the shape of the 3D model. This corresponds to changing the vertex coordinates. This change then automatically changes the faces, and thus the shape of the 3D model.
+To facilitate the alteration of the 3D models, an adapted approach is employed, drawing inspiration from the methodology presented in the scholarly work by \cite{rychlik2008applications}
 
-To facilitate the alteration of the 3D models, an adapted approach is employed, drawing inspiration from the methodology presented in the scholarly work by %\autocite{rychlikApplications3DPCA2008}
-
-We will discuss the approach in detail in \ref{sec:modification}.
+We will discuss our approach in extensively in section \ref{sec:modification}.
 
 \section{Flutter Framework}
 
@@ -34,6 +37,3 @@ look similar on all platforms.
 
 Flutter further comes with a package manager called pub. Pub allows us to use third party packages by simply adding them to the pubspec.yaml file. This allows us to get things like third party widgets, 
 like for example a 3D model viewer, or libraries for mathematical operations that allow us to do quick matrix multiplication.
-
-
-%\printbibliography
