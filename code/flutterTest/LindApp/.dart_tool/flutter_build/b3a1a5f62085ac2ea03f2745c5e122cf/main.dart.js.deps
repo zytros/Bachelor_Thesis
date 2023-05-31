@@ -1,7 +1,7 @@
-file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.3+2/lib/camera.dart
-file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.3+2/lib/src/camera_controller.dart
-file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.3+2/lib/src/camera_image.dart
-file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.3+2/lib/src/camera_preview.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.4/lib/camera.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.4/lib/src/camera_controller.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.4/lib/src/camera_image.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera-0.10.4/lib/src/camera_preview.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera_platform_interface-2.4.1/lib/camera_platform_interface.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera_platform_interface-2.4.1/lib/src/events/camera_event.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/camera_platform_interface-2.4.1/lib/src/events/device_event.dart
@@ -294,6 +294,9 @@ file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.1/l
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.1/lib/src/typed_queue.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.1/lib/typed_buffers.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.3.1/lib/typed_data.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/universal_html-2.2.2/lib/html.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/universal_html-2.2.2/lib/src/_sdk/html.dart
+file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/universal_html-2.2.2/lib/src/_sdk_html_additions.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib/src/vector_math_64/aabb2.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib/src/vector_math_64/aabb3.dart
 file:///C:/Users/lucas/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4/lib/src/vector_math_64/colors.dart

@@ -42,7 +42,7 @@ class _ComparisonPageState extends State<ComparisonPage> {
       appBar: AppBar(
         title: const Text('Comparison'),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           Expanded(
