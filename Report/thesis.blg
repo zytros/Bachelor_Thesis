@@ -20,7 +20,7 @@ A level-1 auxiliary file: apx-sample-appendix.aux
 Reallocating 'name_of_file' (item size: 1) to 9 items.
 Database file #1: graphics.bib
 Warning--entry type for "florian_gerber_2020_3888570" isn't style-file defined
---line 77 of file graphics.bib
+--line 39 of file graphics.bib
 You've used 3 entries,
             2543 wiz_defined-function locations,
             586 strings with 5124 characters,

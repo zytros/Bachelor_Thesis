@@ -11,19 +11,18 @@ providing insights into the decision-making process.
 
 \section{Image Acquisition}
 
-The initial phase involves the acquisition of patient data. For our specific objectives, a triad of torso images is essential, comprising a frontal view, a left lateral view, and a right lateral view. 
-These images provide comprehensive visual information required for subsequent analysis and augmentation processes. Given our objective of maximizing the versatility of our application, 
-we aim to enable the utilization of images from diverse sources. This entails providing users with the flexibility to capture patient images using the device's camera or select existing images from the gallery. 
-By incorporating such functionality, our application caters to varying user preferences and facilitates seamless integration with different image acquisition methods, 
+The initial phase involves the acquisition of patient data. In our case this is a triad of torso images. These images consist of a frontal view, a left lateral view, and a right lateral view. 
+They provide comprehensive visual information required for the analysis and augmentation processes. Given our objective of maximizing the versatility of our application, 
+we aim to enable the utilization of images from diverse sources. This means providing users with the flexibility to capture patient images using the device's camera or select existing images from the gallery. 
+By incorporating such functionality, our application adapts to varying user preferences and facilitates seamless integration with different image acquisition methods, 
 enhancing the overall usability and accessibility of the app.
 
-Within the Flutter framework, a comprehensive range of image acquisition widgets is available, including the ImagePicker and Camera widgets. 
-The ImagePicker widget empowers users to select an image from the gallery of the device, while the Camera widget facilitates real-time image capture utilizing the device's integrated camera 
-or an external camera like a webcam. These widgets serve as essential components within the Flutter ecosystem, offering intuitive and efficient means of acquiring images from distinct sources, 
-thus enhancing the flexibility and functionality of our application.
+Within the Flutter framework, a big range of image acquisition widgets is available, including the ImagePicker and Camera widgets. 
+The ImagePicker widget empowers users to select an image from the gallery of the device, while the Camera widget allows for real-time image capture utilizing the device's integrated camera 
+or an external camera like a webcam. These widgets serve as essential components within the Flutter ecosystem, offering intuitive and efficient means of acquiring images from distinct sources.
 
-At this stage, we confront a challenge pertaining to platform-specific code. The web application, being browser-based, presents a hurdle in terms of accessing the device's memory, 
-which poses inherent difficulties. In contrast, the Android platform offers seamless access to the device's memory without encountering similar obstacles. 
+At this stage, we encounter the need to write platform-specific code. The web application, being browser-based, presents a hurdle in terms of accessing the device's memory, 
+which poses difficulties. In contrast, the Android platform offers seamless access to the device's memory without encountering any obstacles. 
 This distinction underscores the need for devising a solution that accommodates the limitations imposed by web-based environments, ensuring compatibility and functionality across platforms.
 
 \subsection{Image Acquisition on Android}
@@ -37,7 +36,7 @@ We then save these images on the device's memory and subsequently pass them to t
 
 \subsection{Image Acquisition on Web}
 
-On the web platform, our implementation deviates slightly from the Android counterpart due to the stringent restrictions on accessing the device's memory. 
+On the web platform, our implementation deviates slightly from the Android counterpart due to the restrictions on accessing the device's memory. 
 To circumvent these limitations, we rely on methods inherent to web development practices. Specifically, images captured using the camera are stored within the browser environment as Binary Large Objects (BLOBs). 
 This storage mechanism allows for efficient management and retrieval of image data, enabling seamless processing and integration within the web-based application.
 
@@ -45,11 +44,11 @@ A Blob represents a file-like object of immutable, raw data. Blobs represent dat
 
 In our web-based implementation, the Camera widget generates Binary Large Objects (BLOBs) automatically for the captured images, providing us with URLs instead of conventional file paths for subsequent referencing. 
 Similar to the Android implementation, we guide the user to capture three torso images. Given that a device may possess multiple cameras or webcams, we incorporate functionality that enables the user 
-to select their preferred camera. The Flutter framework proves invaluable in this regard, as it streamlines the management of diverse camera and webcam options available on the device, 
+to select their preferred camera. The Flutter framework proves invaluable in this regard, as it handles the management of diverse camera and webcam options available on the device, 
 ensuring seamless compatibility and optimal utilization.
 
 In addition to capturing images through the device's camera, we offer users the alternative option of selecting images from their device's gallery. This feature proves particularly useful 
-for users operating desktop computers, where capturing satisfactory images with a webcam can be challenging and inconvenient. Given the recurring constraint of limited access to the device's memory, 
+for users operating desktop computers, where capturing the necessary images with a webcam can be challenging and inconvenient. Given the recurring constraint of limited access to the device's memory, 
 we rely on the Flutter framework to present a viable solution. Leveraging the ImagePicker widget within Flutter, users can seamlessly select or drag and drop images from their devices 
 and upload them to the web application. This functionality parallels the familiar concept of file uploads on websites, a ubiquitous feature found across numerous online platforms. 
 
@@ -63,8 +62,8 @@ and upload them to the web application. This functionality parallels the familia
 \section{Communication with the backend Pipeline}
 
 At this juncture, we find ourselves faced with the task of obtaining a 3D model from the captured torso images of the patient. To accomplish this, we adopt the existing pipeline developed by Arbrea Labs, 
-which serves as the foundation for generating the requisite 3D model. However, to initiate this process, establishing a connection to a dedicated server hosting the pipeline becomes imperative. 
-Subsequently, the client transmits the acquired images alongside additional pertinent data to the server. The server, in turn, employs the received data to invoke the pipeline, 
+which serves as the foundation for generating the requisite 3D model. However, to initiate this process, connecting to a dedicated server hosting the pipeline becomes imperative. 
+Subsequently, the client transmits the acquired images alongside additional pertinent data to the server. The server, in turn, calls Arbrea's pipeline with the received images, 
 initiating the creation of the 3D model. Once generated, the resulting model is transmitted back to the client, where it is stored for subsequent stages of processing, augmentation, and visualization.
 
 In light of the straightforward requirements for the server component, we have opted to utilize a basic Python server that leverages Python's built-in http.server implementation. 
@@ -74,7 +73,7 @@ This minimalistic server implementation provides the necessary functionality to 
 
 Within the server-side architecture of our application, the primary objective is to receive three images from the client. Furthermore, considering the pipeline's reliance on the distance 
 between the patient's nipples, we require the client to transmit this essential information alongside a unique identifier. When a POST request is received, the server anticipates a JSON object 
-comprising the three images, with the frontal image listed first, followed by the right-side image, and concluding with the left-side image. The JSON object also encompasses the distance 
+comprising the three images, with the frontal image listed first, followed by the right-side image, and finally the left-side image. The JSON object also encompasses the distance 
 between the nipples and the unique identifier.
 
 Subsequently, the server proceeds to create a dedicated directory named after the unique identifier, serving as a repository for storing the received images. Given that the incoming 
@@ -124,8 +123,8 @@ before utilizing it within the Cube parser. This ensures compatibility and prope
 
 \section{Visualization of the 3D Model}
 
-As previously discussed, the visualization of the 3D model is primarily facilitated by the integration of the Flutter package Cube. 
-This package encompasses a 3D model viewer, which incorporates a standardized implementation of a computer graphics pipeline. 
+As previously discussed, the visualization of the 3D model is primarily done by the integration of the Flutter package Cube. 
+This package presents us with a 3D model viewer, which uses a standardized implementation of a computer graphics pipeline. 
 In order to effectively render the 3D models, Cube relies on an internal representation of these models, which is described and structured by the object.dart file.
 Understanding this representation is crucial for our application, because we want to be able to change vertices of the model, and as discussed above,
 we have a different method of initializing the model.
@@ -179,20 +178,20 @@ The second screen displays the modified model next to the unmodified model, wher
     \label{fig:comparison_screen}
 \end{figure}
 
-Within the object.dart file, one can locate the presence of a mesh object, as explicitly defined in the mesh.dart file. This particular mesh object encapsulates an 
+Within the object.dart file, one can locate a mesh object, as explicitly defined in the mesh.dart file. This particular mesh object encapsulates an 
 array of vertices, polygons, normals, and various other essential details pertaining to the model, which collectively contribute to its visual representation. 
-It is worth noting a significant but nuanced aspect, where a function is employed to duplicate vertices that possess multiple texture coordinates. 
-This duplication process ensures that each vertex within the mesh object maintains a singular texture coordinate. This particular detail warrants 
-consideration when attempting to manipulate the vertices of the model at a later stage.
+It is worth noting that a function is employed to duplicate vertices that possess multiple texture coordinates. 
+This duplication process ensures that each vertex within the mesh object maintains a singular texture coordinate. We needed to keep this in mind for later,
+because when we want to change the vertices of the model we can not simply take these vertices, as they are not the same after the duplication.
 
-The Cube package furnishes us with the essential transformation matrices, specifically the model, view, and projection matrices. 
-These matrices are of utmost importance as they enable us to perform various transformations on the 3D model and facilitate its visualization. 
+The Cube package provides us with the essential transformation matrices, specifically the model, view, and projection matrices. 
+These matrices are of great importance as they enable us to perform various transformations on the 3D model and facilitate its visualization. 
 The presence of these matrices within the scene.dart file streamlines our subsequent tasks, as we can readily access and utilize them when required.
 
 \section{Modification of the 3D Model through PCA}\label{sec:modification}
 
 Our primary objective revolves around the ability to manipulate the 3D breast model to simulate the outcomes of a breast augmentation surgery. 
-Numerous options exist to achieve this goal. However, our chosen approach entails employing the Principal Component Analysis (PCA) method, 
+There exist many options to achieve this goal. However, our chosen approach entails employing the Principal Component Analysis (PCA) method, 
 a statistical procedure that facilitates a substantial reduction in the dimensionality of our data. This methodology aligns with the techniques employed by Arbrea, 
 thereby enabling potential future enhancements to be implemented in a manner consistent with those utilized in the Lind App.
 
@@ -204,9 +203,9 @@ By projecting the data onto these principal components, PCA enables us to interp
 relationships, and underlying structures in high-dimensional data, making it a valuable tool for dimensionality reduction and data compression.
 
 Due to the convenience and functionality provided by Python for performing Principal Component Analysis (PCA), we opted to conduct the PCA fitting and initial analysis in Python. 
-Python offers comprehensive libraries and tools, such as Scikit-learn, that facilitate the implementation of PCA and provide extensive support for data analysis and manipulation. 
+Python offers comprehensive libraries and tools, such as Scikit-learn, that allow an easy implementation of PCA and provide extensive support for data analysis and manipulation. 
 By leveraging Python's capabilities, we can efficiently extract the principal components from our dataset and explore their significance and contribution to the variance. 
-Subsequently, we can utilize the obtained PCA results in our Flutter application for further processing and visualization of the modified 3D models.
+Finally, we can utilize the obtained PCA results in our Flutter application for further processing and visualization of the modified 3D models.
 
 Our initial step involved acquiring a dataset from Arbrea, which consisted of 266 3D models. Since our objective was to modify only the vertices of the 3D models, we extracted the 
 vertex information exclusively from the dataset. This resulted in a modified dataset comprising 266 3D models, with each model consisting of 3,354 vertices, each defined by three coordinates (x, y, and z). 
@@ -257,7 +256,7 @@ standard deviations $\sigma_1, \ldots, \sigma_k$, and eigenvectors $v_1, \ldots,
 To enable real-time deconstruction and reconstruction of 3D models, we required efficient matrix multiplication capabilities within the Flutter environment. To address this, we leveraged the ml\_linalg library, 
 which offers matrix and vector classes, along with support for SIMD (Single Instruction, Multiple Data) instructions. This allowed us to perform fast matrix multiplications by relying on the ml\_linalg library.
 
-Upon receiving a 3D model from the server, we initiated the deconstruction process to obtain the first 30 principal components, as defined in equation (\ref{eq:lambda_k}). We saved the resulting vector 
+After receiving a 3D model from the server, we initiated the deconstruction process to obtain the first 30 principal components, as defined in equation (\ref{eq:lambda_k}). We saved the resulting vector 
 $\lambda_k$ twice: one for reconstructing modified models and another as a reference for reconstructing the original model. We then proceeded to reconstruct the model $\hat{w}$ based on 
 (\ref{eq:reconstruction}), utilizing the obtained $\lambda_k$ vector.
 
@@ -269,7 +268,7 @@ above-mentioned process, resulting in an updated model representation.
 
 \subsubsection{First principal component}
 
-Upon analyzing the principal components, we observed that the first principal component primarily represented the general form of the model, indicating the overall size of the patient. 
+After analyzing the principal components, we observed that the first principal component primarily represented the general form of the model, indicating the overall size of the patient. 
 After careful consideration, we concluded that modifying this principal component to alter the breast would not be advisable for two main reasons.
 
 Firstly, changing the first principal component would result in a reconstructed model that deviates from anatomical correctness. Since the first principal component predominantly captures the 
@@ -387,6 +386,7 @@ visualization quality, they were not deemed necessary to be modified for our app
 
 It is worth noting that despite not being directly modified, these remaining principal components still contributed to capturing and displaying various characteristics of the breast 
 shape when using the first 30 principal components. This allowed for a comprehensive representation of the breast shape while focusing on the key components relevant to breast augmentation.
+We provide an analysis of the reconstruction accuracy in Section \ref{sec:reconstruction_accuracy}.
 
 \subsection{Region specific modification}
 
@@ -436,7 +436,7 @@ saving us the effort of manually determining these vertex indices.
     \label{fig:pca_breastspecific_top}
 \end{figure}
 
-Upon observing the modified model, we noticed the presence of sharp and unnatural transitions between the breast area and the surrounding torso. This abrupt change occurs because the boundary 
+After observing the modified model, we noticed the presence of sharp and unnatural transitions between the breast area and the surrounding torso. This abrupt change occurs because the boundary 
 region between the breast and the rest of the torso abruptly shifts from the original model $\hat{w}$ to the modified model $\hat{w}'$. To mitigate this issue and create a more visually 
 appealing result, we opted to implement interpolation between the two models in the boundary region.
 
@@ -491,7 +491,7 @@ response to their input.
 
 \subsection{Problem specification}
 
-To attain the desired functionality, it was necessary to formulate the problem mathematically. The most straightforward approach was to treat the problem as a minimization problem, 
+To obtain the desired functionality, it was necessary to formulate the problem mathematically. The most straightforward approach was to treat the problem as a minimization problem, 
 aiming to minimize the distance between the user-drawn line and the modified breast model. This problem can be conceptualized as follows:
 
 \begin{align}\label{argmin:full}
@@ -665,7 +665,7 @@ where
 \[
     x = \hat{p} \cdot U_k + \mu
 \]
-and the $x_i$ are the vertices of the approximated silhouette of the breast, and the $y_i$ are the corresponding closest points on the line. We want the following derivation:
+where $\hat{p}$ are the principal components, the $x_i$ are the vertices of the approximated silhouette of the breast, and $y_i$ are the corresponding closest points on the line. We want the following derivation:
 \[
     \frac{\partial l}{\partial \hat{p}}
 \]
@@ -677,7 +677,7 @@ where
 \[
     d_i = \lVert x_i - y_j \rVert
 \]
-and $v_{ix}$, $v_{iy}$ and $v_{iz}$ are the components corresponding to the $x,y,z$ coordinate of the $i$-th vertex of the breast. This then gives us an approximation of the derivative of $f$ at $x$.
+and $v_{ix}$, $v_{iy}$ and $v_{iz}$ are the components corresponding to the $x,y,z$ coordinate of the $i$-th vertex of the breast, given by the PCA. This then gives us an approximation of the derivative of $f$ at $x$.
 We can now use this to calculate the next guess $x_{n+1}$ in the Newton method. 
 
 As we can never reach a loss of zero, the method will never converge. This is because the line we draw is most

@@ -1,70 +1,142 @@
 import numpy as np
 from sklearn.decomposition import PCA
+from vedo import *
+import readply as rp
+import h5py
+import threading
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-def readObj(filename):
+num_comp = 25
+        
+
+def getDifference(x, y):
+    s = 0
+    for i in range(int(len(x)/3)):
+        s += sqrt((x[3*i] - y[3*i])**2 + (x[3*i+1] - y[3*i+1])**2 + (x[3*i+2] - y[3*i+2])**2)
+    return s
+
+def save_matrix_as_hdf5(matrix, filename):
+    with h5py.File(filename, 'w') as f:
+        dataset = f.create_dataset('matrix', data=matrix)
+        
+def read_matrix_from_hdf5(filename):
+    with h5py.File(filename, 'r') as f:
+        dataset = f['matrix']
+        matrix = np.array(dataset)
+    return matrix
+
+def show(objFile):
+    mesh = Mesh(objFile)
+    mesh.rotate_x(180)
+    #mesh.rotate_y(-45)
+    mesh.show()
+    
+def getVertCoords(filename):
     file = open(filename, 'r')
     lines = file.readlines()
-    file.close
-    return lines
+    file.close()
+    
+    coords = []
+    for i in range(len(lines)):
+        if not lines[i].startswith('v '):
+            continue
 
-def getVertList(lines:str):
-    verts = []
-    for line in lines:
-        if line.startswith('#'):
-            continue
-        elif line.startswith('vn'):
-            continue
-        elif line.startswith('vt'):
-            continue
-        elif line.startswith('v'):
-            coords = line.split(' ')
-            verts.append(float(coords[1]))
-            verts.append(float(coords[2]))
-            verts.append(float(coords[3].replace('\n', '')))
-        else:
-            continue
-    return verts
+        line = lines[i].split(" ")
+        coords.append(float(line[1]))
+        coords.append(float(line[2]))
+        coords.append(float(line[3].replace('\n', '')))
+    return coords
 
-def getVertListList(lines:str):
-    verts = []
-    for line in lines:
-        if line.startswith('#'):
-            continue
-        elif line.startswith('vn'):
-            continue
-        elif line.startswith('vt'):
-            continue
-        elif line.startswith('v'):
-            coords = line.split(' ')
-            verts.append([float(coords[1]), float(coords[2]), float(coords[3].replace('\n', ''))])
-        else:
-            continue
-    return verts
-X = np.array([getVertList(readObj('objs/increasedModel_Demo_Augmentation.obj')), getVertList(readObj('objs/fitModel_Demo_Augmentation.obj')), 
-              getVertList(readObj('objs/fitModel_Ctutc.obj')), getVertList(readObj('objs/fitModel_Demo_Reduction.obj')), 
-              getVertList(readObj('objs/fitModel_Hgcutc.obj')), getVertList(readObj('objs/fitModel_Jg.obj')), 
-              getVertList(readObj('objs/increasedModel_Ctutc.obj')), getVertList(readObj('objs/increasedModel_Demo_Reduction.obj')), 
-              getVertList(readObj('objs/increasedModel_Hgcutc.obj')), getVertList(readObj('objs/increasedModel_Jg.obj'))])
+def createFile(filename, verts):
+    filestr = ''
+    for i in range(int(len(verts)/3)):
+        filestr = filestr + 'v ' + str(verts[3*i]) + ' ' + str(verts[3*i+1]) + ' '+ str(verts[3*i+2]) + '\n'
 
-x_i = np.array(getVertListList(readObj('objs/fitModel_Demo_Augmentation.obj')))
-print(X.shape)
-print(x_i.shape)
+    filestrrest = ''
+    file = open('objs/fitModel_Jg.obj', 'r')
+    lines = file.readlines()
+    idx = 0
+    for i in range(len(lines)):
+        if(not lines[i].startswith('v ')):
+            filestrrest = filestrrest + lines[i]
+    file.close()
 
-pca = PCA(n_components=10)
+    file = open(filename, 'w')
+    file.write(filestr + filestrrest)
+    file.close()
+    
+X = np.array(rp.getData())
+#print(X[0].shape)
+w = getVertCoords('objs/fitModel_Hgcutc.obj')
+pca = PCA(30)
 pca.fit(X)
-mean = pca.mean_
-print(mean.shape)
+#eigenVectors = pca.components_
+#eigenValues = pca.explained_variance_
 covariance = pca.get_covariance()
-eigenValues, eigenVectors = np.linalg.eig(covariance)
+#print(covariance.shape)
+#eigenValues, eigenVectors = np.linalg.eig(covariance)
+#save_matrix_as_hdf5(eigenVectors.real, 'eigenVectors.h5')
+eigenVectors = read_matrix_from_hdf5('eigenVectors.h5')
+#print(eigenVectors.shape)
 
-U_k = eigenVectors[:, 0:8].dot(np.diag(np.sqrt(eigenValues[0:8])))
+#stddevs = np.sqrt(pca.explained_variance_[:30])
+mean = pca.mean_
+#print(mean.shape)
+#np.savetxt('mean.txt', mean.real, fmt="%.12f")
+#np.savetxt('stddevs.txt', stddevs, fmt="%.12f")
 
+U_k = eigenVectors[:, 0:30]
+#np.savetxt("eigVecs.csv", U_k.real, fmt="%.12f")
+x_red = np.dot(U_k.T, (w - mean).T).real
+print(x_red)
 
+if False:
+    x_redBase = np.dot(U_k.T, (w - mean).T).real
+    #print(x_red)
+    #x_red = np.zeros(num_comp)
+    #x_red = np.sqrt([5740, 2518, 1634, 672, 493, 231, 180, 146, 118, 111, 111, 82, 71, 69, 60, 51, 42, 32, 28, 26, 24, 22, 20, 19, 16, 16, 14, 12, 11.8, 10])
+    print('before: ', x_red[1:4])
+    x_red[1] += 150
+    #first component size
+    #x_red[1] = 150
+    #second component up/down
+    #x_red[2] = 100
+    #third component left/right & thin/fat
+    #x_red[3] = 0
 
-x_red = U_k.dot(x_i-mean)
-print (U_k.shape)
-np.savetxt('x_reduced.csv', eigenValues, fmt="%.12f")
-#np.savetxt('eigenVectors.csv', eigenVectors, fmt="%.12f")
+    print('after: ', x_red[1:4])
+    cutoff = 5
 
-print(eigenValues.shape)
+    basePCAmodel = (np.dot(U_k, x_redBase) + mean).real
+    adjustedModel = (np.dot(U_k, x_red) + mean).real
+
+    indices = rp.getIndices('breast_indices/leftBreastIdxLargeArea.txt') + rp.getIndices('breast_indices/rightBreastIdxLargeArea.txt')
+    outline = rp.getIndices('breast_indices/leftBreastIdxLargeAreaOutline.txt') + rp.getIndices('breast_indices/rightBreastIdxLargeAreaOutline.txt')
+    indices = list(set(indices))
+    print('indices: ', len(indices))
+    print('outline: ', len(outline))
+    dists = []
+    for i in indices:
+        dists.append(rp.getNearestDist(outline, adjustedModel, adjustedModel[i*3], adjustedModel[i*3+1], adjustedModel[i*3+2]))
+
+    indices_exp = rp.expandIndices(indices)
+    for i in range(len(indices_exp)):
+        dist = dists[int(i/3)]
+        if dist > cutoff:
+            basePCAmodel[indices_exp[i]] = adjustedModel[indices_exp[i]]
+        else:
+            basePCAmodel[indices_exp[i]] = (dist/cutoff) * adjustedModel[indices_exp[i]] + (1-(dist/cutoff)) * basePCAmodel[indices_exp[i]]
+
+    for i in range(len(w)):
+        if i in indices_exp:
+            continue
+        else:
+            w[i] = 10
+
+    createFile('objs/w_.obj', w)
+    #createFile('objs/mean.obj', mean)
+
+    show('objs/w_.obj')
+
 

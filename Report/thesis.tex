@@ -9,6 +9,7 @@
 \usepackage{booktabs} % publication quality tables for LaTeX
 %\usepackage{showkeys} % shows the labels above the references for easier development
 
+
 \ifpdfoutput{%
 	\usepackage[pdftex]{graphicx}
 	\usepackage[]{pdfpages} %for including full pdf pages
@@ -120,7 +121,7 @@
 	\vspace{3.0cm}
 	\textbf{\textsf{Cross-platform Real-time Visualization and
 	Editing Interface of Breast 3D meshes}} \\[2.0cm]
-	\includegraphics*[width=0.4\textwidth]{figures/placeholderTeaser} \\
+	\includegraphics*[width=\textwidth]{figures/placeholderTeaser} \\
 	\vspace{5.0cm}
 	\sffamily
 	\Large
@@ -181,6 +182,7 @@
 \include{ch03-more-chapters}
 \include{ch04-conclusion}
 \include{ch05-conclusion-and-outlook}
+
 %\include{test}
 
 
@@ -193,11 +195,13 @@
 
 \include{apx-sample-appendix}
 
+
 \clearpage
 \renewcommand*{\chapterpagestyle}{empty}
 
 %\nocite{*}
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{graphics}
-
+\includepdf[page={1}]{Luca_Sichi_Thesis_description}
+\includepdf[page={1}]{declaration_of_originality}
 \end{document}

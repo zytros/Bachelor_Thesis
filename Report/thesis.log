@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.22)  31 MAY 2023 20:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.14)  1 JUN 2023 16:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/lucas/Documents/Bachelor_Thesis/Report/thesis.tex
-(c:/Users/lucas/Documents/Bachelor_Thesis/Report/thesis.tex
+**c:/Users/lucas/Documents/Bachelor_Thesis/report/thesis.tex
+(c:/Users/lucas/Documents/Bachelor_Thesis/report/thesis.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-05-11> (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\scrbook.cls
 Document Class: scrbook 2023/04/24 v3.40 KOMA-Script document class (book)
@@ -349,7 +349,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 Package scrbase Warning: Usage of deprecated command `\ifpdfoutput'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifpdfoutput' by `\Ifpdfoutput' on input line 12.
+(scrbase)                Please replace `\ifpdfoutput' by `\Ifpdfoutput' on input line 13.
 
 (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
@@ -429,7 +429,7 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 Package scrbase Warning: Usage of deprecated command `\ifpdfoutput'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifpdfoutput' by `\Ifpdfoutput' on input line 29.
+(scrbase)                Please replace `\ifpdfoutput' by `\Ifpdfoutput' on input line 30.
 
 (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2023-04-22 v7.00x Hypertext links for LaTeX
@@ -551,7 +551,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 Package scrbase Warning: Usage of deprecated command `\ifpdfoutput'.
 (scrbase)                The command has been renamed because of a
 (scrbase)                recommendation of The LaTeX Project Team.
-(scrbase)                Please replace `\ifpdfoutput' by `\Ifpdfoutput' on input line 49.
+(scrbase)                Please replace `\ifpdfoutput' by `\Ifpdfoutput' on input line 50.
 
 (preamble.tex
 \c@localFigure=\count310
@@ -559,34 +559,34 @@ Package scrbase Warning: Usage of deprecated command `\ifpdfoutput'.
 ) (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (ch05-conclusion-and-outlook.aux) (apx-sample-appendix.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-Package scrbase Info: activating english \partname on input line 82.
-Package scrbase Info: activating english \chaptername on input line 82.
-Package scrbase Info: activating english \appendixname on input line 82.
-Package scrbase Info: activating english \figurename on input line 82.
-Package scrbase Info: activating english \tablename on input line 82.
-Package scrbase Info: activating english \contentsname on input line 82.
-Package scrbase Info: activating english \listfigurename on input line 82.
-Package scrbase Info: activating english \listtablename on input line 82.
-Package scrbase Info: activating english \bibname on input line 82.
-Package scrbase Info: activating english \indexname on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+Package scrbase Info: activating english \partname on input line 83.
+Package scrbase Info: activating english \chaptername on input line 83.
+Package scrbase Info: activating english \appendixname on input line 83.
+Package scrbase Info: activating english \figurename on input line 83.
+Package scrbase Info: activating english \tablename on input line 83.
+Package scrbase Info: activating english \contentsname on input line 83.
+Package scrbase Info: activating english \listfigurename on input line 83.
+Package scrbase Info: activating english \listtablename on input line 83.
+Package scrbase Info: activating english \bibname on input line 83.
+Package scrbase Info: activating english \indexname on input line 83.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -619,7 +619,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-Package hyperref Info: Link coloring ON on input line 82.
+Package hyperref Info: Link coloring ON on input line 83.
  (thesis.out) (thesis.out)
 \@outlinefile=\write3
 \openout3 = `thesis.out'.
@@ -631,45 +631,47 @@ Class scrbook Info: loading recommended package `bookmark'.
 (scrbook)           `bookmarkpackage=false' before \begin{document} and
 (scrbook)           you can avoid this message adding:
 (scrbook)             \usepackage{bookmark}
-(scrbook)           before \begin{document} on input line 82.
+(scrbook)           before \begin{document} on input line 83.
  (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
 Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
  (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def
 File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
 \BKM@id=\count318
 )) (studchapter.tex)
-Package hyperref Info: Option `pageanchor' set `false' on input line 103.
-LaTeX Font Info:    Trying to load font information for T1+phv on input line 122.
+Package hyperref Info: Option `pageanchor' set `false' on input line 104.
+LaTeX Font Info:    Trying to load font information for T1+phv on input line 123.
  (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
-<figures/placeholderTeaser.png, id=3, 1927.2pt x 1084.05pt>
+<figures/placeholderTeaser.png, id=3, 1507.13063pt x 749.80125pt>
 File: figures/placeholderTeaser.png Graphic file (type png)
 <use figures/placeholderTeaser.png>
-Package pdftex.def Info: figures/placeholderTeaser.png  used on input line 123.
-(pdftex.def)             Requested size: 182.11769pt x 102.43996pt.
+Package pdftex.def Info: figures/placeholderTeaser.png  used on input line 124.
+(pdftex.def)             Requested size: 455.30121pt x 226.50952pt.
 <figures/ETH_logo.pdf, id=6, 8816.1872pt x 2366.8425pt>
 File: figures/ETH_logo.pdf Graphic file (type pdf)
 <use figures/ETH_logo.pdf>
-Package pdftex.def Info: figures/ETH_logo.pdf  used on input line 136.
+Package pdftex.def Info: figures/ETH_logo.pdf  used on input line 137.
 (pdftex.def)             Requested size: 136.59175pt x 36.65678pt.
 <figures/CGL_logo.pdf, id=8, 426.7935pt x 142.26149pt>
 File: figures/CGL_logo.pdf Graphic file (type pdf)
 <use figures/CGL_logo.pdf>
-Package pdftex.def Info: figures/CGL_logo.pdf  used on input line 140.
+Package pdftex.def Info: figures/CGL_logo.pdf  used on input line 141.
 (pdftex.def)             Requested size: 136.59175pt x 45.52893pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [1
 
 
 
-{C:/Users/lucas/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./figures/placeholderTeaser.png> <./figures/ETH_logo.pdf> <./figures/CGL_logo.pdf>] [2
-
-
-]
-Package hyperref Info: Option `pageanchor' set `true' on input line 146.
+{C:/Users/lucas/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./figures/placeholderTeaser.png>] [2 <./figures/ETH_logo.pdf> <./figures/CGL_logo.pdf>]
+Package hyperref Info: Option `pageanchor' set `true' on input line 147.
 \openout2 = `abstract.aux'.
 
  (abstract.tex [1
+
+
 
 
 
@@ -748,7 +750,7 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 18
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ))
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <100> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 179.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 180.
 
 Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 []|[] []
@@ -803,16 +805,13 @@ Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 <figures/upload_drag_and_drop.png, id=235, 615.0177pt x 319.1925pt>
 File: figures/upload_drag_and_drop.png Graphic file (type png)
 <use figures/upload_drag_and_drop.png>
-Package pdftex.def Info: figures/upload_drag_and_drop.png  used on input line 58.
+Package pdftex.def Info: figures/upload_drag_and_drop.png  used on input line 57.
 (pdftex.def)             Requested size: 364.24236pt x 189.04277pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [7 <./figures/upload_drag_and_drop.png>] [8]
 <figures/blue_tone.png, id=247, 176.8206pt x 90.8193pt>
 File: figures/blue_tone.png Graphic file (type png)
 <use figures/blue_tone.png>
-Package pdftex.def Info: figures/blue_tone.png  used on input line 140.
+Package pdftex.def Info: figures/blue_tone.png  used on input line 139.
 (pdftex.def)             Requested size: 364.24236pt x 187.09123pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -821,12 +820,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <figures/20230529-frontal_view.jpg, id=252, 185.7339pt x 236.8047pt>
 File: figures/20230529-frontal_view.jpg Graphic file (type jpg)
 <use figures/20230529-frontal_view.jpg>
-Package pdftex.def Info: figures/20230529-frontal_view.jpg  used on input line 150.
+Package pdftex.def Info: figures/20230529-frontal_view.jpg  used on input line 149.
 (pdftex.def)             Requested size: 185.73344pt x 236.80411pt.
 <figures/20230529-top_view.jpg, id=253, 185.7339pt x 236.8047pt>
 File: figures/20230529-top_view.jpg Graphic file (type jpg)
 <use figures/20230529-top_view.jpg>
-Package pdftex.def Info: figures/20230529-top_view.jpg  used on input line 159.
+Package pdftex.def Info: figures/20230529-top_view.jpg  used on input line 158.
 (pdftex.def)             Requested size: 185.73344pt x 236.80411pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -835,89 +834,94 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <figures/20230529-bottom_view.jpg, id=259, 185.7339pt x 236.8047pt>
 File: figures/20230529-bottom_view.jpg Graphic file (type jpg)
 <use figures/20230529-bottom_view.jpg>
-Package pdftex.def Info: figures/20230529-bottom_view.jpg  used on input line 168.
+Package pdftex.def Info: figures/20230529-bottom_view.jpg  used on input line 167.
 (pdftex.def)             Requested size: 185.73344pt x 236.80411pt.
 <figures/20230529-comparison_screen.jpg, id=260, 485.6544pt x 218.4963pt>
 File: figures/20230529-comparison_screen.jpg Graphic file (type jpg)
 <use figures/20230529-comparison_screen.jpg>
-Package pdftex.def Info: figures/20230529-comparison_screen.jpg  used on input line 177.
+Package pdftex.def Info: figures/20230529-comparison_screen.jpg  used on input line 176.
 (pdftex.def)             Requested size: 364.24236pt x 163.8818pt.
 
 Underfull \vbox (badness 2635) has occurred while \output is active []
 
- [11 <./figures/20230529-top_view.jpg> <./figures/20230529-bottom_view.jpg>] [12 <./figures/20230529-comparison_screen.jpg>] [13] [14]
+ [11 <./figures/20230529-top_view.jpg> <./figures/20230529-bottom_view.jpg>]
+Overfull \hbox (1.28186pt too wide) in paragraph at lines 187--190
+[]\T1/ptm/m/n/12 The Cube pack-age pro-vides us with the es-sen-tial trans-for-ma-tion ma-tri-ces, specif-i-cally the model,
+ []
+
+[12 <./figures/20230529-comparison_screen.jpg>] [13] [14]
 <figures/20230529-pca_base.jpg, id=294, 171.5208pt x 218.7372pt>
 File: figures/20230529-pca_base.jpg Graphic file (type jpg)
 <use figures/20230529-pca_base.jpg>
-Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 284.
+Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 283.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
 <figures/20230529-pca_0_comp.jpg, id=295, 171.5208pt x 218.7372pt>
 File: figures/20230529-pca_0_comp.jpg Graphic file (type jpg)
 <use figures/20230529-pca_0_comp.jpg>
-Package pdftex.def Info: figures/20230529-pca_0_comp.jpg  used on input line 285.
+Package pdftex.def Info: figures/20230529-pca_0_comp.jpg  used on input line 284.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
  [15 <./figures/20230529-pca_base.jpg> <./figures/20230529-pca_0_comp.jpg>]
 File: figures/20230529-pca_base.jpg Graphic file (type jpg)
 <use figures/20230529-pca_base.jpg>
-Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 310.
+Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 309.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
 <figures/20230529-pca_1_comp.jpg, id=304, 171.5208pt x 218.7372pt>
 File: figures/20230529-pca_1_comp.jpg Graphic file (type jpg)
 <use figures/20230529-pca_1_comp.jpg>
-Package pdftex.def Info: figures/20230529-pca_1_comp.jpg  used on input line 311.
+Package pdftex.def Info: figures/20230529-pca_1_comp.jpg  used on input line 310.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
 File: figures/20230529-pca_base.jpg Graphic file (type jpg)
 <use figures/20230529-pca_base.jpg>
-Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 337.
+Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 336.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
 <figures/20230529-pca_2_comp.jpg, id=305, 171.5208pt x 218.7372pt>
 File: figures/20230529-pca_2_comp.jpg Graphic file (type jpg)
 <use figures/20230529-pca_2_comp.jpg>
-Package pdftex.def Info: figures/20230529-pca_2_comp.jpg  used on input line 338.
+Package pdftex.def Info: figures/20230529-pca_2_comp.jpg  used on input line 337.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
  [16 <./figures/20230529-pca_1_comp.jpg>]
 File: figures/20230529-pca_base.jpg Graphic file (type jpg)
 <use figures/20230529-pca_base.jpg>
-Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 363.
+Package pdftex.def Info: figures/20230529-pca_base.jpg  used on input line 362.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
 <figures/20230529-pca_3_comp.jpg, id=312, 171.5208pt x 218.7372pt>
 File: figures/20230529-pca_3_comp.jpg Graphic file (type jpg)
 <use figures/20230529-pca_3_comp.jpg>
-Package pdftex.def Info: figures/20230529-pca_3_comp.jpg  used on input line 364.
+Package pdftex.def Info: figures/20230529-pca_3_comp.jpg  used on input line 363.
 (pdftex.def)             Requested size: 221.73146pt x 282.77626pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [17 <./figures/20230529-pca_2_comp.jpg>] [18 <./figures/20230529-pca_3_comp.jpg>]
-<figures/20230529-pca_deformation_3.jpg, id=325, 185.7339pt x 236.8047pt>
+<figures/20230529-pca_deformation_3.jpg, id=326, 185.7339pt x 236.8047pt>
 File: figures/20230529-pca_deformation_3.jpg Graphic file (type jpg)
 <use figures/20230529-pca_deformation_3.jpg>
 Package pdftex.def Info: figures/20230529-pca_deformation_3.jpg  used on input line 403.
 (pdftex.def)             Requested size: 221.73146pt x 282.72247pt.
-<figures/20230529-pca_deformation_4.jpg, id=326, 185.7339pt x 236.8047pt>
+<figures/20230529-pca_deformation_4.jpg, id=327, 185.7339pt x 236.8047pt>
 File: figures/20230529-pca_deformation_4.jpg Graphic file (type jpg)
 <use figures/20230529-pca_deformation_4.jpg>
 Package pdftex.def Info: figures/20230529-pca_deformation_4.jpg  used on input line 404.
 (pdftex.def)             Requested size: 221.73146pt x 282.72247pt.
  [19 <./figures/20230529-pca_deformation_3.jpg> <./figures/20230529-pca_deformation_4.jpg>]
-<figures/20230529-pca_breastspecific_top.jpg, id=332, 171.5208pt x 218.7372pt>
+<figures/20230529-pca_breastspecific_top.jpg, id=333, 171.5208pt x 218.7372pt>
 File: figures/20230529-pca_breastspecific_top.jpg Graphic file (type jpg)
 <use figures/20230529-pca_breastspecific_top.jpg>
 Package pdftex.def Info: figures/20230529-pca_breastspecific_top.jpg  used on input line 434.
 (pdftex.def)             Requested size: 182.11769pt x 232.25749pt.
  [20 <./figures/20230529-pca_breastspecific_top.jpg>]
-<figures/correction_ui_pre.png, id=338, 753.5653pt x 749.80125pt>
+<figures/correction_ui_pre.png, id=339, 753.5653pt x 749.80125pt>
 File: figures/correction_ui_pre.png Graphic file (type png)
 <use figures/correction_ui_pre.png>
 Package pdftex.def Info: figures/correction_ui_pre.png  used on input line 481.
 (pdftex.def)             Requested size: 221.73146pt x 220.6174pt.
-<figures/correction_ui_post.png, id=339, 753.5653pt x 749.80125pt>
+<figures/correction_ui_post.png, id=340, 753.5653pt x 749.80125pt>
 File: figures/correction_ui_post.png Graphic file (type png)
 <use figures/correction_ui_post.png>
 Package pdftex.def Info: figures/correction_ui_post.png  used on input line 482.
 (pdftex.def)             Requested size: 221.73146pt x 220.6174pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1286) has occurred while \output is active []
 
  [21] [22 <./figures/correction_ui_pre.png> <./figures/correction_ui_post.png>] [23] [24] [25] [26]
 Overfull \hbox (1.85805pt too wide) in paragraph at lines 692--695
@@ -935,7 +939,7 @@ Overfull \hbox (1.85805pt too wide) in paragraph at lines 692--695
 
 ]
 chapter 4.
-<figures/plot_recreation_accuracy.png, id=394, 462.528pt x 346.896pt>
+<figures/plot_recreation_accuracy.png, id=395, 462.528pt x 346.896pt>
 File: figures/plot_recreation_accuracy.png Graphic file (type png)
 <use figures/plot_recreation_accuracy.png>
 Package pdftex.def Info: figures/plot_recreation_accuracy.png  used on input line 14.
@@ -952,12 +956,12 @@ Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
  [29]
-<figures/plot_quasiNewton_serial.png, id=401, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_serial.png, id=402, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_serial.png Graphic file (type png)
 <use figures/plot_quasiNewton_serial.png>
 Package pdftex.def Info: figures/plot_quasiNewton_serial.png  used on input line 37.
 (pdftex.def)             Requested size: 364.24236pt x 273.19263pt.
-<figures/plot_quasiNewton_ser_fun_params.png, id=402, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_ser_fun_params.png, id=403, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_ser_fun_params.png Graphic file (type png)
 <use figures/plot_quasiNewton_ser_fun_params.png>
 Package pdftex.def Info: figures/plot_quasiNewton_ser_fun_params.png  used on input line 44.
@@ -966,12 +970,12 @@ Package pdftex.def Info: figures/plot_quasiNewton_ser_fun_params.png  used on in
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [31 <./figures/plot_quasiNewton_serial.png> <./figures/plot_quasiNewton_ser_fun_params.png>]
-<figures/plot_quasiNewton_time.png, id=419, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_time.png, id=420, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_time.png Graphic file (type png)
 <use figures/plot_quasiNewton_time.png>
 Package pdftex.def Info: figures/plot_quasiNewton_time.png  used on input line 63.
 (pdftex.def)             Requested size: 364.24236pt x 273.19263pt.
-<figures/plot_quasiNewton_fun_params.png, id=420, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_fun_params.png, id=421, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_fun_params.png Graphic file (type png)
 <use figures/plot_quasiNewton_fun_params.png>
 Package pdftex.def Info: figures/plot_quasiNewton_fun_params.png  used on input line 70.
@@ -980,7 +984,7 @@ Package pdftex.def Info: figures/plot_quasiNewton_fun_params.png  used on input 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [32 <./figures/plot_quasiNewton_time.png>]
-<figures/plot_quasiNewton_serial_vs_parallel.png, id=426, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_serial_vs_parallel.png, id=427, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_serial_vs_parallel.png Graphic file (type png)
 <use figures/plot_quasiNewton_serial_vs_parallel.png>
 Package pdftex.def Info: figures/plot_quasiNewton_serial_vs_parallel.png  used on input line 77.
@@ -989,7 +993,7 @@ Package pdftex.def Info: figures/plot_quasiNewton_serial_vs_parallel.png  used o
 Underfull \vbox (badness 2165) has occurred while \output is active []
 
  [33 <./figures/plot_quasiNewton_fun_params.png> <./figures/plot_quasiNewton_serial_vs_parallel.png>]
-<figures/plot_losses.png, id=442, 462.528pt x 346.896pt>
+<figures/plot_losses.png, id=443, 462.528pt x 346.896pt>
 File: figures/plot_losses.png Graphic file (type png)
 <use figures/plot_losses.png>
 Package pdftex.def Info: figures/plot_losses.png  used on input line 103.
@@ -998,13 +1002,13 @@ Package pdftex.def Info: figures/plot_losses.png  used on input line 103.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [34]
-<figures/plot_losses_vs_iterations_stepsize.png, id=447, 462.528pt x 346.896pt>
+<figures/plot_losses_vs_iterations_stepsize.png, id=448, 462.528pt x 346.896pt>
 File: figures/plot_losses_vs_iterations_stepsize.png Graphic file (type png)
 <use figures/plot_losses_vs_iterations_stepsize.png>
 Package pdftex.def Info: figures/plot_losses_vs_iterations_stepsize.png  used on input line 110.
 (pdftex.def)             Requested size: 364.24236pt x 273.19263pt.
  [35 <./figures/plot_losses.png> <./figures/plot_losses_vs_iterations_stepsize.png>]
-<figures/plot_newtonMethod_line_len.png, id=459, 462.528pt x 346.896pt>
+<figures/plot_newtonMethod_line_len.png, id=460, 462.528pt x 346.896pt>
 File: figures/plot_newtonMethod_line_len.png Graphic file (type png)
 <use figures/plot_newtonMethod_line_len.png>
 Package pdftex.def Info: figures/plot_newtonMethod_line_len.png  used on input line 131.
@@ -1054,28 +1058,113 @@ Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
 
 
-]) [42] (thesis.bbl) [43
+]) [42] (thesis.bbl)
+
+Package pdfpages Warning: Option `page' is unknow to \includepdf.
+(pdfpages)                Did you mean `pages'? (Note the `s'!)
+(pdfpages)                OK, I'll proceed as if it were `pages'.
+
+<Luca_Sichi_Thesis_description.pdf, id=498, 598.235pt x 845.1575pt>
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf  used on input line 205.
+(pdftex.def)             Requested size: 598.23354pt x 845.15544pt.
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf  used on input line 205.
+(pdftex.def)             Requested size: 598.23354pt x 845.15544pt.
+<Luca_Sichi_Thesis_description.pdf, id=501, page=1, 598.235pt x 845.1575pt>
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf, page 1>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf , page1 used on input line 205.
+(pdftex.def)             Requested size: 598.23354pt x 845.15544pt.
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf, page 1>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf , page1 used on input line 205.
+(pdftex.def)             Requested size: 597.7406pt x 844.45905pt.
+[43
 
 
 
 
 
-] (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (ch05-conclusion-and-outlook.aux) (apx-sample-appendix.aux))
+]
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf, page 1>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf , page1 used on input line 205.
+(pdftex.def)             Requested size: 597.7406pt x 844.45905pt.
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf, page 1>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf , page1 used on input line 205.
+(pdftex.def)             Requested size: 597.7406pt x 844.45905pt.
+File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
+<use Luca_Sichi_Thesis_description.pdf, page 1>
+Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf , page1 used on input line 205.
+(pdftex.def)             Requested size: 597.7406pt x 844.45905pt.
+ [44 <./Luca_Sichi_Thesis_description.pdf>]
+
+Package pdfpages Warning: Option `page' is unknow to \includepdf.
+(pdfpages)                Did you mean `pages'? (Note the `s'!)
+(pdfpages)                OK, I'll proceed as if it were `pages'.
+
+
+
+pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<declaration_of_originality.pdf, id=533, 1866.22218pt x 2640.11343pt>
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf>
+Package pdftex.def Info: declaration_of_originality.pdf  used on input line 206.
+(pdftex.def)             Requested size: 1866.21765pt x 2640.10703pt.
+
+
+pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf>
+Package pdftex.def Info: declaration_of_originality.pdf  used on input line 206.
+(pdftex.def)             Requested size: 1866.21765pt x 2640.10703pt.
+
+
+pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+
+
+pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<declaration_of_originality.pdf, id=536, page=1, 1866.22218pt x 2640.11343pt>
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf, page 1>
+Package pdftex.def Info: declaration_of_originality.pdf , page1 used on input line 206.
+(pdftex.def)             Requested size: 1866.21765pt x 2640.10703pt.
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf, page 1>
+Package pdftex.def Info: declaration_of_originality.pdf , page1 used on input line 206.
+(pdftex.def)             Requested size: 597.34569pt x 845.05501pt.
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf, page 1>
+Package pdftex.def Info: declaration_of_originality.pdf , page1 used on input line 206.
+(pdftex.def)             Requested size: 597.34569pt x 845.05501pt.
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf, page 1>
+Package pdftex.def Info: declaration_of_originality.pdf , page1 used on input line 206.
+(pdftex.def)             Requested size: 597.34569pt x 845.05501pt.
+File: declaration_of_originality.pdf Graphic file (type pdf)
+<use declaration_of_originality.pdf, page 1>
+Package pdftex.def Info: declaration_of_originality.pdf , page1 used on input line 206.
+(pdftex.def)             Requested size: 597.34569pt x 845.05501pt.
+[45 <./declaration_of_originality.pdf>] (thesis.aux (abstract.aux) (ch01-introduction.aux) (ch02-related-work.aux) (ch03-more-chapters.aux) (ch04-conclusion.aux) (ch05-conclusion-and-outlook.aux) (apx-sample-appendix.aux))
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18639 strings out of 476360
- 337878 string characters out of 5788025
+ 18664 strings out of 476360
+ 338854 string characters out of 5788025
  1862993 words of memory out of 5000000
- 38525 multiletter control sequences out of 15000+600000
+ 38546 multiletter control sequences out of 15000+600000
  568640 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,29n,106p,10949b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,29n,106p,10949b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (55 pages, 4624777 bytes).
+Output written on thesis.pdf (57 pages, 10855817 bytes).
 PDF statistics:
- 731 PDF objects out of 1000 (max. 8388607)
- 149 named destinations out of 1000 (max. 500000)
- 471 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 776 PDF objects out of 1000 (max. 8388607)
+ 151 named destinations out of 1000 (max. 500000)
+ 511 words of extra memory for PDF output out of 10000 (max. 10000000)
 

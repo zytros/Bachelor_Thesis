@@ -12,3 +12,4 @@
 {"rule":"LC_AFTER_PERIOD","sentence":"^\\QWe used the L-BFGS-B implementation from the scipy.optimize package in Python.\\E$"}
 {"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QChapter \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q summarizes the results and gives an outlook on future work, solving some of the problems that occured during the development of this thesis.\\E$"}
 {"rule":"ENGLISH_WORD_REPEAT_BEGINNING_RULE","sentence":"^\\QChapter \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q summarizes the results and gives an outlook on future work, solving some of the problems that occurred during the development of this thesis.\\E$"}
+{"rule":"LC_AFTER_PERIOD","sentence":"^\\QWithin the object.dart file, one can locate a mesh object, as explicitly defined in the mesh.dart file.\\E$"}
