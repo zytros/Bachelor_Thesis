@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.14)  30 MAY 2023 20:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.22)  31 MAY 2023 20:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/lucas/Documents/Bachelor_Thesis/report/thesis.tex
-(c:/Users/lucas/Documents/Bachelor_Thesis/report/thesis.tex
+**c:/Users/lucas/Documents/Bachelor_Thesis/Report/thesis.tex
+(c:/Users/lucas/Documents/Bachelor_Thesis/Report/thesis.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-05-11> (C:\Users\lucas\AppData\Local\Programs\MiKTeX\tex/latex/koma-script\scrbook.cls
 Document Class: scrbook 2023/04/24 v3.40 KOMA-Script document class (book)
@@ -1073,7 +1073,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  108i,29n,106p,10949b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (55 pages, 4624796 bytes).
+Output written on thesis.pdf (55 pages, 4624777 bytes).
 PDF statistics:
  731 PDF objects out of 1000 (max. 8388607)
  149 named destinations out of 1000 (max. 500000)
