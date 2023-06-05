@@ -455,9 +455,9 @@ we performed a weighted average between the original model $\hat{w}$ and the mod
 distance $d_i$, where vertices further away of the boundary were more influenced by the modified model $\hat{w}'$, while vertices closer to the boundary retained a stronger resemblance to the 
 original model $\hat{w}$.
 
-\begin{align}\label{eq:interpolation}
-    v_i = \frac{d_i}{d} \hat{w} ' + \left(1 - \frac{d_i}{d}\right) \hat{w}
-\end{align}
+\[
+    v_i = \frac{d_i}{d} \hat{w_i} ' + \left(1 - \frac{d_i}{d}\right) \hat{w_i}
+\]
 
 By employing this weighted interpolation strategy, we achieved a smooth and gradual transition between the modified and original models, effectively mitigating the sharp changes 
 observed in the boundary region. This approach ensures a more natural and visually pleasing result, where the modifications within the breast area blend seamlessly with the 

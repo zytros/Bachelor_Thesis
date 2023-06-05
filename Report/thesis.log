@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.14)  5 JUN 2023 10:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.14)  5 JUN 2023 12:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -924,7 +924,7 @@ File: figures/correction_ui_post.png Graphic file (type png)
 Package pdftex.def Info: figures/correction_ui_post.png  used on input line 482.
 (pdftex.def)             Requested size: 221.73146pt x 220.6174pt.
 
-Underfull \vbox (badness 1286) has occurred while \output is active []
+Underfull \vbox (badness 4673) has occurred while \output is active []
 
  [21] [22 <./figures/correction_ui_pre.png> <./figures/correction_ui_post.png>] [23] [24] [25] [26]
 Overfull \hbox (1.85805pt too wide) in paragraph at lines 692--695
@@ -942,7 +942,7 @@ Overfull \hbox (1.85805pt too wide) in paragraph at lines 692--695
 
 ]
 chapter 4.
-<figures/plot_recreation_accuracy.png, id=395, 462.528pt x 346.896pt>
+<figures/plot_recreation_accuracy.png, id=394, 462.528pt x 346.896pt>
 File: figures/plot_recreation_accuracy.png Graphic file (type png)
 <use figures/plot_recreation_accuracy.png>
 Package pdftex.def Info: figures/plot_recreation_accuracy.png  used on input line 14.
@@ -959,12 +959,12 @@ Overfull \hbox (2.28006pt too wide) has occurred while \output is active
 Overfull \vbox (459.06232pt too high) has occurred while \output is active []
 
  [29]
-<figures/plot_quasiNewton_serial.png, id=402, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_serial.png, id=401, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_serial.png Graphic file (type png)
 <use figures/plot_quasiNewton_serial.png>
 Package pdftex.def Info: figures/plot_quasiNewton_serial.png  used on input line 37.
 (pdftex.def)             Requested size: 364.24236pt x 273.19263pt.
-<figures/plot_quasiNewton_ser_fun_params.png, id=403, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_ser_fun_params.png, id=402, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_ser_fun_params.png Graphic file (type png)
 <use figures/plot_quasiNewton_ser_fun_params.png>
 Package pdftex.def Info: figures/plot_quasiNewton_ser_fun_params.png  used on input line 44.
@@ -973,12 +973,12 @@ Package pdftex.def Info: figures/plot_quasiNewton_ser_fun_params.png  used on in
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [31 <./figures/plot_quasiNewton_serial.png> <./figures/plot_quasiNewton_ser_fun_params.png>]
-<figures/plot_quasiNewton_time.png, id=420, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_time.png, id=419, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_time.png Graphic file (type png)
 <use figures/plot_quasiNewton_time.png>
 Package pdftex.def Info: figures/plot_quasiNewton_time.png  used on input line 63.
 (pdftex.def)             Requested size: 364.24236pt x 273.19263pt.
-<figures/plot_quasiNewton_fun_params.png, id=421, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_fun_params.png, id=420, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_fun_params.png Graphic file (type png)
 <use figures/plot_quasiNewton_fun_params.png>
 Package pdftex.def Info: figures/plot_quasiNewton_fun_params.png  used on input line 70.
@@ -987,7 +987,7 @@ Package pdftex.def Info: figures/plot_quasiNewton_fun_params.png  used on input 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [32 <./figures/plot_quasiNewton_time.png>]
-<figures/plot_quasiNewton_serial_vs_parallel.png, id=427, 462.528pt x 346.896pt>
+<figures/plot_quasiNewton_serial_vs_parallel.png, id=426, 462.528pt x 346.896pt>
 File: figures/plot_quasiNewton_serial_vs_parallel.png Graphic file (type png)
 <use figures/plot_quasiNewton_serial_vs_parallel.png>
 Package pdftex.def Info: figures/plot_quasiNewton_serial_vs_parallel.png  used on input line 77.
@@ -996,7 +996,7 @@ Package pdftex.def Info: figures/plot_quasiNewton_serial_vs_parallel.png  used o
 Underfull \vbox (badness 2165) has occurred while \output is active []
 
  [33 <./figures/plot_quasiNewton_fun_params.png> <./figures/plot_quasiNewton_serial_vs_parallel.png>]
-<figures/plot_losses.png, id=443, 462.528pt x 346.896pt>
+<figures/plot_losses.png, id=442, 462.528pt x 346.896pt>
 File: figures/plot_losses.png Graphic file (type png)
 <use figures/plot_losses.png>
 Package pdftex.def Info: figures/plot_losses.png  used on input line 103.
@@ -1005,13 +1005,13 @@ Package pdftex.def Info: figures/plot_losses.png  used on input line 103.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [34]
-<figures/plot_losses_vs_iterations_stepsize.png, id=448, 462.528pt x 346.896pt>
+<figures/plot_losses_vs_iterations_stepsize.png, id=447, 462.528pt x 346.896pt>
 File: figures/plot_losses_vs_iterations_stepsize.png Graphic file (type png)
 <use figures/plot_losses_vs_iterations_stepsize.png>
 Package pdftex.def Info: figures/plot_losses_vs_iterations_stepsize.png  used on input line 110.
 (pdftex.def)             Requested size: 364.24236pt x 273.19263pt.
  [35 <./figures/plot_losses.png> <./figures/plot_losses_vs_iterations_stepsize.png>]
-<figures/plot_newtonMethod_line_len.png, id=460, 462.528pt x 346.896pt>
+<figures/plot_newtonMethod_line_len.png, id=459, 462.528pt x 346.896pt>
 File: figures/plot_newtonMethod_line_len.png Graphic file (type png)
 <use figures/plot_newtonMethod_line_len.png>
 Package pdftex.def Info: figures/plot_newtonMethod_line_len.png  used on input line 131.
@@ -1067,7 +1067,7 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<Luca_Sichi_Thesis_description.pdf, id=498, 598.235pt x 845.1575pt>
+<Luca_Sichi_Thesis_description.pdf, id=497, 598.235pt x 845.1575pt>
 File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
 <use Luca_Sichi_Thesis_description.pdf>
 Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf  used on input line 205.
@@ -1076,7 +1076,7 @@ File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
 <use Luca_Sichi_Thesis_description.pdf>
 Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf  used on input line 205.
 (pdftex.def)             Requested size: 598.23354pt x 845.15544pt.
-<Luca_Sichi_Thesis_description.pdf, id=501, page=1, 598.235pt x 845.1575pt>
+<Luca_Sichi_Thesis_description.pdf, id=500, page=1, 598.235pt x 845.1575pt>
 File: Luca_Sichi_Thesis_description.pdf Graphic file (type pdf)
 <use Luca_Sichi_Thesis_description.pdf, page 1>
 Package pdftex.def Info: Luca_Sichi_Thesis_description.pdf , page1 used on input line 205.
@@ -1113,7 +1113,7 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 
 
 pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<declaration_of_originality.pdf, id=533, 1866.22218pt x 2640.11343pt>
+<declaration_of_originality.pdf, id=532, 1866.22218pt x 2640.11343pt>
 File: declaration_of_originality.pdf Graphic file (type pdf)
 <use declaration_of_originality.pdf>
 Package pdftex.def Info: declaration_of_originality.pdf  used on input line 206.
@@ -1131,7 +1131,7 @@ pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion:
 
 
 pdfTeX warning: pdflatex (file ./declaration_of_originality.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<declaration_of_originality.pdf, id=536, page=1, 1866.22218pt x 2640.11343pt>
+<declaration_of_originality.pdf, id=535, page=1, 1866.22218pt x 2640.11343pt>
 File: declaration_of_originality.pdf Graphic file (type pdf)
 <use declaration_of_originality.pdf, page 1>
 Package pdftex.def Info: declaration_of_originality.pdf , page1 used on input line 206.
@@ -1157,17 +1157,17 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 18664 strings out of 476360
- 338854 string characters out of 5788025
+ 18662 strings out of 476360
+ 338822 string characters out of 5788025
  1862993 words of memory out of 5000000
- 38546 multiletter control sequences out of 15000+600000
+ 38545 multiletter control sequences out of 15000+600000
  568640 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,29n,106p,10949b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/lucas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (57 pages, 10856266 bytes).
+Output written on thesis.pdf (57 pages, 10856054 bytes).
 PDF statistics:
- 776 PDF objects out of 1000 (max. 8388607)
- 151 named destinations out of 1000 (max. 500000)
+ 774 PDF objects out of 1000 (max. 8388607)
+ 150 named destinations out of 1000 (max. 500000)
  511 words of extra memory for PDF output out of 10000 (max. 10000000)
 
