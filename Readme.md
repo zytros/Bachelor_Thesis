@@ -27,6 +27,7 @@ If you want to change the port of the web application you need to change the las
     - code: here is all my code
         - flutter: here is my flutter code
             - WebApp: this is my application, all the interesting stuff you can find in the folder lib
+            - old_code_LindApp: old code used for old version of flutter, android testing
         - python: here is my python code
             - nonlinearOptimizer: this is the code I used for the L-BFGS-B algorithm
             - objServer: this is the code used for the backend server

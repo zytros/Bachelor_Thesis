@@ -1,11 +1,11 @@
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:test/adjustment_page.dart';
 import 'package:test/comparison_page.dart';
 import 'package:test/flutter_cube.dart';
 import 'package:test/globals.dart';
 import 'package:test/scanning_page_web.dart';
-import 'package:test/util.dart';
 
 late List<CameraDescription> cameras;
 Globals g = Globals();
@@ -20,24 +20,48 @@ class HomePage extends StatelessWidget {
     g.initOutline();
     g.initBreasLineIndices();
     String url = 'http://localhost:28080/';
-    g.baseModel = Object(
-        fileName: url,
+    if (kIsWeb) {
+      g.baseModel = Object(
+          fileName: url,
+          position: Vector3(0, 2, 0),
+          scale: Vector3(10, 10, 10),
+          rotation: Vector3(180, 0, 0),
+          visiable: true,
+          lighting: false,
+          backfaceCulling: true,
+          src: 's');
+      g.currentModel = Object(
+          fileName: url,
+          position: Vector3(0, 2, 0),
+          scale: Vector3(10, 10, 10),
+          rotation: Vector3(180, 0, 0),
+          visiable: true,
+          lighting: false,
+          backfaceCulling: true,
+          src: 's');
+    } else {
+      g.baseModel = Object(
+        fileName: 'assets/model2/fitModel_Ctutc.obj',
         position: Vector3(0, 2, 0),
         scale: Vector3(10, 10, 10),
         rotation: Vector3(180, 0, 0),
         visiable: true,
         lighting: false,
         backfaceCulling: true,
-        src: 's');
-    g.currentModel = Object(
-        fileName: url,
+        //src: 's',
+      );
+      g.currentModel = Object(
+        fileName: 'assets/model2/fitModel_Ctutc.obj',
         position: Vector3(0, 2, 0),
         scale: Vector3(10, 10, 10),
         rotation: Vector3(180, 0, 0),
         visiable: true,
         lighting: false,
         backfaceCulling: true,
-        src: 's');
+        //src: 's',
+      );
+    }
+
     stopwatch.start();
   }
 

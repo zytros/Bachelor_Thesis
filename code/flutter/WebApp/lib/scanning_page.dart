@@ -257,6 +257,7 @@ class ScanningPage extends StatefulWidget {
 }
 
 class _ScanningPageState extends State<ScanningPage> {
+  // ignore: unused_field
   late Future<void> _initializeControllerFuture;
 
   @override

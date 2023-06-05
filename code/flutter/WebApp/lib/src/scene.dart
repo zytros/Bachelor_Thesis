@@ -1,9 +1,6 @@
 import 'dart:ui';
 import 'dart:typed_data';
-//import 'package:flutter_cube/flutter_cube.dart';
-import 'package:flutter/material.dart' as m;
 import 'package:test/globals.dart';
-import 'package:test/util.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'object.dart';
 import 'camera.dart';
@@ -210,8 +207,6 @@ class Scene {
         }
       }
     }
-    double leftest = 10000;
-    double rightest = -10000;
     // apply perspective to screen transform
     for (int i = 0; i < vertexCount; i++) {
       final int x = (vertexOffset + i) * 2;

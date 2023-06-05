@@ -67,8 +67,6 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                       globlas: g!,
                     ),
                     onPanUpdate: (details) {
-                      double rot = g!.currentModel.rotation.y;
-
                       if (view == 0) {
                         camSetDegreeY(_scene, details.delta.dx / 300, 0, 180);
                       } else if (view == 1) {

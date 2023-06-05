@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart' hide Image;
-import 'package:test/util.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../globals.dart';
 import 'scene.dart';
@@ -9,6 +8,7 @@ typedef void SceneCreatedCallback(Scene scene);
 bool drawGlob = false;
 late Globals g;
 
+// ignore: must_be_immutable
 class Cube extends StatefulWidget {
   Cube({
     Key? key,

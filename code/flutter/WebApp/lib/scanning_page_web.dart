@@ -147,7 +147,7 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                               final image =
                                   await _cameraController!.takePicture();
                               imgPaths[stage] = image.path;
-                              final val = await Navigator.of(context).push(
+                              await Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (BuildContext context) {
                                     return const ImageDisplayer();
@@ -228,7 +228,7 @@ class _ScanningPageWebState extends State<ScanningPageWeb> {
                       onPressed: checkPic
                           ? null
                           : () async {
-                              final val = await Navigator.of(context).push(
+                              await Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (BuildContext context) {
                                     return const DisplayImages();

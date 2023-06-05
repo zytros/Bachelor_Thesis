@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'dart:math' as math;
-import 'package:flutter/foundation.dart';
 import 'package:test/util.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -346,8 +345,6 @@ void _remapZeroAreaUVs(List<Offset> texcoords, List<Polygon> textureIndices,
 /// Rebuild vertices and texture coordinates to keep the same length.
 void _rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
     List<Polygon> vertexIndices, List<Polygon> textureIndices) {
-  int counter = 0;
-
   int texcoordsCount = texcoords.length;
   if (texcoordsCount == 0) return;
   List<Vector3> newVertices = <Vector3>[];
@@ -366,7 +363,6 @@ void _rebuildVertices(List<Vector3> vertices, List<Offset> texcoords,
         face[j] = newVertices.length;
         indexMap[vtIndex] = face[j];
         newVertices.add(vertices[vIndex].clone());
-        counter++;
         newTexcoords.add(texcoords[tIndex]);
       } else {
         face[j] = v;
