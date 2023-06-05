@@ -21,6 +21,7 @@ If you want to change the port of the web application you need to change the las
     - navigate into "servers/FlutterServer/assets/assets"
     - copy the "breast_indices" folder, "eigVecs.csv" and "mean.txt" files into "servers/FlutterServer/assets"
     - you are ready to run
+	- should anything fail, run "flutter clean" and try again
 
 3. My folder structure:
     - servers: here are the servers for running the application as described in 1.
