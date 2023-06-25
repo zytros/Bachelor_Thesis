@@ -12,6 +12,7 @@ bool rotationAxis = false;
 // 0 = front, 1 = above, 2 = below
 int view = 0;
 bool draw = false;
+int ddd = 0;
 
 class AdjustmentPage extends StatefulWidget {
   AdjustmentPage(Globals gl, {super.key}) {
@@ -341,6 +342,27 @@ class _AdjustmentPageState extends State<AdjustmentPage> {
                   },
                   label: const Text(
                     'Allign Breast',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                FloatingActionButton.extended(
+                  heroTag: 'btn_next',
+                  backgroundColor: g!.baseColor,
+                  onPressed: () {
+                    if (ddd == 10) return;
+                    changeModel(
+                        g!.currentModel,
+                        interpolateVectors(reconstruct(g!, g!.xs[ddd]), g!),
+                        g!);
+                    setState(() {
+                      ddd++;
+                    });
+                  },
+                  label: const Text(
+                    'debug',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,

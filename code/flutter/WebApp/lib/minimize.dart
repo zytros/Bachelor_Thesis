@@ -15,7 +15,7 @@ class Minimizer {
   Matrix reducedMatrix = Matrix.fromList([]);
   Vector reducedMean = Vector.fromList([]);
 
-  List<double> plottingData = [];
+  List<List<double>> plottingData = [];
 
   /// performs Newton's Method
   Vector run() {
@@ -24,7 +24,7 @@ class Minimizer {
     Vector x = x0;
     int iter = 0;
     Stopwatch stopwatch = Stopwatch()..start();
-    while (loss > 0 && iter < 200) {
+    while (loss > 0 && iter < 100) {
       List<List<double>> breastLine = getBreastLine(x);
       List<double> dists = getDists(breastLine);
       loss = 0;
@@ -38,10 +38,12 @@ class Minimizer {
       stepSize = stepSize * 0.99;
       iter++;
       //debugPrint('iteration $iter with loss $loss and stepSize $stepSize');
-      plottingData.add(loss);
+      if (iter % 10 == 0) {
+        plottingData.add(x.toList());
+      }
     }
     //debugPrint(plottingData.toString());
-    debugPrint('(${stopwatch.elapsed}, ${line.length})})');
+    debugPrint(plottingData.toString());
     return x;
   }
 

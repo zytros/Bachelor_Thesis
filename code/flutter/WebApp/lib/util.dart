@@ -237,6 +237,12 @@ List<double> createModelVector(
   return vec.toList();
 }
 
+List<double> reconstruct(Globals g, List<double> eigs) {
+  ml.Vector vec = ml.Vector.fromList(eigs);
+  ml.Vector rec = (g.eigenVecsMat * vec).toVector() + g.meanVec;
+  return rec.toList();
+}
+
 /// changes a model according to a vector of coordinates
 /// param model: reference to cube model to change
 /// param vec: vector of cooridnates
